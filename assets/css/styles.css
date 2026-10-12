@@ -1,0 +1,160 @@
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #0a0a0a;
+    color: #ffffff;
+    overflow-x: hidden;
+}
+
+/* Fixed navbar must not cover section headings when jumping to anchors */
+section[id] {
+    scroll-margin-top: 84px;
+}
+
+/* Mobile menu open: lock background scroll */
+body.menu-open {
+    overflow: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #0a0a0a;
+}
+::-webkit-scrollbar-thumb {
+    background: #facc15; /* brand-yellow */
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #f97316; /* brand-orange */
+}
+
+/* Navigation Glass Effect */
+.glass-nav {
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+/* Tab Animations */
+.tab-content-anim {
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Gradient Text for Headings */
+.gradient-text {
+    background: linear-gradient(to right, #facc15, #f97316, #ef4444);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Hover effects for cards */
+.hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.hover-lift:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px -5px rgba(250, 204, 21, 0.2);
+}
+
+
+/* ---- Responsive / resilience helpers ---- */
+
+/* Player photo: dark surface + basketball glyph shown when the image
+   fails to load (remote CDNs are often blocked on Iranian networks) */
+.player-photo {
+    background: linear-gradient(145deg, #1c1c1c 0%, #2a2a2a 55%, #191919 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.player-photo::after {
+    content: "\1F3C0";
+    font-size: 3rem;
+    opacity: 0.3;
+}
+
+.player-photo img {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+}
+
+/* Broken images are hidden by script.js so the fallback surface shows */
+img.is-broken {
+    display: none;
+}
+
+/* Video cards: visible placeholder box behind the (optional) thumbnail */
+.video-card {
+    background: radial-gradient(circle at 50% 35%, #262626 0%, #141414 70%);
+}
+
+/* Hero keeps readable contrast even if the background photo is blocked */
+.hero-bg {
+    background-color: #0a0a0a;
+    background-image: linear-gradient(to bottom, rgba(10, 10, 10, 0.6), rgba(10, 10, 10, 0.98)),
+        url('../images/bg-hero.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+
+/* News thumbnails: same resilient placeholder treatment */
+.news-thumb {
+    background: linear-gradient(145deg, #1c1c1c 0%, #262626 55%, #191919 100%);
+}
+.news-thumb::after {
+    content: "\1F4F0";
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    opacity: 0.3;
+}
+.news-thumb img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+
+/* ---- Per-section background artwork (local files, blocked-CDN safe) ---- */
+.sec-bg-players,
+.sec-bg-schedule,
+.sec-bg-news,
+.sec-bg-highlights,
+.sec-bg-classes,
+.sec-bg-discounts {
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: cover;
+}
+
+.sec-bg-players    { background-image: linear-gradient(rgba(10,10,10,0.86), rgba(10,10,10,0.93)), url('../images/bg-players.jpg'); }
+.sec-bg-schedule   { background-image: linear-gradient(rgba(10,10,10,0.88), rgba(10,10,10,0.94)), url('../images/bg-schedule.jpg'); }
+.sec-bg-news       { background-image: linear-gradient(rgba(10,10,10,0.86), rgba(10,10,10,0.93)), url('../images/bg-news.jpg'); }
+.sec-bg-highlights { background-image: linear-gradient(rgba(10,10,10,0.86), rgba(10,10,10,0.93)), url('../images/bg-highlights.jpg'); }
+.sec-bg-classes    { background-image: linear-gradient(rgba(10,10,10,0.84), rgba(10,10,10,0.92)), url('../images/bg-classes.jpg'); }
+.sec-bg-discounts  { background-image: linear-gradient(rgba(10,10,10,0.86), rgba(10,10,10,0.93)), url('../images/bg-discounts.jpg'); }
+
+/* Painted artwork instead of photography: keep brand colour, no grayscale */
+.player-photo img {
+    filter: none;
+}

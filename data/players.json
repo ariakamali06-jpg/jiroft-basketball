@@ -1,0 +1,74 @@
+[
+  {
+    "id": "p1",
+    "team": "men",
+    "name": "آریا کمالی",
+    "position": "پوینت گارد (PG)",
+    "number": 1,
+    "photo": "assets/images/p1.jpg"
+  },
+  {
+    "id": "p2",
+    "team": "men",
+    "name": "ایلیا کمالی",
+    "position": "شوتینگ گارد (SG)",
+    "number": 2,
+    "photo": "assets/images/p2.jpg"
+  },
+  {
+    "id": "p3",
+    "team": "men",
+    "name": "مهدی نجفی",
+    "position": "مهاجم (SF)",
+    "number": 3,
+    "photo": "assets/images/p3.jpg"
+  },
+  {
+    "id": "p4",
+    "team": "men",
+    "name": "محمدطاها امیرمحمدی",
+    "position": "مهاجم قدرتی (PF)",
+    "number": 4,
+    "photo": "assets/images/p4.jpg"
+  },
+  {
+    "id": "p5",
+    "team": "men",
+    "name": "عمو یاشار",
+    "position": "سنتر (C)",
+    "number": 5,
+    "photo": "assets/images/p5.jpg"
+  },
+  {
+    "id": "p6",
+    "team": "women",
+    "name": "سارا احمدی",
+    "position": "پوینت گارد (PG)",
+    "number": 8,
+    "photo": "assets/images/p6.jpg"
+  },
+  {
+    "id": "p7",
+    "team": "women",
+    "name": "نگار حسینی",
+    "position": "شوتینگ گارد (SG)",
+    "number": 12,
+    "photo": "assets/images/p7.jpg"
+  },
+  {
+    "id": "p8",
+    "team": "women",
+    "name": "مریم مرادی",
+    "position": "مهاجم (SF)",
+    "number": 33,
+    "photo": "assets/images/p8.jpg"
+  },
+  {
+    "id": "p9",
+    "team": "women",
+    "name": "زهرا رحیمی",
+    "position": "سنتر (C)",
+    "number": 14,
+    "photo": "assets/images/p9.jpg"
+  }
+]

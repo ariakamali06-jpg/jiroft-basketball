@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جیرفت بسکت | هیئت بسکتبال جیرفت</title>
+    
+    <!-- Google Fonts: Vazirmatn -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Vazirmatn', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            black: '#0a0a0a',
+                            dark: '#1a1a1a',
+                            card: '#242424',
+                            yellow: '#facc15', // Main highlight (Logo yellow)
+                            red: '#ef4444',    // Logo touch
+                            orange: '#f97316'  // Logo touch
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="font-sans antialiased text-gray-200">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-nav border-b border-brand-dark transition-all py-4 px-6 md:px-12 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <i class="fa-solid fa-basketball text-brand-orange text-3xl animate-bounce" style="animation-duration: 2s;"></i>
+            <span class="text-2xl font-black tracking-tight text-white">جیرفت <span class="text-brand-orange">بسکت</span></span>
+        </div>
+        
+        <!-- Desktop Nav -->
+        <div class="hidden lg:flex gap-6 xl:gap-8 font-semibold text-sm">
+            <a href="#home" class="hover:text-brand-yellow transition-colors py-2 inline-block">خانه</a>
+            <a href="#players" class="hover:text-brand-yellow transition-colors py-2 inline-block">بازیکنان ما</a>
+            <a href="#schedule" class="hover:text-brand-yellow transition-colors py-2 inline-block">برنامه بازی‌ها</a>
+            <a href="#highlights" class="hover:text-brand-yellow transition-colors py-2 inline-block">ویدیوها</a>
+            <a href="#news" class="hover:text-brand-yellow transition-colors py-2 inline-block">اخبار</a>
+            <a href="#discounts" class="hover:text-brand-yellow transition-colors py-2 inline-block">تخفیف‌ها</a>
+            <a href="#classes" class="hover:text-brand-yellow transition-colors py-2 inline-block">کلاس‌های آموزشی</a>
+        </div>
+        
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn" aria-label="باز و بسته کردن منو" aria-expanded="false" class="lg:hidden text-brand-yellow text-2xl focus:outline-none w-11 h-11 flex items-center justify-center">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </nav>
+
+    <!-- Mobile Nav Dropdown -->
+    <div id="mobile-menu" class="hidden fixed inset-0 z-40 bg-brand-black/95 backdrop-blur-md flex flex-col items-center justify-center gap-6 text-xl font-bold overflow-y-auto py-24">
+        <a href="#home" class="hover:text-brand-yellow transition-colors py-2 inline-block">خانه</a>
+        <a href="#players" class="hover:text-brand-yellow transition-colors py-2 inline-block">بازیکنان ما</a>
+        <a href="#schedule" class="hover:text-brand-yellow transition-colors py-2 inline-block">برنامه بازی‌ها</a>
+        <a href="#highlights" class="hover:text-brand-yellow transition-colors py-2 inline-block">ویدیوها</a>
+        <a href="#news" class="hover:text-brand-yellow transition-colors py-2 inline-block">اخبار</a>
+        <a href="#discounts" class="hover:text-brand-yellow transition-colors py-2 inline-block">تخفیف‌ها</a>
+        <a href="#classes" class="hover:text-brand-yellow transition-colors py-2 inline-block">کلاس‌های آموزشی</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-bg min-h-[100svh] flex flex-col justify-center items-center text-center px-4 pt-24 pb-16">
+        <div class="max-w-4xl mx-auto">
+            <span class="inline-block py-1 px-4 rounded-full bg-brand-dark border border-brand-yellow text-brand-yellow text-sm font-bold mb-6">
+                <i class="fa-solid fa-fire text-brand-red me-2"></i> <span id="hero-badge-text">فصل جدید آغاز شد</span>
+            </span>
+            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight">
+                <span id="hero-title-1">هیئت بسکتبال</span> <br>
+                <span class="gradient-text" id="hero-title-2">جیرفت</span>
+            </h1>
+            <p class="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl mx-auto font-light leading-relaxed" id="hero-text">
+                به قلب تپنده جیرفت بسکت خوش آمدید. مکانی برای درخشش استعدادها، تماشای بازی‌های هیجان‌انگیز و حمایت از بازیکنان شهر عزیزمان.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#players" class="px-8 py-3 bg-brand-yellow text-brand-black font-bold rounded-lg hover:bg-yellow-300 transition-colors shadow-[0_0_15px_rgba(250,204,21,0.4)] text-center">
+                    آشنایی با بازیکنان
+                </a>
+                <a href="#classes" class="px-8 py-3 bg-brand-dark border border-brand-orange text-white font-bold rounded-lg hover:bg-brand-orange transition-colors text-center">
+                    ثبت‌نام در آکادمی
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Players Section -->
+    <section id="players" class="sec-bg-players py-24 px-6 md:px-12 bg-brand-black">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-black mb-4"><span class="text-brand-yellow">ستارگان</span> تیم ما</h2>
+                <p class="text-gray-400 max-w-lg mx-auto">با افتخارآفرینان تیم‌های آقایان و بانوان جیرفت آشنا شوید.</p>
+                
+                <!-- Tabs -->
+                <div class="mt-10 flex flex-col sm:flex-row justify-center gap-4 max-w-sm mx-auto sm:max-w-none">
+                    <button onclick="switchTab('men')" id="btn-men" class="px-6 py-2 rounded-full font-bold transition-all bg-brand-yellow text-brand-black flex items-center justify-center">
+                        <i class="fa-solid fa-mars ml-2"></i> تیم آقایان
+                    </button>
+                    <button onclick="switchTab('women')" id="btn-women" class="px-6 py-2 rounded-full font-bold transition-all bg-brand-dark text-white border border-gray-700 hover:border-brand-yellow flex items-center justify-center">
+                        <i class="fa-solid fa-venus ml-2 text-brand-orange"></i> تیم بانوان
+                    </button>
+                </div>
+            </div>
+
+            <!-- Men Team (Grid of 5 players) -->
+            <div id="tab-men" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 tab-content-anim">
+                
+                <!-- Player 1 -->
+                <div class="bg-brand-card rounded-xl overflow-hidden hover-lift group border border-transparent hover:border-brand-orange relative">
+                    <div class="absolute top-2 left-2 bg-brand-black text-brand-yellow font-black text-lg px-2 py-1 rounded opacity-80 z-10">#1</div>
+                    <div class="player-photo h-64 relative overflow-hidden">
+                        <!-- Add local images to assets/images and replace src later -->
+                        <img loading="lazy" decoding="async" src="assets/images/p1.jpg" alt="آریا کمالی" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-5 text-center">
+                        <h3 class="text-lg font-bold mb-1">آریا کمالی</h3>
+                        <p class="text-brand-orange text-sm font-semibold">پوینت گارد (PG)</p>
+                    </div>
+                </div>
+
+                <!-- Player 2 -->
+                <div class="bg-brand-card rounded-xl overflow-hidden hover-lift group border border-transparent hover:border-brand-orange relative">
+                    <div class="absolute top-2 left-2 bg-brand-black text-brand-yellow font-black text-lg px-2 py-1 rounded opacity-80 z-10">#2</div>
+                    <div class="player-photo h-64 relative overflow-hidden">
+                        <img loading="lazy" decoding="async" src="assets/images/p2.jpg" alt="ایلیا کمالی" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-5 text-center">
+                        <h3 class="text-lg font-bold mb-1">ایلیا کمالی</h3>
+                        <p class="text-brand-orange text-sm font-semibold">شوتینگ گارد (SG)</p>
+                    </div>
+                </div>
+
+                <!-- Player 3 -->
+                <div class="bg-brand-card rounded-xl overflow-hidden hover-lift group border border-transparent hover:border-brand-orange relative">
+                    <div class="absolute top-2 left-2 bg-brand-black text-brand-yellow font-black text-lg px-2 py-1 rounded opacity-80 z-10">#3</div>
+                    <div class="player-photo h-64 relative overflow-hidden">
+                        <img loading="lazy" decoding="async" src="assets/images/p3.jpg" alt="مهدی نجفی" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-5 text-center">
+                        <h3 class="text-lg font-bold mb-1">مهدی نجفی</h3>
+                        <p class="text-brand-orange text-sm font-semibold">مهاجم (SF)</p>
+                    </div>
+                </div>
+
+                <!-- Player 4 -->
+                <div class="bg-brand-card rounded-xl overflow-hidden hover-lift group border border-transparent hover:border-brand-orange relative">
+                    <div class="absolute top-2 left-2 bg-brand-black text-brand-yellow font-black text-lg px-2 py-1 rounded opacity-80 z-10">#4</div>
+                    <div class="player-photo h-64 relative overflow-hidden">
+                        <img loading="lazy" decoding="async" src="assets/images/p4.jpg" alt="محمدطاها امیرمحمدی" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-5 text-center">
+                        <h3 class="text-lg font-bold mb-1 leading-snug">محمدطاها امیرمحمدی</h3>
+                        <p class="text-brand-orange text-sm font-semibold">مهاجم قدرتی (PF)</p>
+                    </div>
+                </div>
+
+                <!-- Player 5 -->
+                <div class="bg-brand-card rounded-xl overflow-hidden hover-lift group border border-transparent hover:border-brand-orange relative">
+                    <div class="absolute top-2 left-2 bg-brand-black text-brand-yellow font-black text-lg px-2 py-1 rounded opacity-80 z-10">#5</div>
+                    <div class="player-photo h-64 relative overflow-hidden">
+                        <img loading="lazy" decoding="async" src="assets/images/p5.jpg" alt="عمو یاشار" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-5 text-center">
+                        <h3 class="text-lg font-bold mb-1">عمو یاشار</h3>
+                        <p class="text-brand-orange text-sm font-semibold">سنتر (C)</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Women Team (Hidden by default) -->
+            <div id="tab-women" class="hidden grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 tab-content-anim grid">
+                <!-- Example Women Player 1 -->
+                <div class="bg-brand-card rounded-xl overflow-hidden hover-lift group border border-transparent hover:border-brand-red relative">
+                    <div class="absolute top-2 left-2 bg-brand-black text-brand-yellow font-black text-lg px-2 py-1 rounded opacity-80 z-10">#8</div>
+                    <div class="player-photo h-64 relative overflow-hidden">
+                        <img loading="lazy" decoding="async" src="assets/images/p6.jpg" alt="سارا احمدی" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-5 text-center">
+                        <h3 class="text-lg font-bold mb-1">سارا احمدی</h3>
+                        <p class="text-brand-red text-sm font-semibold">پوینت گارد (PG)</p>
+                    </div>
+                </div>
+                <!-- Example Women Player 2 -->
+                <div class="bg-brand-card rounded-xl overflow-hidden hover-lift group border border-transparent hover:border-brand-red relative">
+                    <div class="absolute top-2 left-2 bg-brand-black text-brand-yellow font-black text-lg px-2 py-1 rounded opacity-80 z-10">#12</div>
+                    <div class="player-photo h-64 relative overflow-hidden">
+                        <img loading="lazy" decoding="async" src="assets/images/p7.jpg" alt="نگار حسینی" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-5 text-center">
+                        <h3 class="text-lg font-bold mb-1">نگار حسینی</h3>
+                        <p class="text-brand-red text-sm font-semibold">شوتینگ گارد (SG)</p>
+                    </div>
+                </div>
+                <!-- Example Women Player 3 -->
+                <div class="bg-brand-card rounded-xl overflow-hidden hover-lift group border border-transparent hover:border-brand-red relative">
+                    <div class="absolute top-2 left-2 bg-brand-black text-brand-yellow font-black text-lg px-2 py-1 rounded opacity-80 z-10">#33</div>
+                    <div class="player-photo h-64 relative overflow-hidden">
+                        <img loading="lazy" decoding="async" src="assets/images/p8.jpg" alt="مریم مرادی" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-5 text-center">
+                        <h3 class="text-lg font-bold mb-1">مریم مرادی</h3>
+                        <p class="text-brand-red text-sm font-semibold">مهاجم (SF)</p>
+                    </div>
+                </div>
+                <!-- Example Women Player 4 -->
+                <div class="bg-brand-card rounded-xl overflow-hidden hover-lift group border border-transparent hover:border-brand-red relative">
+                    <div class="absolute top-2 left-2 bg-brand-black text-brand-yellow font-black text-lg px-2 py-1 rounded opacity-80 z-10">#14</div>
+                    <div class="player-photo h-64 relative overflow-hidden">
+                        <img loading="lazy" decoding="async" src="assets/images/p9.jpg" alt="زهرا رحیمی" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-5 text-center">
+                        <h3 class="text-lg font-bold mb-1">زهرا رحیمی</h3>
+                        <p class="text-brand-red text-sm font-semibold">سنتر (C)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Schedule Section -->
+    <section id="schedule" class="sec-bg-schedule py-24 px-4 sm:px-6 md:px-12 bg-brand-dark bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMSIgZmlsbD0iI2ZmZiIgZmlsbC1vcGFjaXR5PSIwLjA1Ii8+PC9zdmc+')]">
+        <div class="max-w-5xl mx-auto">
+            <div class="flex flex-col lg:flex-row justify-between items-center mb-12 border-b border-gray-800 pb-6 text-center lg:text-start">
+                <div>
+                    <h2 class="text-3xl sm:text-4xl md:text-5xl font-black mb-2">برنامه <span class="text-brand-yellow">بازی‌ها</span></h2>
+                    <p class="text-gray-400 mt-2">تاریخ و ساعت مسابقات پیش‌روی تیم جیرفت را دنبال کنید.</p>
+                </div>
+                <div class="mt-6 md:mt-0">
+                    <select aria-label="فیلتر مسابقات" class="bg-brand-black border border-gray-700 text-white rounded-lg px-4 py-2 focus:border-brand-yellow outline-none font-sans w-full lg:w-auto">
+                        <option>همه مسابقات</option>
+                        <option>تیم آقایان جیرفت</option>
+                        <option>تیم بانوان جیرفت</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="space-y-4" id="match-list">
+                <!-- Match Row -->
+                <div class="bg-brand-black p-4 md:p-6 rounded-xl border-s-4 border-brand-yellow flex flex-col lg:flex-row items-center justify-between hover-lift text-center lg:text-start gap-4">
+                    <div class="flex flex-col items-center lg:items-start lg:w-1/4">
+                        <span class="text-brand-yellow font-bold text-lg">جمعه، ۲۵ آبان</span>
+                        <span class="text-gray-400 text-sm"><i class="fa-regular fa-clock ml-1"></i> ساعت ۱۸:۳۰</span>
+                    </div>
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 lg:w-2/4">
+                        <div class="w-full sm:w-auto text-center sm:text-end">
+                            <h4 class="font-bold text-lg md:text-xl">تیم جیرفت (آقایان)</h4>
+                        </div>
+                        <div class="bg-brand-dark px-3 py-1 rounded text-brand-red font-black border border-gray-700 text-sm">VS</div>
+                        <div class="w-full sm:w-auto text-center sm:text-start">
+                            <h4 class="font-bold text-lg md:text-xl text-gray-300">شهرداری کرمان</h4>
+                        </div>
+                    </div>
+                    <div class="lg:w-1/4 w-full flex justify-center lg:justify-end">
+                        <button class="w-full md:w-auto bg-transparent border border-brand-yellow text-brand-yellow px-4 py-2 rounded hover:bg-brand-yellow hover:text-black transition-colors font-bold text-sm">
+                            تهیه بلیت <i class="fa-solid fa-ticket mr-1"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Match Row -->
+                <div class="bg-brand-black p-4 md:p-6 rounded-xl border-s-4 border-brand-orange flex flex-col lg:flex-row items-center justify-between hover-lift text-center lg:text-start gap-4">
+                    <div class="flex flex-col items-center lg:items-start lg:w-1/4">
+                        <span class="text-brand-orange font-bold text-lg">یکشنبه، ۲۷ آبان</span>
+                        <span class="text-gray-400 text-sm"><i class="fa-regular fa-clock ml-1"></i> ساعت ۱۶:۰۰</span>
+                    </div>
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 lg:w-2/4">
+                        <div class="w-full sm:w-auto text-center sm:text-end">
+                            <h4 class="font-bold text-lg md:text-xl">تیم جیرفت (بانوان)</h4>
+                        </div>
+                        <div class="bg-brand-dark px-3 py-1 rounded text-brand-red font-black border border-gray-700 text-sm">VS</div>
+                        <div class="w-full sm:w-auto text-center sm:text-start">
+                            <h4 class="font-bold text-lg md:text-xl text-gray-300">صنعت مس</h4>
+                        </div>
+                    </div>
+                    <div class="lg:w-1/4 w-full flex justify-center lg:justify-end">
+                        <button class="w-full md:w-auto bg-transparent border border-brand-orange text-brand-orange px-4 py-2 rounded hover:bg-brand-orange hover:text-white transition-colors font-bold text-sm">
+                            تهیه بلیت <i class="fa-solid fa-ticket mr-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section id="news" class="sec-bg-news py-24 px-6 md:px-12 bg-brand-black">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-black"><span class="text-brand-yellow">اخبار</span> جیرفت</h2>
+                <p class="text-gray-400 mt-3">آخرین خبرها و اطلاعیه‌های هیئت بسکتبال جیرفت.</p>
+            </div>
+            <div id="news-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <p class="text-gray-500 text-center py-8 col-span-full">در حال بارگذاری اخبار…</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Highlights Section -->
+    <section id="highlights" class="sec-bg-highlights py-24 px-6 md:px-12 bg-brand-black">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-black mb-12 text-center"><span class="text-brand-red">ویدیوهای</span> برگزیده</h2>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="video-grid">
+                <!-- Video Card -->
+                <div class="group relative rounded-xl overflow-hidden cursor-pointer hover-lift video-card bg-[#151515]">
+                    <img loading="lazy" decoding="async" src="assets/images/video-1.jpg" alt="Highlight" class="w-full h-56 md:h-64 object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent flex flex-col justify-end p-6">
+                        <div class="w-12 h-12 bg-brand-yellow text-black rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-play ml-1 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">بهترین پرتاب‌های فصل</h3>
+                        <p class="text-sm text-gray-300 mt-1">منتخبی از امتیازآورترین لحظات بازیکنان جیرفت</p>
+                    </div>
+                </div>
+                
+                <!-- Video Card -->
+                <div class="group relative rounded-xl overflow-hidden cursor-pointer hover-lift video-card bg-[#151515]">
+                    <img loading="lazy" decoding="async" src="assets/images/video-2.jpg" alt="Highlight" class="w-full h-56 md:h-64 object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent flex flex-col justify-end p-6">
+                        <div class="w-12 h-12 bg-brand-yellow text-black rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-play ml-1 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">خلاصه بازی حساس فینال</h3>
+                        <p class="text-sm text-gray-300 mt-1">پیروزی شیرین تیم جیرفت در لحظات پایانی</p>
+                    </div>
+                </div>
+                
+                <!-- Video Card -->
+                <div class="group relative rounded-xl overflow-hidden cursor-pointer hover-lift video-card bg-[#151515]">
+                    <img loading="lazy" decoding="async" src="assets/images/video-3.jpg" alt="Highlight" class="w-full h-56 md:h-64 object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent flex flex-col justify-end p-6">
+                        <div class="w-12 h-12 bg-brand-yellow text-black rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-play ml-1 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">پشت صحنه تمرینات</h3>
+                        <p class="text-sm text-gray-300 mt-1">تلاش بی‌وقفه تیم برای رسیدن به قهرمانی</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="inline-block text-brand-yellow border-b-2 border-brand-yellow pb-1 hover:text-white hover:border-white transition-colors font-bold">مشاهده تمامی ویدیوها <i class="fa-solid fa-arrow-left mr-2 text-sm"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Training Classes Section -->
+    <section id="classes" class="sec-bg-classes py-24 px-6 md:px-12 bg-brand-dark border-t border-gray-800">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/2 text-center lg:text-start">
+                    <span class="text-brand-orange font-bold tracking-wider text-sm mb-2 block uppercase">بسکتبال را اصولی یاد بگیرید</span>
+                    <h2 class="text-3xl sm:text-4xl md:text-5xl font-black mb-6">آکادمی <span class="text-brand-orange">جیرفت بسکت</span></h2>
+                    <p class="text-gray-300 leading-relaxed mb-8">
+                        هیئت بسکتبال جیرفت با بهره‌گیری از مربیان مجرب و بازیکنان حرفه‌ای، دوره‌های آموزشی متنوعی را برای تمامی سنین برگزار می‌کند. از سطح مبتدی تا پیشرفته، ما همراه شما هستیم تا استعدادهای خود را شکوفا کنید.
+                    </p>
+                    
+                    <ul class="space-y-4 mb-8 text-start inline-block lg:block">
+                        <li class="flex items-center text-gray-200">
+                            <div class="bg-brand-black p-2 rounded text-brand-yellow ms-2 me-4">
+                                <i class="fa-solid fa-child-reaching w-5 h-5 flex items-center justify-center"></i>
+                            </div>
+                            دوره‌های ویژه کودکان و نونهالان (آکادمی پایه)
+                        </li>
+                        <li class="flex items-center text-gray-200">
+                            <div class="bg-brand-black p-2 rounded text-brand-orange ms-2 me-4">
+                                <i class="fa-solid fa-user-graduate w-5 h-5 flex items-center justify-center"></i>
+                            </div>
+                            کلاس‌های مهارت‌افزایی نوجوانان و جوانان
+                        </li>
+                        <li class="flex items-center text-gray-200">
+                            <div class="bg-brand-black p-2 rounded text-brand-red ms-2 me-4">
+                                <i class="fa-solid fa-dumbbell w-5 h-5 flex items-center justify-center"></i>
+                            </div>
+                            تمرینات تخصصی و بدنسازی بسکتبال
+                        </li>
+                    </ul>
+                    
+                    <div class="text-center lg:text-start">
+                        <button class="bg-gradient-to-r from-brand-orange to-brand-red text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:shadow-brand-red/30 hover:scale-105 transition-all">
+                            اطلاعات بیشتر و ثبت‌نام
+                        </button>
+                    </div>
+                </div>
+                <div class="lg:w-1/2 relative mt-10 lg:mt-0 px-4 sm:px-0">
+                    <div class="absolute inset-0 bg-gradient-to-r from-brand-orange to-brand-yellow rounded-2xl transform rotate-3 scale-105 opacity-20 blur-lg"></div>
+                    <img loading="lazy" decoding="async" src="assets/images/academy.jpg" alt="آکادمی جیرفت بسکت" class="rounded-2xl relative z-10 border-2 border-gray-800 shadow-2xl w-full">
+                    
+                    <!-- Stats Badge -->
+                    <div class="absolute -bottom-6 -left-2 sm:-left-6 bg-brand-black border border-brand-yellow p-4 rounded-xl z-20 shadow-xl flex items-center gap-4 hover-lift">
+                        <div class="text-3xl sm:text-4xl text-brand-yellow font-black" id="stat-number">۵۰۰+</div>
+                        <div class="text-xs sm:text-sm text-gray-300 font-bold leading-tight" id="stat-label">هنرجوی فعال در جیرفت</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Discounts Section -->
+    <section id="discounts" class="sec-bg-discounts py-24 px-6 md:px-12 bg-brand-dark border-t border-gray-800">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-black">تخفیف‌های <span class="text-brand-orange">دوره‌ها</span></h2>
+                <p class="text-gray-400 mt-3">فرصت‌های ویژه ثبت‌نام در دوره‌های آموزشی آکادمی.</p>
+            </div>
+            <div id="discount-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <p class="text-gray-500 text-center py-8 col-span-full">در حال بارگذاری تخفیف‌ها…</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#050505] pt-16 pb-8 px-6 md:px-12 border-t border-gray-900">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+            <div class="lg:col-span-2">
+                <div class="flex items-center gap-3 mb-6">
+                    <i class="fa-solid fa-basketball text-brand-orange text-3xl"></i>
+                    <span class="text-2xl font-black tracking-tight text-white">جیرفت <span class="text-brand-orange">بسکت</span></span>
+                </div>
+                <p class="text-gray-400 mb-6 max-w-sm" id="footer-text">
+                    پایگاه رسمی حمایت و اطلاع‌رسانی جیرفت بسکت. حامی استعدادهای جوان و پیشکسوتان ورزش بسکتبال در شهرستان.
+                </p>
+                <div class="flex gap-4">
+                    <a id="link-instagram" href="#" class="w-10 h-10 rounded-full bg-brand-dark flex items-center justify-center text-gray-400 hover:text-white hover:bg-brand-red transition-all"><i class="fa-brands fa-instagram"></i></a>
+                    <a id="link-telegram" href="#" class="w-10 h-10 rounded-full bg-brand-dark flex items-center justify-center text-gray-400 hover:text-white hover:bg-brand-orange transition-all"><i class="fa-brands fa-telegram"></i></a>
+                    <a id="link-twitter" href="#" class="w-10 h-10 rounded-full bg-brand-dark flex items-center justify-center text-gray-400 hover:text-white hover:bg-brand-yellow transition-all"><i class="fa-brands fa-twitter"></i></a>
+                </div>
+            </div>
+            
+            <div>
+                <h4 class="font-bold text-lg mb-6 border-b border-gray-800 pb-2 inline-block">دسترسی سریع</h4>
+                <ul class="space-y-3 text-gray-400">
+                    <li><a href="#home" class="hover:text-brand-yellow transition-colors py-2 inline-block">صفحه اصلی</a></li>
+                    <li><a href="#players" class="hover:text-brand-yellow transition-colors py-2 inline-block">تیم‌های جیرفت</a></li>
+                    <li><a href="#schedule" class="hover:text-brand-yellow transition-colors py-2 inline-block">تقویم مسابقات</a></li>
+                    <li><a href="#news" class="hover:text-brand-yellow transition-colors py-2 inline-block">اخبار</a></li>
+                    <li><a href="#discounts" class="hover:text-brand-yellow transition-colors py-2 inline-block">تخفیف‌ها</a></li>
+                    <li><a href="#classes" class="hover:text-brand-yellow transition-colors py-2 inline-block">آکادمی آموزشی</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h4 class="font-bold text-lg mb-6 border-b border-gray-800 pb-2 inline-block">تماس با ما</h4>
+                <ul class="space-y-3 text-gray-400 text-sm">
+                    <li class="flex items-start gap-3">
+                        <i class="fa-solid fa-location-dot mt-1 text-brand-red"></i>
+                        <span id="contact-address">جیرفت، مجموعه ورزشی مرکزی، سالن اختصاصی بسکتبال</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <i class="fa-solid fa-phone text-brand-yellow"></i>
+                        <span dir="ltr" id="contact-phone">۰۳۴ - ۱۲۳۴۵۶۷۸</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <i class="fa-solid fa-envelope text-brand-orange"></i>
+                        <span dir="ltr" id="contact-email">info@jiroftbasketball.ir</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="text-center text-gray-600 text-sm pt-8 border-t border-gray-900">
+            &copy; <span id="copyright-year">۲۰۲۴</span> تمامی حقوق برای هیئت بسکتبال جیرفت محفوظ است. طراحی شده با <i class="fa-solid fa-heart text-brand-red mx-1"></i>.
+        </div>
+    </footer>
+
+    <!-- External JavaScript -->
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/data.js" defer></script>
+</body>
+</html>
