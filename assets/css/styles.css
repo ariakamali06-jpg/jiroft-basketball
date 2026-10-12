@@ -135,7 +135,8 @@ img.is-broken {
 }
 
 
-/* ---- Per-section background artwork (local files, blocked-CDN safe) ---- */
+/* Photography backgrounds: a real photo is far busier than flat artwork, so the
+   scrim is heavier here to keep white headings readable over crowds and courts. */
 .sec-bg-players,
 .sec-bg-schedule,
 .sec-bg-news,
@@ -147,14 +148,22 @@ img.is-broken {
     background-size: cover;
 }
 
-.sec-bg-players    { background-image: linear-gradient(rgba(10,10,10,0.86), rgba(10,10,10,0.93)), url('../images/bg-players.jpg'); }
-.sec-bg-schedule   { background-image: linear-gradient(rgba(10,10,10,0.88), rgba(10,10,10,0.94)), url('../images/bg-schedule.jpg'); }
-.sec-bg-news       { background-image: linear-gradient(rgba(10,10,10,0.86), rgba(10,10,10,0.93)), url('../images/bg-news.jpg'); }
-.sec-bg-highlights { background-image: linear-gradient(rgba(10,10,10,0.86), rgba(10,10,10,0.93)), url('../images/bg-highlights.jpg'); }
-.sec-bg-classes    { background-image: linear-gradient(rgba(10,10,10,0.84), rgba(10,10,10,0.92)), url('../images/bg-classes.jpg'); }
-.sec-bg-discounts  { background-image: linear-gradient(rgba(10,10,10,0.86), rgba(10,10,10,0.93)), url('../images/bg-discounts.jpg'); }
+.sec-bg-players    { background-image: linear-gradient(rgba(10,10,10,0.90), rgba(10,10,10,0.95)), url('../images/bg-players.jpg'); }
+.sec-bg-schedule   { background-image: linear-gradient(rgba(10,10,10,0.91), rgba(10,10,10,0.95)), url('../images/bg-schedule.jpg'); }
+.sec-bg-news       { background-image: linear-gradient(rgba(10,10,10,0.90), rgba(10,10,10,0.95)), url('../images/bg-news.jpg'); }
+.sec-bg-highlights { background-image: linear-gradient(rgba(10,10,10,0.88), rgba(10,10,10,0.94)), url('../images/bg-highlights.jpg'); }
+.sec-bg-classes    { background-image: linear-gradient(rgba(10,10,10,0.88), rgba(10,10,10,0.94)), url('../images/bg-classes.jpg'); }
+.sec-bg-discounts  { background-image: linear-gradient(rgba(10,10,10,0.90), rgba(10,10,10,0.95)), url('../images/bg-discounts.jpg'); }
 
-/* Painted artwork instead of photography: keep brand colour, no grayscale */
+/* Player cards: monochrome at rest, brand colour on hover — the original look.
+   `mix-blend-luminosity` lets the card's own gradient tint the photo. */
 .player-photo img {
-    filter: none;
+    filter: grayscale(100%);
+    mix-blend-mode: luminosity;
+    transition: filter 0.5s ease, mix-blend-mode 0.5s ease, transform 0.5s ease;
+}
+.player-photo:hover img,
+.player-photo:focus-within img {
+    filter: grayscale(0%);
+    mix-blend-mode: normal;
 }
