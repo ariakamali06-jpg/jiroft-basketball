@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ارتباط با ما | هیئت بسکتبال جیرفت</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Vazirmatn', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            black: '#0a0a0a',
+                            dark: '#1a1a1a',
+                            card: '#242424',
+                            yellow: '#facc15',
+                            red: '#ef4444',
+                            orange: '#f97316'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="font-sans antialiased text-gray-200">
+
+    <nav class="fixed w-full z-50 glass-nav border-b border-brand-dark transition-all py-4 px-6 md:px-12 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <i class="fa-solid fa-basketball text-brand-orange text-3xl animate-bounce" style="animation-duration: 2s;"></i>
+            <span class="text-2xl font-black tracking-tight text-white">جیرفت <span class="text-brand-orange">بسکت</span></span>
+        </div>
+        
+        <div class="hidden lg:flex gap-6 xl:gap-8 font-semibold text-sm">
+            <a href="index.html" class="hover:text-brand-yellow transition-colors py-2 inline-block">خانه</a>
+            <a href="players.html" class="hover:text-brand-yellow transition-colors py-2 inline-block">بازیکنان ما</a>
+            <a href="schedule.html" class="hover:text-brand-yellow transition-colors py-2 inline-block">برنامه بازی‌ها</a>
+            <a href="videos.html" class="hover:text-brand-yellow transition-colors py-2 inline-block">ویدیوها</a>
+            <a href="moments.html" class="hover:text-brand-yellow transition-colors py-2 inline-block">لحظات ماندگار</a>
+            <a href="news.html" class="hover:text-brand-yellow transition-colors py-2 inline-block">اخبار</a>
+            <a href="contact.html" class="text-brand-yellow font-bold py-2 inline-block">ارتباط با ما</a>
+        </div>
+        
+        <button id="mobile-menu-btn" aria-label="باز و بسته کردن منو" aria-expanded="false" class="lg:hidden text-brand-yellow text-2xl focus:outline-none w-11 h-11 flex items-center justify-center">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </nav>
+
+    <div id="mobile-menu" class="hidden fixed inset-0 z-40 bg-brand-black/95 backdrop-blur-md flex flex-col items-center justify-center gap-6 text-xl font-bold overflow-y-auto py-24">
+        <a href="index.html" class="hover:text-brand-yellow transition-colors py-2 inline-block">خانه</a>
+        <a href="players.html" class="hover:text-brand-yellow transition-colors py-2 inline-block">بازیکنان ما</a>
+        <a href="schedule.html" class="hover:text-brand-yellow transition-colors py-2 inline-block">برنامه بازی‌ها</a>
+        <a href="videos.html" class="hover:text-brand-yellow transition-colors py-2 inline-block">ویدیوها</a>
+        <a href="moments.html" class="hover:text-brand-yellow transition-colors py-2 inline-block">لحظات ماندگار</a>
+        <a href="news.html" class="hover:text-brand-yellow transition-colors py-2 inline-block">اخبار</a>
+        <a href="contact.html" class="text-brand-yellow font-bold py-2 inline-block">ارتباط با ما</a>
+    </div>
+
+    <section class="min-h-screen bg-brand-dark pt-32 pb-20 px-6 md:px-12">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h1 class="text-4xl sm:text-5xl md:text-6xl font-black mb-4">ارتباط <span class="text-brand-orange">با ما</span></h1>
+                <p class="text-gray-400 max-w-2xl mx-auto">سوالی داری؟ پیشنهادی داری؟ یا میخوای همکاری کنی؟ ما اینجیم!</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- Contact Info -->
+                <div class="bg-brand-card rounded-2xl p-8 border border-gray-800 hover:border-brand-yellow transition-colors">
+                    <h2 class="text-2xl font-bold mb-6 border-b border-gray-700 pb-4 inline-block">اطلاعات تماس</h2>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full bg-brand-yellow/10 flex items-center justify-center text-brand-yellow">
+                                <i class="fa-solid fa-phone text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-400">تلفن تماس</p>
+                                <a id="contact-phone-link" href="tel:03412345678" dir="ltr" class="font-bold text-lg hover:text-brand-yellow transition-colors"><span data-setting="phone">۰۳۴ - ۱۲۳۴۵۶۷۸</span></a>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full bg-brand-orange/10 flex items-center justify-center text-brand-orange">
+                                <i class="fa-solid fa-envelope text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-400">ایمیل</p>
+                                <p class="font-bold text-lg" data-setting="email" dir="ltr">info@jiroftbasketball.ir</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full bg-brand-red/10 flex items-center justify-center text-brand-red">
+                                <i class="fa-solid fa-location-dot text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-400">آدرس</p>
+                                <p class="font-bold text-lg" data-setting="address">جیرفت، مجموعه ورزشی مرکزی، سالن اختصاصی بسکتبال</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-10 pt-8 border-t border-gray-800">
+                        <h3 class="text-xl font-bold mb-4">شبکه‌های اجتماعی</h3>
+                        <p class="text-sm text-gray-500 mb-4">ما را در شبکه‌های اجتماعی دنبال کنید:</p>
+                        <div class="flex gap-4 flex-wrap">
+                            <a data-social="instagram" href="https://www.instagram.com/jiroftbasketball" target="_blank" rel="noopener" aria-label="اینستاگرام" class="w-14 h-14 rounded-full bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center text-white hover:scale-110 transition-transform shadow-lg">
+                                <i class="fa-brands fa-instagram text-xl"></i>
+                            </a>
+                            <a data-social="telegram" href="https://t.me/jiroftbasketball" target="_blank" rel="noopener" aria-label="تلگرام" class="w-14 h-14 rounded-full bg-blue-500 flex items-center justify-center text-white hover:scale-110 transition-transform shadow-lg">
+                                <i class="fa-brands fa-telegram text-xl"></i>
+                            </a>
+                            <a data-social="twitter" href="https://twitter.com/jiroftbasketball" target="_blank" rel="noopener" aria-label="توییتر (X)" class="w-14 h-14 rounded-full bg-sky-500 flex items-center justify-center text-white hover:scale-110 transition-transform shadow-lg">
+                                <i class="fa-brands fa-twitter text-xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="bg-brand-card rounded-2xl p-8 border border-gray-800 hover:border-brand-yellow transition-colors">
+                    <h2 class="text-2xl font-bold mb-6 border-b border-gray-700 pb-4 inline-block">فرم ارتباط</h2>
+                    
+                    <form class="space-y-6">
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-2">نام</label>
+                            <input type="text" class="w-full bg-brand-dark border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-yellow transition-colors" placeholder="نام خود را وارد کنید">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-2">ایمیل</label>
+                            <input type="email" class="w-full bg-brand-dark border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-yellow transition-colors" placeholder="example@email.com">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-2">موضوع</label>
+                            <select class="w-full bg-brand-dark border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-yellow transition-colors">
+                                <option>پیشنهاد و انتقاد</option>
+                                <option>ثبت‌نام در آکادمی</option>
+                                <option>همکاری و حمایت</option>
+                                <option>سوالات دیگر</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-2">پیام</label>
+                            <textarea rows="5" class="w-full bg-brand-dark border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-yellow transition-colors" placeholder="پیام خود را بنویسید..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full py-4 bg-gradient-to-r from-brand-yellow to-brand-orange text-brand-black font-bold rounded-lg hover:shadow-[0_0_20px_rgba(249,115,22,0.4)] transition-all transform hover:scale-[1.02]">
+                            ارسال پیام
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Google Maps Embed -->
+            <div class="mt-16 rounded-2xl overflow-hidden border border-gray-800">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3563.5!2d57.3011!3d28.1919!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f8d2b8c9c9c9c9d%3A0x0!2z2KfYsNiv2YXZi9mI2Kcg2KfYsdmG2KfYsNiv!5e0!3m2!1sfa!2s!4v1234567890123!5m2!1sfa!2s" width="100%" height="400" style="border:0; filter: grayscale(100%);" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-brand-black border-t border-gray-800 py-12 px-6 md:px-12">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <i class="fa-solid fa-basketball text-brand-orange text-2xl"></i>
+                        <span class="text-xl font-black text-white">جیرفت <span class="text-brand-orange">بسکت</span></span>
+                    </div>
+                    <p class="text-gray-400 text-sm">مرکز درخشش استعدادهای بسکتبال در جیرفت</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-4 border-b border-gray-800 pb-2 inline-block">دسترسی سریع</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><a href="index.html" class="hover:text-brand-yellow transition-colors">خانه</a></li>
+                        <li><a href="players.html" class="hover:text-brand-yellow transition-colors">بازیکنان</a></li>
+                        <li><a href="schedule.html" class="hover:text-brand-yellow transition-colors">برنامه بازی‌ها</a></li>
+                        <li><a href="videos.html" class="hover:text-brand-yellow transition-colors">ویدیوها</a></li>
+                        <li><a href="moments.html" class="hover:text-brand-yellow transition-colors">لحظات ماندگار</a></li>
+                        <li><a href="news.html" class="hover:text-brand-yellow transition-colors">اخبار</a></li>
+                        <li><a href="contact.html" class="hover:text-brand-yellow transition-colors">ارتباط با ما</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-4 border-b border-gray-800 pb-2 inline-block">ما را دنبال کنید</h4>
+                    <div class="flex gap-3">
+                        <a data-social="instagram" href="https://www.instagram.com/jiroftbasketball" target="_blank" rel="noopener" aria-label="اینستاگرام" class="w-10 h-10 rounded-full bg-brand-dark flex items-center justify-center text-gray-400 hover:text-white hover:bg-brand-red transition-all"><i class="fa-brands fa-instagram"></i></a>
+                        <a data-social="telegram" href="https://t.me/jiroftbasketball" target="_blank" rel="noopener" aria-label="تلگرام" class="w-10 h-10 rounded-full bg-brand-dark flex items-center justify-center text-gray-400 hover:text-white hover:bg-brand-orange transition-all"><i class="fa-brands fa-telegram"></i></a>
+                        <a data-social="twitter" href="https://twitter.com/jiroftbasketball" target="_blank" rel="noopener" aria-label="توییتر (X)" class="w-10 h-10 rounded-full bg-brand-dark flex items-center justify-center text-gray-400 hover:text-white hover:bg-brand-yellow transition-all"><i class="fa-brands fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-4 border-b border-gray-800 pb-2 inline-block">ارتباط با ما</h4>
+                    <p class="text-gray-400 text-sm mb-2"><i class="fa-solid fa-envelope me-2 text-brand-yellow"></i><span data-setting="email" dir="ltr">info@jiroftbasketball.ir</span></p>
+                    <p class="text-gray-400 text-sm"><i class="fa-solid fa-phone me-2 text-brand-yellow"></i><span data-setting="phone" dir="ltr">۰۳۴ - ۱۲۳۴۵۶۷۸</span></p>
+                    <p class="text-gray-400 text-sm mt-2"><i class="fa-solid fa-location-dot me-2 text-brand-red"></i><span data-setting="address">جیرفت، مجموعه ورزشی مرکزی، سالن اختصاصی بسکتبال</span></p>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center">
+                <p class="text-gray-500 text-sm">© <span data-setting="copyright">۲۰۲۶</span> تمامی حقوق برای هیئت بسکتبال جیرفت محفوظ است.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/data.js" defer></script>
+</body>
+</html>

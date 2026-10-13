@@ -133,6 +133,8 @@
         var box = document.getElementById('news-list');
         if (!box) return;
         if (!news.length) {
+            /* Keep the hard-coded fallback cards that live inside the box. */
+            if (box.querySelector('article')) return;
             box.innerHTML = '<p class="text-gray-500 text-center py-8 col-span-full">هنوز خبری ثبت نشده است.</p>';
             return;
         }
@@ -201,10 +203,30 @@
         setText('#footer-text', s.footerText);
         setText('#copyright-year', s.copyright);
 
+        /* Pages may repeat a value in several places (contact block + footer):
+           [data-setting="phone"] etc. updates every copy, ids only the first. */
+        [['address', s.address], ['phone', s.phone], ['email', s.email], ['copyright', s.copyright]]
+            .forEach(function (pair) {
+                if (pair[1] == null || pair[1] === '') return;
+                document.querySelectorAll('[data-setting="' + pair[0] + '"]').forEach(function (el) {
+                    el.textContent = pair[1];
+                });
+            });
+
         [['#link-instagram', s.instagram], ['#link-telegram', s.telegram], ['#link-twitter', s.twitter]]
             .forEach(function (pair) {
                 var el = $(pair[0]);
                 if (el && pair[1]) el.href = pair[1];
+            });
+
+        /* Every social button on the page (contact block, footers) follows
+           the settings; the hard-coded hrefs are the fallback. */
+        [['instagram', s.instagram], ['telegram', s.telegram], ['twitter', s.twitter]]
+            .forEach(function (pair) {
+                if (!pair[1]) return;
+                document.querySelectorAll('[data-social="' + pair[0] + '"]').forEach(function (el) {
+                    el.href = pair[1];
+                });
             });
 
         var hero = $('#home');
