@@ -1,0 +1,58 @@
+[
+  {
+    "id": "moment-1",
+    "title": "تیم جیرفت در میدان رقابت",
+    "desc": "بازی مهم مقابل تیم برتر کشور",
+    "image": "assets/images/moment-1.jpg",
+    "featured": true
+  },
+  {
+    "id": "moment-2",
+    "title": "عکس تیمی رسمی",
+    "desc": "پیش از شروع فصل جدید",
+    "image": "assets/images/moment-2.jpg",
+    "featured": false
+  },
+  {
+    "id": "moment-3",
+    "title": "همایش تیم جیرفت",
+    "desc": "برنامه تیمی پیش از مسابقات",
+    "image": "assets/images/moment-3.jpg",
+    "featured": false
+  },
+  {
+    "id": "moment-4",
+    "title": "جشن پیروزی مهم",
+    "desc": "پس از بازی انتخاباتی",
+    "image": "assets/images/moment-4.jpg",
+    "featured": false
+  },
+  {
+    "id": "moment-5",
+    "title": "تمرین گروهی موفق",
+    "desc": "آماده‌سازی برای بازی مهم",
+    "image": "assets/images/moment-5.jpg",
+    "featured": false
+  },
+  {
+    "id": "moment-6",
+    "title": "آینده بسکتبال",
+    "desc": "هنرجویان آکادمی در تمرین",
+    "image": "assets/images/moment-6.jpg",
+    "featured": false
+  },
+  {
+    "id": "moment-7",
+    "title": "دوستی با تیم مقابل",
+    "desc": "رویداد اجتماعی پس از بازی",
+    "image": "assets/images/moment-7.jpg",
+    "featured": false
+  },
+  {
+    "id": "moment-8",
+    "title": "کاپ قهرمانی",
+    "desc": "جایزه درخشش تیم در سال گذشته",
+    "image": "assets/images/moment-8.jpg",
+    "featured": false
+  }
+]

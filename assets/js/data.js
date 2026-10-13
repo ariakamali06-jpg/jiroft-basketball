@@ -44,22 +44,27 @@
             var box = document.getElementById('tab-' + team);
             if (!box) return;
             var accent = team === 'men' ? 'orange' : 'red';
-            var list = players.filter(function (p) { return p.team === team; });
+            var list = players.filter(function (p) {
+                return p.team === team || (team === 'men' && (p.team === 'male' || !p.team)) || (team === 'women' && p.team === 'female');
+            });
             if (!list.length) {
                 box.innerHTML = '<p class="text-gray-500 col-span-full text-center py-8">' +
                     'هنوز بازیکنی ثبت نشده است.</p>';
                 return;
             }
             box.innerHTML = list.map(function (p) {
-                return '<div class="bg-brand-card rounded-xl overflow-hidden hover-lift group ' +
+                var pId = p.id || ('player-' + (p.number || Math.random()));
+                return '<a href="player.html?id=' + encodeURIComponent(pId) + '" class="block group">' +
+                    '<div class="bg-brand-card rounded-xl overflow-hidden hover-lift ' +
                     'border border-transparent hover:border-brand-' + accent + ' relative">' +
                     '<div class="absolute top-2 left-2 bg-brand-black text-brand-yellow font-black ' +
                     'text-lg px-2 py-1 rounded opacity-80 z-10">' + (p.number ? '#' + esc(p.number) : '') + '</div>' +
-                    photoBox(p.photo, p.name) +
+                    photoBox(p.photo || p.image, p.name) +
                     '<div class="p-5 text-center">' +
-                    '<h3 class="text-lg font-bold mb-1 leading-snug">' + esc(p.name) + '</h3>' +
+                    '<h3 class="text-lg font-bold mb-1 leading-snug group-hover:text-brand-yellow transition-colors">' + esc(p.name) + '</h3>' +
                     '<p class="text-brand-' + accent + ' text-sm font-semibold">' + esc(p.position) + '</p>' +
-                    '</div></div>';
+                    '<span class="inline-block mt-3 text-xs text-brand-yellow font-bold group-hover:text-white transition-colors">مشاهده آمار و پروفایل ←</span>' +
+                    '</div></div></a>';
             }).join('');
         });
         guardImages();
@@ -67,13 +72,15 @@
 
     /* ---------------------------------------------------------- matches ---- */
     function renderMatches(matches) {
-        var box = document.getElementById('match-list');
-        if (!box) return;
-        if (!matches.length) {
-            box.innerHTML = '<p class="text-gray-500 text-center py-8">بازی‌ای ثبت نشده است.</p>';
+        var box1 = document.getElementById('match-list');
+        var box2 = document.getElementById('matches-container');
+        if (!box1 && !box2) return;
+        if (!matches || !matches.length) {
+            if (box1) box1.innerHTML = '<p class="text-gray-500 text-center py-8">بازی‌ای ثبت نشده است.</p>';
+            if (box2) box2.innerHTML = '<p class="text-gray-500 text-center py-8">بازی‌ای ثبت نشده است.</p>';
             return;
         }
-        box.innerHTML = matches.map(function (m) {
+        var html = matches.map(function (m) {
             var accent = m.accent === 'orange' ? 'orange' : 'yellow';
             var badgeColor = accent === 'orange' ? 'text-brand-orange' : 'text-brand-yellow';
             var btn = accent === 'orange'
@@ -82,9 +89,8 @@
             var ticket = m.ticket
                 ? '<a href="' + esc(m.ticket) + '" target="_blank" rel="noopener" class="w-full lg:w-auto bg-transparent border ' +
                   btn + ' px-4 py-2 rounded transition-colors font-bold text-sm inline-block text-center">تهیه بلیت <i class="fa-solid fa-ticket ml-1"></i></a>'
-                : '<button disabled class="w-full lg:w-auto bg-transparent border border-gray-700 text-gray-500 ' +
-                  'px-4 py-2 rounded font-bold text-sm cursor-not-allowed">بلیت‌فروشی باز است</button>';
-            return '<div class="bg-brand-black p-4 md:p-6 rounded-xl border-s-4 border-brand-' + accent + ' ' +
+                : '<span class="inline-block px-4 py-1.5 rounded-full bg-brand-' + accent + '/10 text-brand-' + accent + ' text-xs font-bold">' + esc(m.status || 'برنامه مسابقه') + '</span>';
+            return '<div class="bg-brand-card p-4 md:p-6 rounded-xl border-s-4 border-brand-' + accent + ' ' +
                 'flex flex-col lg:flex-row items-center justify-between hover-lift text-center lg:text-start gap-4">' +
                 '<div class="flex flex-col items-center lg:items-start lg:w-1/4">' +
                 '<span class="' + badgeColor + ' font-bold text-lg">' + esc(m.date) + '</span>' +
@@ -98,6 +104,27 @@
                 '<div class="lg:w-1/4 w-full flex justify-center lg:justify-end">' + ticket + '</div>' +
                 '</div>';
         }).join('');
+        if (box1) box1.innerHTML = html;
+        if (box2) box2.innerHTML = html;
+    }
+
+    /* ---------------------------------------------------------- moments ---- */
+    function renderMoments(moments) {
+        var box = document.getElementById('moments-grid');
+        if (!box) return;
+        if (!moments || !moments.length) return;
+        box.innerHTML = moments.map(function (m, idx) {
+            var colSpan = (m.featured || idx === 0) ? 'col-span-2 md:col-span-3 lg:col-span-4' : '';
+            var heightCls = (m.featured || idx === 0) ? 'h-64 md:h-80' : 'h-48';
+            var borderCls = (m.featured || idx === 0) ? 'hover:border-brand-yellow' : 'hover:border-brand-orange';
+            return '<div class="' + colSpan + ' bg-brand-black rounded-xl overflow-hidden border border-gray-800 ' + borderCls + ' transition-colors relative group">' +
+                '<img loading="lazy" decoding="async" src="' + esc(m.image) + '" alt="' + esc(m.title) + '" class="w-full ' + heightCls + ' object-cover transition-transform duration-700 group-hover:scale-110">' +
+                '<div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent flex flex-col justify-end p-4 md:p-6">' +
+                '<h4 class="text-lg md:text-xl font-bold">' + esc(m.title) + '</h4>' +
+                (m.desc ? '<p class="text-xs md:text-sm text-gray-300 mt-1">' + esc(m.desc) + '</p>' : '') +
+                '</div></div>';
+        }).join('');
+        guardImages(box);
     }
 
     /* ----------------------------------------------------------- videos ---- */
@@ -251,6 +278,7 @@
         section('matches', renderMatches);
         section('videos', renderVideos);
         section('news', renderNews);
+        section('moments', renderMoments);
         section('discounts', renderDiscounts);
     }
 

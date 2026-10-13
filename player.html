@@ -267,19 +267,25 @@
             }
 
             try {
-                const response = await fetch('assets/data/players.json');
-                if (!response.ok) throw new Error('Failed to load players');
+                let players = [];
+                try {
+                    const res = await fetch('data/players.json?v=' + Date.now());
+                    if (res.ok) players = await res.json();
+                } catch(e) {}
+                if (!players.length) {
+                    const res2 = await fetch('assets/data/players.json?v=' + Date.now());
+                    if (res2.ok) players = await res2.json();
+                }
                 
-                const players = await response.json();
-                const player = players.find(p => p.id === playerId);
+                const player = players.find(p => p.id === playerId || String(p.number) === String(playerId) || p.name === playerId);
                 
                 if (!player) {
                     document.getElementById('player-card').innerHTML = `
                         <div class="p-12 text-center">
                             <i class="fa-solid fa-user-xmark text-6xl text-gray-600 mb-4"></i>
-                            <p class="text-gray-400 text-lg">بازیکن یافت نشد.</p>
+                            <p class="text-gray-400 text-lg">بازیکن مورد نظر یافت نشد.</p>
                             <button onclick="window.location.href='players.html'" class="mt-4 py-2 px-6 rounded-xl font-bold bg-brand-yellow text-brand-black">
-                                بازگشت به لیست
+                                بازگشت به لیست بازیکنان
                             </button>
                         </div>
                     `;
@@ -288,23 +294,29 @@
 
                 // Populate data
                 document.getElementById('player-name').textContent = player.name;
-                document.getElementById('player-number').textContent = '#' + player.number;
-                document.getElementById('player-position').textContent = player.position;
-                document.getElementById('player-height').textContent = player.height;
-                document.getElementById('player-bio').textContent = player.bio;
-                document.getElementById('player-img').src = 'assets/images/' + player.image;
+                document.getElementById('player-number').textContent = player.number ? ('#' + player.number) : '';
+                document.getElementById('player-position').textContent = player.position || 'بازیکن بسکتبال';
+                document.getElementById('player-height').textContent = player.height || '—';
+                document.getElementById('player-bio').textContent = player.bio || (player.name + ' یکی از اعضای ارزشمند هیئت بسکتبال جیرفت است.');
+                
+                let imgSrc = player.photo || player.image || '';
+                if (imgSrc && !imgSrc.startsWith('http') && !imgSrc.startsWith('/') && !imgSrc.startsWith('assets/')) {
+                    imgSrc = 'assets/images/' + imgSrc;
+                }
+                document.getElementById('player-img').src = imgSrc;
                 
                 // Team display
-                const teamName = player.team === 'male' ? 'تیم آقایان' : 'تیم بانوان';
-                const teamColor = player.team === 'male' ? 'text-brand-orange' : 'text-brand-red';
+                const isMale = player.team === 'men' || player.team === 'male' || !player.team;
+                const teamName = isMale ? 'تیم آقایان' : 'تیم بانوان';
+                const teamColor = isMale ? 'text-brand-orange' : 'text-brand-red';
                 document.getElementById('player-team-display').innerHTML = `<span class="${teamColor}">${teamName}</span>`;
 
                 // Stats
-                document.getElementById('player-matches').textContent = player.stats?.matches || 0;
-                document.getElementById('player-ppg').textContent = player.stats?.ppg || 0;
-                document.getElementById('player-rpg').textContent = player.stats?.rpg || 0;
-                document.getElementById('player-apg').textContent = player.stats?.apg || 0;
-                document.getElementById('player-spg').textContent = player.stats?.spg || 0;
+                document.getElementById('player-matches').textContent = player.stats?.matches || player.matches || '—';
+                document.getElementById('player-ppg').textContent = player.stats?.ppg || player.ppg || '—';
+                document.getElementById('player-rpg').textContent = player.stats?.rpg || player.rpg || '—';
+                document.getElementById('player-apg').textContent = player.stats?.apg || player.apg || '—';
+                document.getElementById('player-spg').textContent = player.stats?.spg || player.spg || '—';
 
             } catch (error) {
                 console.error('Error loading player:', error);
