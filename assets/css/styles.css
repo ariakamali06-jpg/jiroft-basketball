@@ -154,6 +154,7 @@ img.is-broken {
 .sec-bg-highlights { background-image: linear-gradient(rgba(10,10,10,0.88), rgba(10,10,10,0.94)), url('../images/bg-highlights.jpg'); }
 .sec-bg-classes    { background-image: linear-gradient(rgba(10,10,10,0.88), rgba(10,10,10,0.94)), url('../images/bg-classes.jpg'); }
 .sec-bg-discounts  { background-image: linear-gradient(rgba(10,10,10,0.90), rgba(10,10,10,0.95)), url('../images/bg-discounts.jpg'); }
+.sec-bg-moments    { background-image: linear-gradient(rgba(10,10,10,0.90), rgba(10,10,10,0.95)), url('../images/bg-moments.jpg'); }
 
 /* Player cards: monochrome at rest, brand colour on hover — the original look.
    `mix-blend-luminosity` lets the card's own gradient tint the photo. */
