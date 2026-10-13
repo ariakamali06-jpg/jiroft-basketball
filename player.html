@@ -184,6 +184,22 @@
                         </div>
                     </div>
 
+                    <!-- Player Photos Section -->
+                    <div id="player-photos-section" class="mt-12 pt-8 border-t border-gray-800 hidden">
+                        <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+                            <i class="fa-solid fa-camera text-brand-orange"></i> عکس‌های مسابقات و تمرینات
+                        </h2>
+                        <div id="player-photos-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4"></div>
+                    </div>
+
+                    <!-- Player Videos Section -->
+                    <div id="player-videos-section" class="mt-12 pt-8 border-t border-gray-800 hidden">
+                        <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+                            <i class="fa-solid fa-circle-play text-brand-yellow"></i> ویدیوها و حرکات دیدنی بازیکن
+                        </h2>
+                        <div id="player-videos-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+                    </div>
+
                     <!-- Actions -->
                     <div class="mt-8 flex flex-wrap gap-4">
                         <button onclick="history.back()" class="flex-1 md:flex-none py-3 px-6 rounded-xl font-bold bg-brand-yellow text-brand-black hover:bg-yellow-300 transition-colors">
@@ -318,6 +334,96 @@
                 document.getElementById('player-apg').textContent = player.stats?.apg || player.apg || '—';
                 document.getElementById('player-spg').textContent = player.stats?.spg || player.spg || '—';
 
+                // Render Photos Gallery
+                const photos = Array.isArray(player.photos) ? player.photos : (player.photos ? [player.photos] : []);
+                const photosSec = document.getElementById('player-photos-section');
+                const photosGrid = document.getElementById('player-photos-grid');
+                if (photosSec && photosGrid) {
+                    if (photos.length > 0) {
+                        photosSec.classList.remove('hidden');
+                        photosGrid.innerHTML = photos.map(src => {
+                            let fullSrc = src;
+                            if (!fullSrc.startsWith('http') && !fullSrc.startsWith('/') && !fullSrc.startsWith('assets/')) {
+                                fullSrc = 'assets/images/' + fullSrc;
+                            }
+                            return `
+                                <div class="relative group rounded-xl overflow-hidden bg-brand-dark border border-gray-800 hover:border-brand-orange transition-all duration-300">
+                                    <img src="${fullSrc}" alt="${player.name}" class="w-full h-44 object-cover group-hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openLightbox('${fullSrc}')">
+                                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+                                        <i class="fa-solid fa-magnifying-glass-plus text-white text-2xl"></i>
+                                    </div>
+                                </div>
+                            `;
+                        }).join('');
+                    } else {
+                        photosSec.classList.add('hidden');
+                    }
+                }
+
+                // Render Videos Section
+                const videos = Array.isArray(player.videos) ? player.videos : (player.videos ? [player.videos] : []);
+                const videosSec = document.getElementById('player-videos-section');
+                const videosGrid = document.getElementById('player-videos-grid');
+                if (videosSec && videosGrid) {
+                    if (videos.length > 0) {
+                        videosSec.classList.remove('hidden');
+                        videosGrid.innerHTML = videos.map((v, i) => {
+                            const title = typeof v === 'object' ? (v.title || `ویدیو ${i + 1}`) : `ویدیو ${i + 1}`;
+                            const url = typeof v === 'object' ? (v.url || '') : String(v || '');
+                            
+                            let playerHtml = '';
+                            const isVideoFile = url.endsWith('.mp4') || url.endsWith('.webm') || url.endsWith('.mov') || url.includes('/uploads/videos/');
+                            if (isVideoFile) {
+                                playerHtml = `<video controls src="${url}" class="w-full h-56 md:h-64 object-cover bg-black"></video>`;
+                            } else if (url.includes('aparat.com')) {
+                                playerHtml = `
+                                    <div class="w-full h-56 md:h-64 bg-black flex flex-col items-center justify-center p-6 text-center">
+                                        <i class="fa-solid fa-circle-play text-brand-yellow text-5xl mb-3"></i>
+                                        <a href="${url}" target="_blank" rel="noopener" class="px-4 py-2 rounded-lg bg-brand-yellow text-brand-black font-bold text-sm hover:bg-yellow-300 transition">مشاهده در آپارات ↗</a>
+                                    </div>
+                                `;
+                            } else if (url.includes('youtube.com') || url.includes('youtu.be')) {
+                                let yId = '';
+                                if (url.includes('v=')) yId = url.split('v=')[1].split('&')[0];
+                                else if (url.includes('youtu.be/')) yId = url.split('youtu.be/')[1].split('?')[0];
+                                if (yId) {
+                                    playerHtml = `<iframe class="w-full h-56 md:h-64" src="https://www.youtube.com/embed/${yId}" frameborder="0" allowfullscreen></iframe>`;
+                                } else {
+                                    playerHtml = `
+                                        <div class="w-full h-56 md:h-64 bg-black flex flex-col items-center justify-center p-6 text-center">
+                                            <i class="fa-brands fa-youtube text-red-500 text-5xl mb-3"></i>
+                                            <a href="${url}" target="_blank" rel="noopener" class="px-4 py-2 rounded-lg bg-red-600 text-white font-bold text-sm hover:bg-red-500 transition">مشاهده در یوتیوب ↗</a>
+                                        </div>
+                                    `;
+                                }
+                            } else if (url) {
+                                playerHtml = `
+                                    <div class="w-full h-56 md:h-64 bg-black flex flex-col items-center justify-center p-6 text-center">
+                                        <i class="fa-solid fa-video text-brand-orange text-5xl mb-3"></i>
+                                        <a href="${url}" target="_blank" rel="noopener" class="px-4 py-2 rounded-lg bg-brand-orange text-white font-bold text-sm hover:bg-orange-600 transition">پخش ویدیوی مسابقه ↗</a>
+                                    </div>
+                                `;
+                            } else {
+                                playerHtml = `<div class="w-full h-56 md:h-64 bg-gray-900 flex items-center justify-center text-gray-500">لینک ویدیو موجود نیست</div>`;
+                            }
+
+                            return `
+                                <div class="bg-brand-dark rounded-2xl overflow-hidden border border-gray-800 hover:border-brand-yellow transition-all duration-300">
+                                    ${playerHtml}
+                                    <div class="p-4 bg-brand-card">
+                                        <h4 class="font-bold text-white text-base flex items-center gap-2">
+                                            <i class="fa-solid fa-basketball text-brand-yellow text-sm"></i>
+                                            ${title}
+                                        </h4>
+                                    </div>
+                                </div>
+                            `;
+                        }).join('');
+                    } else {
+                        videosSec.classList.add('hidden');
+                    }
+                }
+
             } catch (error) {
                 console.error('Error loading player:', error);
                 document.getElementById('player-card').innerHTML = `
@@ -336,6 +442,25 @@
         document.addEventListener('DOMContentLoaded', () => {
             loadPlayer();
         });
+    </script>
+    <!-- Lightbox Modal -->
+    <div id="lightbox-modal" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-md hidden flex items-center justify-center p-4" onclick="closeLightbox()">
+        <div class="relative max-w-4xl max-h-[90vh]" onclick="event.stopPropagation()">
+            <img id="lightbox-img" src="" class="max-w-full max-h-[85vh] rounded-2xl object-contain border border-gray-800 shadow-2xl">
+            <button onclick="closeLightbox()" class="absolute -top-12 left-0 bg-white/20 hover:bg-brand-yellow hover:text-black text-white w-10 h-10 rounded-full flex items-center justify-center transition">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function openLightbox(src) {
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox-modal').classList.remove('hidden');
+        }
+        function closeLightbox() {
+            document.getElementById('lightbox-modal').classList.add('hidden');
+        }
     </script>
 </body>
 </html>
