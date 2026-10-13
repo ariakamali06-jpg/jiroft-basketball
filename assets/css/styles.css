@@ -156,6 +156,10 @@ img.is-broken {
 .sec-bg-discounts  { background-image: linear-gradient(rgba(10,10,10,0.90), rgba(10,10,10,0.95)), url('../images/bg-discounts.jpg'); }
 .sec-bg-moments    { background-image: linear-gradient(rgba(10,10,10,0.90), rgba(10,10,10,0.95)), url('../images/bg-moments.jpg'); }
 
+/* Scroll snap: full-section navigation (one scroll = one section) */
+html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+section { scroll-snap-align: start; scroll-snap-stop: always; }
+
 /* Player cards: monochrome at rest, brand colour on hover — the original look.
    `mix-blend-luminosity` lets the card's own gradient tint the photo. */
 .player-photo img {
