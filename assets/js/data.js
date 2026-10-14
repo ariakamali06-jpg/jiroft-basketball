@@ -129,10 +129,10 @@
         };
         modal.innerHTML = '' +
             '<div class="relative bg-brand-card/95 border border-gray-700/80 rounded-2xl shadow-2xl max-w-4xl lg:max-w-5xl w-full max-h-[92vh] flex flex-col overflow-hidden" onclick="event.stopPropagation()">' +
-                '<div class="flex items-center justify-between p-4 border-b border-gray-800 shrink-0 bg-brand-dark/50">' +
-                    '<h4 id="moment-popup-title" class="font-bold text-white text-base md:text-lg truncate pe-3"></h4>' +
-                    '<button type="button" onclick="closeMomentModal()" class="w-9 h-9 rounded-full bg-white/10 hover:bg-brand-red text-gray-300 hover:text-white flex items-center justify-center transition shrink-0" title="بستن (Esc)">' +
-                        '<i class="fa-solid fa-xmark text-lg"></i>' +
+                '<div class="flex items-center justify-between p-3 sm:p-4 border-b border-gray-800 shrink-0 bg-brand-dark/60 gap-3">' +
+                    '<h4 id="moment-popup-title" class="font-bold text-white text-sm sm:text-base md:text-lg leading-snug line-clamp-2 sm:line-clamp-none flex-1"></h4>' +
+                    '<button type="button" onclick="closeMomentModal()" class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/10 hover:bg-brand-red text-gray-300 hover:text-white flex items-center justify-center transition shrink-0" title="بستن (Esc)">' +
+                        '<i class="fa-solid fa-xmark text-base sm:text-lg"></i>' +
                     '</button>' +
                 '</div>' +
                 '<div class="p-3 bg-black/60 flex items-center justify-center overflow-hidden flex-1 min-h-[260px] max-h-[74vh]">' +
@@ -187,17 +187,26 @@
         box.innerHTML = sortedMoments.map(function (m, idx) {
             var isFeatured = Boolean(m.featured);
             var colSpan = isFeatured ? 'col-span-2 md:col-span-3 lg:col-span-4' : '';
-            var heightCls = isFeatured ? 'h-72 md:h-96' : 'h-48';
-            var borderCls = isFeatured ? 'hover:border-brand-yellow' : 'hover:border-brand-orange';
+            var heightCls = isFeatured ? 'h-64 sm:h-80 md:h-96' : 'h-52 sm:h-56 md:h-60';
+            var borderCls = isFeatured ? 'border-brand-yellow/60 hover:border-brand-yellow' : 'border-gray-800 hover:border-brand-orange';
+            var titleCls = isFeatured ? 'text-base sm:text-xl md:text-2xl font-bold leading-snug line-clamp-2 sm:line-clamp-3' : 'text-xs sm:text-sm md:text-base font-bold leading-snug line-clamp-2';
+            var padCls = isFeatured ? 'p-4 sm:p-6' : 'p-3 sm:p-4';
+            var descHtml = m.desc
+                ? '<p class="' + (isFeatured ? 'text-xs sm:text-sm text-gray-300 mt-1.5 line-clamp-2' : 'hidden sm:block text-xs text-gray-400 mt-1 line-clamp-1') + '">' + esc(m.desc) + '</p>'
+                : '';
+            var badgeHtml = isFeatured
+                ? '<span class="px-2 py-0.5 rounded bg-brand-yellow/20 border border-brand-yellow/40 text-brand-yellow text-[10px] sm:text-xs font-bold shrink-0 mb-1 inline-block">رویداد ویژه ★</span>'
+                : '';
             var imgSrc = mediaUrl(m.image);
-            return '<div class="' + colSpan + ' bg-brand-black rounded-xl overflow-hidden border border-gray-800 ' + borderCls + ' transition-all duration-300 relative group cursor-pointer hover:shadow-xl hover:-translate-y-1" data-moment-idx="' + idx + '">' +
+            return '<div class="' + colSpan + ' bg-brand-black rounded-xl overflow-hidden border ' + borderCls + ' transition-all duration-300 relative group cursor-pointer hover:shadow-xl hover:-translate-y-1" data-moment-idx="' + idx + '">' +
                 '<img loading="lazy" decoding="async" src="' + esc(imgSrc) + '" alt="' + esc(m.title) + '" class="w-full ' + heightCls + ' object-cover transition-transform duration-700 group-hover:scale-105">' +
-                '<div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent flex flex-col justify-end p-4 md:p-6 group-hover:via-black/60 transition-colors">' +
-                '<div class="flex items-center justify-between gap-2">' +
-                    '<h4 class="' + (isFeatured ? 'text-xl md:text-2xl' : 'text-lg md:text-xl') + ' font-bold leading-tight">' + esc(m.title) + '</h4>' +
-                    '<span class="w-8 h-8 rounded-full bg-brand-yellow/90 text-brand-black opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center shrink-0 shadow"><i class="fa-solid fa-magnifying-glass-plus text-sm"></i></span>' +
+                '<div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent flex flex-col justify-end ' + padCls + ' group-hover:via-black/70 transition-colors">' +
+                badgeHtml +
+                '<div class="flex items-end justify-between gap-2">' +
+                    '<h4 class="' + titleCls + ' text-white">' + esc(m.title) + '</h4>' +
+                    '<span class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-brand-yellow/90 text-brand-black opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center shrink-0 shadow"><i class="fa-solid fa-magnifying-glass-plus text-xs sm:text-sm"></i></span>' +
                 '</div>' +
-                (m.desc ? '<p class="text-xs md:text-sm text-gray-300 mt-1 line-clamp-2">' + esc(m.desc) + '</p>' : '') +
+                descHtml +
                 '</div></div>';
         }).join('');
 
