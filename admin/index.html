@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>پنل مدیریت | بسکتبال جیرفت</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🏀</text></svg>">
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+  :root { --yellow:#facc15; --orange:#f97316; --red:#ef4444; }
+  body { font-family: 'Vazirmatn', sans-serif; background:#0a0a0a; }
+  .inp { width:100%; background:#151515; border:1px solid #333; color:#eee; border-radius:.5rem; padding:.55rem .75rem; font-size:.9rem; }
+  .inp:focus { outline:none; border-color:var(--yellow); }
+  .lbl { display:block; font-size:.8rem; color:#9ca3af; margin-bottom:.3rem; font-weight:700; }
+  .btn { border-radius:.5rem; padding:.5rem 1.1rem; font-weight:700; font-size:.9rem; transition:.15s; }
+  .btn-y { background:var(--yellow); color:#111; } .btn-y:hover { background:#fde047; }
+  .btn-d { background:#1f1f1f; color:#ddd; border:1px solid #333; } .btn-d:hover { border-color:#666; }
+  .btn-r { background:transparent; color:var(--red); border:1px solid #7f1d1d; } .btn-r:hover { background:#7f1d1d; color:#fff; }
+  .card { background:#141414; border:1px solid #262626; border-radius:.75rem; }
+  .tab { white-space:nowrap; padding:.5rem 1rem; border-radius:.5rem; font-weight:700; font-size:.9rem; color:#9ca3af; cursor:pointer; }
+  .tab:hover { color:#fff; }
+  .tab.on { background:var(--yellow); color:#111; }
+  .chip { font-size:.7rem; font-weight:900; padding:.1rem .5rem; border-radius:999px; }
+  ::-webkit-scrollbar { height:8px; width:8px; } ::-webkit-scrollbar-thumb { background:#333; border-radius:8px; }
+  .drop { border:2px dashed #444; border-radius:.75rem; padding:.6rem; text-align:center; color:#9ca3af; font-size:.8rem; cursor:pointer; }
+  .drop:hover, .drop.over { border-color:var(--yellow); color:var(--yellow); }
+  #toast { position:fixed; bottom:1rem; left:1rem; z-index:60; }
+</style>
+</head>
+<body class="min-h-screen text-gray-200">
+
+<!-- ============================ LOGIN ============================ -->
+<div id="login-screen" class="min-h-screen flex items-center justify-center px-4">
+  <div class="card w-full max-w-sm p-8">
+    <div class="flex items-center gap-3 mb-6 justify-center">
+      <i class="fa-solid fa-basketball text-3xl" style="color:var(--yellow)"></i>
+      <span class="text-xl font-black">پنل مدیریت <span style="color:var(--yellow)">بسکتبال جیرفت</span></span>
+    </div>
+    <form id="login-form" autocomplete="off">
+      <label class="lbl">رمز عبور</label>
+      <input id="login-pass" type="password" class="inp text-center" required>
+      <button class="btn btn-y w-full mt-4" type="submit">ورود به پنل</button>
+      <p id="login-err" class="text-red-400 text-sm mt-3 text-center hidden">رمز عبور اشتباه است.</p>
+      <p id="login-default" class="text-orange-400 text-xs mt-4 text-center hidden">رمز پیش‌فرض هنوز تغییر نکرده است — بعد از ورود حتماً آن را عوض کنید.</p>
+    </form>
+    <a href="../" class="block text-center text-xs text-gray-500 mt-6 hover:text-yellow-400">← بازگشت به سایت</a>
+  </div>
+</div>
+
+<!-- ============================= APP ============================= -->
+<div id="app" class="hidden">
+  <header class="sticky top-0 z-40 bg-black/95 backdrop-blur border-b border-gray-800">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-4 flex-wrap">
+      <div class="flex items-center gap-2">
+        <i class="fa-solid fa-basketball text-xl" style="color:var(--yellow)"></i>
+        <span class="font-black">پنل مدیریت</span>
+        <span id="cloud-badge" class="hidden text-[10px] px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800 font-bold">۲۴ساعته ابری</span>
+        <a href="../" target="_blank" class="text-xs text-gray-500 hover:text-yellow-400 border border-gray-700 rounded px-2 py-1">مشاهده سایت ↗</a>
+      </div>
+      <div class="flex items-center gap-2">
+        <button id="publish-btn" class="btn btn-y text-xs flex items-center gap-2">
+          <i class="fa-solid fa-cloud-arrow-up"></i>
+          <span>انتشار روی سایت آنلاین</span>
+        </button>
+        <button id="logout-btn" class="btn btn-d text-xs">خروج</button>
+      </div>
+    </div>
+    <div class="max-w-6xl mx-auto px-4 pb-3 flex gap-2 overflow-x-auto" id="tabs"></div>
+  </header>
+
+  <div id="pw-warning" class="hidden max-w-6xl mx-auto px-4 pt-4">
+    <div class="bg-orange-950 border border-orange-700 text-orange-200 text-sm rounded-lg px-4 py-3 flex items-center justify-between gap-3">
+      <span><i class="fa-solid fa-triangle-exclamation me-2"></i>رمز عبور هنوز روی مقدار پیش‌فرض است. از تب «رمز عبور» آن را عوض کنید.</span>
+      <button class="btn btn-y text-xs shrink-0" data-goto="password">تغییر رمز</button>
+    </div>
+  </div>
+
+  <main id="main" class="max-w-6xl mx-auto px-4 py-6"></main>
+</div>
+
+<div id="toast" class="hidden">
+  <div id="toast-box" class="px-4 py-2 rounded-lg text-sm font-bold shadow-lg"></div>
+</div>
+
+<script>
+/* ================================================================ utils */
+const $ = s => document.querySelector(s);
+const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid = p => p + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+
+function toast(msg, ok = true) {
+  const box = $('#toast-box');
+  box.textContent = msg;
+  box.style.background = ok ? '#14532d' : '#7f1d1d';
+  box.style.color = '#fff';
+  $('#toast').classList.remove('hidden');
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => $('#toast').classList.add('hidden'), 2600);
+}
+
+/* Local (server.py) and hosting (api.php) share the same contract.
+   The panel talks to /api/... and falls back to api.php?r=... if the
+   rewrite rules are not active on the host. */
+/* Works from the domain root AND from a subfolder (…/site/admin/). */
+/* =================================================== CLOUD & LOCAL DRIVERS */
+const CLOUD_CONFIG = {
+  salt: "NWTFtJEWYobMI1UiaY9yIQ==",
+  iv: "TLxRrqLOeJG7WCDB",
+  data: "cJ+jJY7yAk1EmTVbFZ35BaFBq5UGGbK6n8s6pXnG0Ms8JwzV9Bx77xVkHSg90KEs3hDPy2euHOc=",
+  repo: "ariakamali06-jpg/jiroft-basketball"
+};
+
+let IS_CLOUD = location.hostname.includes('github.io') || location.protocol === 'file:' || location.search.includes('cloud=1');
+
+async function decryptCloudToken(password) {
+  try {
+    const salt = Uint8Array.from(atob(CLOUD_CONFIG.salt), c => c.charCodeAt(0));
+    const iv = Uint8Array.from(atob(CLOUD_CONFIG.iv), c => c.charCodeAt(0));
+    const data = Uint8Array.from(atob(CLOUD_CONFIG.data), c => c.charCodeAt(0));
+
+    const enc = new TextEncoder();
+    const passKey = await crypto.subtle.importKey(
+      'raw',
+      enc.encode(password),
+      'PBKDF2',
+      false,
+      ['deriveKey']
+    );
+
+    const aesKey = await crypto.subtle.deriveKey(
+      { name: 'PBKDF2', salt, iterations: 100000, hash: 'SHA-256' },
+      passKey,
+      { name: 'AES-GCM', length: 256 },
+      false,
+      ['decrypt']
+    );
+
+    const decryptedBuf = await crypto.subtle.decrypt(
+      { name: 'AES-GCM', iv },
+      aesKey,
+      data
+    );
+
+    return new TextDecoder().decode(decryptedBuf);
+  } catch (e) {
+    throw new Error('رمز عبور اشتباه است.');
+  }
+}
+
+function getCloudToken() {
+  return sessionStorage.getItem('jrf_gh_token') || localStorage.getItem('jrf_gh_token');
+}
+
+async function cloudApi(path, opts = {}) {
+  const clean = String(path).replace(/^\/?api\//, '');
+  const method = (opts.method || 'GET').toUpperCase();
+  const token = getCloudToken();
+
+  if (clean === 'whoami') {
+    if (!token) return { auth: false, default_password: false };
+    return { auth: true, default_password: false };
+  }
+
+  if (clean === 'login' && method === 'POST') {
+    const body = JSON.parse(opts.body || '{}');
+    const pwd = body.password || '';
+    try {
+      const decToken = await decryptCloudToken(pwd);
+      sessionStorage.setItem('jrf_gh_token', decToken);
+      localStorage.setItem('jrf_gh_token', decToken);
+      return { ok: true, auth: true, default_password: pwd === 'jiroft1404' };
+    } catch (e) {
+      throw new Error('رمز عبور اشتباه است');
+    }
+  }
+
+  if (clean === 'logout') {
+    sessionStorage.removeItem('jrf_gh_token');
+    localStorage.removeItem('jrf_gh_token');
+    return { ok: true };
+  }
+
+  if (clean === 'publish') {
+    return { ok: true, output: 'تمامی تغییرات به صورت زنده در گیت‌هاب ذخیره شدند و سایت تا ۳۰ ثانیه دیگر بازسازی می‌شود.' };
+  }
+
+  const col = clean.split('/')[0].split('?')[0];
+  if (collections.includes(col) || col === 'settings') {
+    if (method === 'GET') {
+      const res = await fetch('../data/' + col + '.json?v=' + Date.now(), { cache: 'no-store' });
+      if (!res.ok) return col === 'settings' ? {} : [];
+      return res.json();
+    }
+    if (method === 'PUT') {
+      if (!token) throw new Error('لطفاً ابتدا وارد پنل شوید');
+      const repo = CLOUD_CONFIG.repo;
+      const ghPath = 'data/' + col + '.json';
+      const ghUrl = 'https://api.github.com/repos/' + repo + '/contents/' + ghPath;
+      
+      let curSha = null;
+      try {
+        const checkRes = await fetch(ghUrl + '?v=' + Date.now(), {
+          headers: {
+            'Authorization': 'Bearer ' + token,
+            'Accept': 'application/vnd.github.v3+json'
+          }
+        });
+        if (checkRes.ok) {
+          const info = await checkRes.json();
+          curSha = info.sha;
+        }
+      } catch (e) {}
+
+      const contentStr = JSON.stringify(JSON.parse(opts.body), null, 2);
+      const b64 = btoa(unescape(encodeURIComponent(contentStr)));
+      const putData = {
+        message: 'بروزرسانی ' + col + ' از طریق پنل مدیریت موبایل',
+        content: b64
+      };
+      if (curSha) putData.sha = curSha;
+
+      const putRes = await fetch(ghUrl, {
+        method: 'PUT',
+        headers: {
+          'Authorization': 'Bearer ' + token,
+          'Content-Type': 'application/json',
+          'Accept': 'application/vnd.github.v3+json'
+        },
+        body: JSON.stringify(putData)
+      });
+      if (!putRes.ok) {
+        const errTxt = await putRes.text();
+        throw new Error('خطا در ارتباط با گیت‌هاب: ' + errTxt);
+      }
+      return { ok: true, saved: Date.now() };
+    }
+  }
+
+  throw new Error('مسیر نامعتبر است: ' + clean);
+}
+
+const BASE = (location.pathname.replace(/\/admin\/?.*$/, '/') || '/') ;
+let API_BASE = BASE + 'api/';
+const PHP_API_BASE = BASE + 'api.php?r=';
+
+function apiUrl(route, query) {
+  /* Callers pass '/api/<route>'; the '/api/' prefix lives in API_BASE. */
+  const clean = String(route).replace(/^\/?api\//, '');
+  let url = API_BASE + clean;
+  if (query) url += (url.indexOf('?') >= 0 ? '&' : '?') + query;
+  return url;
+}
+
+async function api(path, opts = {}) {
+  if (IS_CLOUD) {
+    return cloudApi(path, opts);
+  }
+  const call = url => fetch(url, Object.assign({ headers: { 'Content-Type': 'application/json' } }, opts));
+  try {
+    let res = await call(apiUrl(path));
+    if (res.status === 404 && API_BASE !== PHP_API_BASE) {
+      API_BASE = PHP_API_BASE;
+      res = await call(apiUrl(path));
+    }
+    if (res.status === 401) { showLogin(); throw new Error('unauthorized'); }
+    if (!res.ok) throw new Error(await res.text());
+    const ct = res.headers.get('content-type') || '';
+    return ct.includes('json') ? res.json() : res.text();
+  } catch (err) {
+    if (!location.hostname.includes('127.0.0.1') && !location.hostname.includes('localhost') && !location.hostname.startsWith('192.168.')) {
+      IS_CLOUD = true;
+      return cloudApi(path, opts);
+    }
+    throw err;
+  }
+}
+
+/* ================================================================ state */
+const state = { players: [], matches: [], news: [], moments: [], videos: [], settings: {} };
+let editing = null;          // { col, item, isNew }
+let current = 'dashboard';
+let isDefaultPw = false;
+
+const collections = ['players', 'matches', 'news', 'moments', 'videos'];
+
+const TABS = [
+  ['dashboard', 'داشبورد', 'fa-gauge-high'],
+  ['players', 'بازیکنان', 'fa-users'],
+  ['matches', 'برنامه مسابقات', 'fa-calendar-days'],
+  ['news', 'اخبار', 'fa-newspaper'],
+  ['moments', 'لحظات ماندگار (عکس‌ها)', 'fa-images'],
+  ['videos', 'ویدیوها', 'fa-circle-play'],
+  ['settings', 'تنظیمات سایت', 'fa-sliders'],
+  ['password', 'رمز عبور', 'fa-key'],
+];
+
+/* ================================================================ fields */
+const videoAccept = 'video/*';
+const fields = {
+  players: [
+    { k: 'name', l: 'نام و نام خانوادگی بازیکن', t: 'text', req: 1 },
+    { k: 'team', l: 'تیم', t: 'select', o: [['men', 'آقایان'], ['women', 'بانوان']] },
+    { k: 'position', l: 'پست بازی (مثلاً پوینت گارد PG)', t: 'text' },
+    { k: 'number', l: 'شماره پیراهن', t: 'text' },
+    { k: 'height', l: 'قد بازیکن (سانتی‌متر)', t: 'text' },
+    { k: 'photo', l: 'عکس پرسنلی / اصلی بازیکن', t: 'image' },
+    { k: 'bio', l: 'معرفی‌نامه و درباره بازیکن', t: 'textarea' },
+    { k: 'matches', l: 'تعداد مسابقات انجام شده', t: 'text' },
+    { k: 'ppg', l: 'میانگین امتیاز در هر مسابقه (PPG)', t: 'text' },
+    { k: 'rpg', l: 'میانگین ریباند در هر مسابقه (RPG)', t: 'text' },
+    { k: 'apg', l: 'میانگین پاس گل در هر مسابقه (APG)', t: 'text' },
+    { k: 'spg', l: 'میانگین توپ‌ربایی در هر مسابقه (SPG)', t: 'text' },
+    { k: 'photos', l: 'عکس‌های مسابقات و بازی‌های بازیکن', t: 'multi-images' },
+    { k: 'videos', l: 'ویدیوها و حرکات دیدنی بازیکن در مسابقات', t: 'multi-videos' },
+  ],
+  matches: [
+    { k: 'date', l: 'تاریخ مسابقه (مثلاً جمعه، ۲۵ آبان ۱۴۰۵)', t: 'text', req: 1 },
+    { k: 'time', l: 'ساعت بازی (مثلاً ۱۸:۳۰)', t: 'text' },
+    { k: 'host', l: 'میزبان / تیم جیرفت', t: 'text', req: 1 },
+    { k: 'guest', l: 'حریف مسابقه', t: 'text', req: 1 },
+    { k: 'team', l: 'رده تیمی', t: 'select', o: [['men', 'آقایان'], ['women', 'بانوان']] },
+    { k: 'status', l: 'وضعیت بازی (مثلاً آغاز مسابقه / به زودی / پایان یافته)', t: 'text' },
+    { k: 'accent', l: 'رنگ کارت', t: 'select', o: [['yellow', 'زرد'], ['orange', 'نارنجی']] },
+    { k: 'ticket', l: 'لینک تهیه بلیت (اختیاری)', t: 'text' },
+  ],
+  news: [
+    { k: 'title', l: 'عنوان خبر', t: 'text', req: 1 },
+    { k: 'date', l: 'تاریخ انتشار (مثلاً ۱۵ آبان ۱۴۰۵)', t: 'text' },
+    { k: 'image', l: 'تصویر خبر (آپلود یا لینک)', t: 'image' },
+    { k: 'pinned', l: 'خبر ویژه (نمایش برجسته با ستاره)', t: 'switch' },
+    { k: 'body', l: 'متن کامل خبر', t: 'textarea', req: 1 },
+  ],
+  moments: [
+    { k: 'title', l: 'عنوان لحظه ماندگار / رویداد', t: 'text', req: 1 },
+    { k: 'desc', l: 'توضیحات کوتاه', t: 'textarea' },
+    { k: 'image', l: 'تصویر (آپلود یا انتخاب فایل)', t: 'image', req: 1 },
+    { k: 'featured', l: 'نمایش به صورت کادر بزرگ و برجسته', t: 'switch' },
+  ],
+  videos: [
+    { k: 'title', l: 'عنوان ویدیو', t: 'text', req: 1 },
+    { k: 'desc', l: 'توضیحات کوتاه ویدیو', t: 'textarea' },
+    { k: 'date', l: 'تاریخ (اختیاری)', t: 'text' },
+    { k: 'thumb', l: 'کاور / پوستر ویدیو (تصویر)', t: 'image' },
+    { k: 'url', l: 'فایل ویدیو یا لینک پخش (لینک مستقیم یا آپارات)', t: 'media' },
+  ],
+  settings: [
+    { k: 'siteName', l: 'نام سایت (در تب مرورگر)', t: 'text' },
+    { k: 'heroBadge', l: 'متن بالای تیتر اصلی', t: 'text' },
+    { k: 'heroTitle', l: 'خط اول تیتر اصلی', t: 'text' },
+    { k: 'heroSubtitle', l: 'خط دوم تیتر (زرد)', t: 'text' },
+    { k: 'heroText', l: 'متن معرفی بنر', t: 'textarea' },
+    { k: 'heroImage', l: 'تصویر پس‌زمینه بنر', t: 'image' },
+    { k: 'statNumber', l: 'عدد آمار (مثلاً ۵۰۰+)', t: 'text' },
+    { k: 'statLabel', l: 'برچسب آمار', t: 'text' },
+    { k: 'address', l: 'آدرس', t: 'text' },
+    { k: 'phone', l: 'تلفن', t: 'text' },
+    { k: 'email', l: 'ایمیل', t: 'text' },
+    { k: 'instagram', l: 'لینک اینستاگرام', t: 'text' },
+    { k: 'telegram', l: 'لینک تلگرام', t: 'text' },
+    { k: 'twitter', l: 'لینک توییتر / ایکس', t: 'text' },
+    { k: 'copyright', l: 'متن کپی‌رایت فوتر', t: 'text' },
+    { k: 'footerText', l: 'متن فوتر', t: 'textarea' },
+  ],
+};
+
+/* ================================================================ auth */
+async function boot() {
+  if (location.hostname.includes('github.io') || location.protocol === 'file:' || location.search.includes('cloud=1')) {
+    IS_CLOUD = true;
+  }
+  try {
+    const info = await api('/api/whoami');
+    if (info && info.auth) await showApp(info); else showLogin(info);
+  } catch (e) {
+    if (!location.hostname.includes('127.0.0.1') && !location.hostname.includes('localhost') && !location.hostname.startsWith('192.168.')) {
+      IS_CLOUD = true;
+    }
+    showLogin();
+  }
+}
+
+function showLogin(info) {
+  $('#app').classList.add('hidden');
+  $('#login-screen').classList.remove('hidden');
+  $('#login-default').classList.toggle('hidden', !(info && info.default_password));
+}
+
+async function showApp(info) {
+  $('#login-screen').classList.add('hidden');
+  $('#app').classList.remove('hidden');
+  if (IS_CLOUD) {
+    $('#cloud-badge')?.classList.remove('hidden');
+  }
+  isDefaultPw = !!(info && info.default_password);
+  $('#pw-warning').classList.toggle('hidden', !isDefaultPw);
+  await Promise.all(collections.map(async c => { state[c] = await api('/api/' + c); }));
+  state.settings = await api('/api/settings');
+  renderTabs();
+  go(current);
+}
+
+$('#login-form').addEventListener('submit', async e => {
+  e.preventDefault();
+  const btn = $('#login-form button[type="submit"]');
+  const oldText = btn ? btn.innerHTML : '';
+  if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-1"></i> در حال بررسی…'; }
+  try {
+    const info = await api('/api/login', { method: 'POST', body: JSON.stringify({ password: $('#login-pass').value.trim() }) });
+    $('#login-err').classList.add('hidden');
+    $('#login-pass').value = '';
+    await showApp(info);
+  } catch (err) {
+    $('#login-err').textContent = err.message || 'رمز عبور اشتباه است';
+    $('#login-err').classList.remove('hidden');
+  } finally {
+    if (btn) { btn.disabled = false; btn.innerHTML = oldText; }
+  }
+});
+
+$('#logout-btn').addEventListener('click', async () => {
+  await api('/api/logout', { method: 'POST' }).catch(() => {});
+  showLogin();
+});
+
+$('#publish-btn')?.addEventListener('click', async () => {
+  const btn = $('#publish-btn');
+  const oldHTML = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-1"></i> در حال انتشار…';
+  if (IS_CLOUD) {
+    toast('✓ در پنل همراه، تغییرات مستقیماً در گیت‌هاب ذخیره شده‌اند و تا ۳۰ ثانیه دیگر روی سایت زنده اعمال می‌شوند.');
+    btn.disabled = false;
+    btn.innerHTML = oldHTML;
+    return;
+  }
+  toast('در حال ارسال تغییرات به سرور و گیت‌هاب… این فرآیند چند ثانیه زمان می‌برد.');
+  try {
+    const res = await api('/api/publish', { method: 'POST' });
+    if (res && res.ok) {
+      toast('✓ تغییرات با موفقیت روی سایت آنلاین (GitHub Pages) منتشر شد!');
+    } else {
+      toast('خطا در انتشار: ' + (res?.output || 'نامشخص'), false);
+    }
+  } catch (err) {
+    toast('خطا در ارتباط با سرور: ' + err.message, false);
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = oldHTML;
+  }
+});
+
+/* ================================================================ shell */
+function renderTabs() {
+  $('#tabs').innerHTML = TABS.map(([id, label, icon]) =>
+    `<button class="tab ${current === id ? 'on' : ''}" data-tab="${id}"><i class="fa-solid ${icon} me-1"></i>${label}</button>`
+  ).join('');
+  $('#tabs').querySelectorAll('[data-tab]').forEach(b => b.onclick = () => go(b.dataset.tab));
+  document.querySelectorAll('[data-goto]').forEach(b => b.onclick = () => go(b.dataset.goto));
+}
+
+function go(tab) {
+  current = tab;
+  editing = null;
+  renderTabs();
+  const main = $('#main');
+  if (tab === 'dashboard') return void (main.innerHTML = viewDashboard());
+  if (tab === 'settings') return void renderForm('settings', state.settings, false, 'تنظیمات سایت');
+  if (tab === 'password') return void (main.innerHTML = viewPassword());
+  renderList(tab);
+}
+
+/* ============================================================= dashboard */
+function viewDashboard() {
+  const cards = [
+    ['players', 'بازیکنان', 'fa-users'],
+    ['matches', 'مسابقات', 'fa-calendar-days'],
+    ['news', 'اخبار', 'fa-newspaper'],
+    ['moments', 'لحظات ماندگار', 'fa-images'],
+    ['videos', 'ویدیوها', 'fa-circle-play'],
+  ];
+  return `<div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">` + cards.map(([k, l, i]) => `
+    <button class="card p-5 text-center hover:border-yellow-500 transition" data-goto="${k}">
+      <i class="fa-solid ${i} text-2xl mb-2 text-yellow-400"></i>
+      <div class="text-3xl font-black">${(state[k] || []).length}</div>
+      <div class="text-xs text-gray-400 mt-1">${l}</div>
+    </button>`).join('') + `</div>
+    <div class="card p-6 text-sm leading-7 text-gray-400">
+      <h2 class="text-lg font-black text-white mb-3">راهنمای پنل مدیریت بسکتبال جیرفت</h2>
+      <p>هر تغییری که در بازیکنان، مسابقات، اخبار، ویدیوها و لحظات ماندگار بدهید، در دیتابیس سایت ذخیره می‌شود.</p>
+      <div class="mt-4 p-4 rounded-lg bg-yellow-950/40 border border-yellow-700/60 flex items-center justify-between gap-4 flex-wrap">
+        <div>
+          <h3 class="text-yellow-400 font-bold mb-1"><i class="fa-solid fa-cloud-arrow-up me-2"></i>انتشار آنلاین تغییرات</h3>
+          <p class="text-xs text-yellow-200/80">برای اینکه تغییرات روی سایت آنلاین (GitHub Pages) اعمال شود، کافیست روی دکمه «انتشار روی سایت آنلاین» کلیک کنید.</p>
+        </div>
+        <button class="btn btn-y text-xs" onclick="$('#publish-btn').click()"><i class="fa-solid fa-rocket me-1"></i>همین حالا منتشر کن</button>
+      </div>
+    </div>`;
+}
+
+/* ================================================================ lists */
+const titleOf = {
+  players: p => p.name, matches: m => m.host + ' ← ' + m.guest,
+  news: n => n.title, moments: m => m.title, videos: v => v.title,
+};
+const subOf = {
+  players: p => p.position + (p.number ? ' | #' + p.number : '') + (p.team === 'women' ? ' | بانوان' : ' | آقایان'),
+  matches: m => m.date + ' | ' + m.time + (m.status ? ' | ' + m.status : ''),
+  news: n => (n.date || '') + (n.pinned ? ' | ★ ویژه' : ''),
+  moments: m => (m.desc || '') + (m.featured ? ' | ★ ویژه' : ''),
+  videos: v => v.url ? 'ویدیو دارد' : 'بدون ویدیو',
+};
+
+function renderList(col) {
+  const items = state[col];
+  editing = { col, item: null, isNew: true };
+  const label = TABS.find(t => t[0] === col)[1];
+  $('#main').innerHTML = `
+    <div class="flex items-center justify-between mb-5 flex-wrap gap-3">
+      <h1 class="text-xl font-black"><i class="fa-solid fa-list me-2 text-yellow-400"></i>${label}
+        <span class="text-gray-500 text-sm font-normal">(${items.length} مورد)</span></h1>
+      <button class="btn btn-y" id="add-btn"><i class="fa-solid fa-plus me-1"></i>افزودن ${label.replace(/ها$/, '')}</button>
+    </div>
+    <div id="list" class="space-y-3"></div>
+    <div id="form-area"></div>`;
+  $('#add-btn').onclick = () => startCreate(col);
+  drawList(col);
+}
+
+function drawList(col) {
+  const items = state[col];
+  const box = $('#list');
+  if (!box) return;
+  if (!items.length) {
+    box.innerHTML = `<div class="card p-8 text-center text-gray-500 text-sm">هنوز موردی ثبت نشده — با دکمه «افزودن» شروع کنید.</div>`;
+    return;
+  }
+  box.innerHTML = items.map((it, i) => `
+    <div class="card p-4 flex items-center gap-4 flex-wrap">
+      ${thumbHTML(col, it)}
+      <div class="flex-1 min-w-[180px]">
+        <div class="font-bold text-white">${esc(titleOf[col](it))}</div>
+        <div class="text-xs text-gray-400 mt-1">${esc(subOf[col](it) || '')}</div>
+      </div>
+      <div class="flex items-center gap-1">
+        <button class="btn btn-d !px-2" title="بالا" ${i === 0 ? 'disabled' : ''} data-up="${i}"><i class="fa-solid fa-arrow-up"></i></button>
+        <button class="btn btn-d !px-2" title="پایین" ${i === items.length - 1 ? 'disabled' : ''} data-down="${i}"><i class="fa-solid fa-arrow-down"></i></button>
+        <button class="btn btn-d" data-edit="${i}"><i class="fa-solid fa-pen me-1"></i>ویرایش</button>
+        <button class="btn btn-r" data-del="${i}"><i class="fa-solid fa-trash"></i></button>
+      </div>
+    </div>`).join('');
+
+  box.querySelectorAll('[data-edit]').forEach(b => b.onclick = () => startEdit(col, +b.dataset.edit));
+  box.querySelectorAll('[data-del]').forEach(b => b.onclick = () => removeItem(col, +b.dataset.del));
+  box.querySelectorAll('[data-up]').forEach(b => b.onclick = () => move(col, +b.dataset.up, -1));
+  box.querySelectorAll('[data-down]').forEach(b => b.onclick = () => move(col, +b.dataset.down, 1));
+}
+
+function adminMedia(src) {
+  if (!src) return '';
+  if (/^(https?:|\/\/|data:)/i.test(src)) return src;
+  if (src.startsWith('/')) src = src.slice(1);
+  return '../' + src;
+}
+
+function thumbHTML(col, it) {
+  const src = col === 'players' ? (it.photo || it.image) : col === 'news' ? it.image : col === 'moments' ? it.image : col === 'videos' ? it.thumb : null;
+  if (src) return `<img src="${esc(adminMedia(src))}" class="w-14 h-14 rounded-lg object-cover bg-black border border-gray-800 shrink-0">`;
+  if (col === 'moments') return `<div class="w-14 h-14 rounded-lg bg-orange-950 border border-orange-900 flex items-center justify-center text-orange-400 text-xl shrink-0"><i class="fa-solid fa-camera"></i></div>`;
+  if (col === 'matches') return `<div class="w-14 h-14 rounded-lg bg-yellow-950 border border-yellow-900 flex items-center justify-center text-yellow-400 text-xl shrink-0"><i class="fa-solid fa-trophy"></i></div>`;
+  return `<div class="w-14 h-14 rounded-lg bg-gray-900 border border-gray-800 flex items-center justify-center text-gray-600 text-xl shrink-0"><i class="fa-solid fa-image"></i></div>`;
+}
+
+function startCreate(col) {
+  const item = {};
+  fields[col].forEach(f => { item[f.k] = f.t === 'switch' ? (f.on ? true : false) : ''; });
+  item.id = uid(col[0]);
+  if (col === 'players') {
+    item.team = 'men';
+    item.photos = [];
+    item.videos = [];
+  }
+  if (col === 'matches') { item.team = 'men'; item.accent = 'yellow'; }
+  editing = { col, item, isNew: true };
+  renderForm(col, item, true, 'افزودن مورد جدید');
+}
+
+function startEdit(col, i) {
+  const item = Object.assign({}, state[col][i]);
+  if (col === 'players') {
+    item.photos = Array.isArray(item.photos) ? [...item.photos] : (item.photos ? [item.photos] : []);
+    item.videos = Array.isArray(item.videos) ? JSON.parse(JSON.stringify(item.videos)) : [];
+  }
+  editing = { col, item, isNew: false, index: i };
+  renderForm(col, item, false, 'ویرایش مورد');
+}
+
+async function move(col, i, dir) {
+  const arr = state[col], j = i + dir;
+  if (j < 0 || j >= arr.length) return;
+  [arr[i], arr[j]] = [arr[j], arr[i]];
+  await persist(col);
+}
+
+async function removeItem(col, i) {
+  const it = state[col][i];
+  if (!confirm('«' + titleOf[col](it) + '» حذف شود؟')) return;
+  state[col].splice(i, 1);
+  await persist(col);
+  if (editing && editing.item && editing.item.id === it.id) { editing = null; $('#form-area').innerHTML = ''; }
+}
+
+async function persist(col) {
+  try {
+    await api('/api/' + col, { method: 'PUT', body: JSON.stringify(state[col]) });
+    drawList(col);
+    toast('ذخیره شد ✓');
+  } catch (e) {
+    toast('خطا در ذخیره‌سازی', false);
+  }
+}
+
+/* ================================================================ forms */
+function renderForm(col, item, isNew, heading) {
+  const fs = fields[col];
+  const single = col === 'settings';
+  document.querySelectorAll('[data-upload-input]').forEach(i => i.remove());
+  $('#main').innerHTML = `
+    <div class="flex items-center justify-between mb-5 flex-wrap gap-3">
+      <h1 class="text-xl font-black"><i class="fa-solid ${isNew ? 'fa-plus' : 'fa-pen'} me-2 text-yellow-400"></i>${heading}</h1>
+      <button class="btn btn-d" id="back-btn"><i class="fa-solid fa-arrow-right me-1"></i>${single ? 'بازگشت به داشبورد' : 'بازگشت به فهرست'}</button>
+    </div>
+    <div class="card p-5 md:p-6 max-w-2xl">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        ${fs.map(f => fieldHTML(f, item)).join('')}
+      </div>
+      <div class="flex items-center gap-3 mt-6 flex-wrap">
+        <button class="btn btn-y" id="save-btn"><i class="fa-solid fa-floppy-disk me-1"></i>ذخیره</button>
+        ${!isNew && !single ? '<button class="btn btn-r" id="del-btn"><i class="fa-solid fa-trash me-1"></i>حذف این مورد</button>' : ''}
+        <span class="text-xs text-gray-500">ذخیره بلافاصله در سایت اعمال می‌شود.</span>
+      </div>
+    </div>`;
+
+  $('#back-btn').onclick = () => go(single ? 'dashboard' : col);
+  $('#save-btn').onclick = () => saveForm(col, item, isNew);
+  const del = $('#del-btn');
+  if (del) del.onclick = async () => {
+    const i = state[col].findIndex(x => x.id === item.id);
+    if (i >= 0) await removeItem(col, i);
+    go(col);
+  };
+
+  $('#main').querySelectorAll('[data-k]').forEach(el => {
+    const f = fs.find(x => x.k === el.dataset.k);
+    if (f.t === 'switch') {
+      el.onchange = () => { item[f.k] = el.checked; };
+    } else if (f.t === 'image' || f.t === 'media') {
+      el.oninput = () => { item[f.k] = el.value; };
+    } else {
+      el.oninput = () => { item[f.k] = el.value; };
+    }
+  });
+
+  $('#main').querySelectorAll('[data-upload]').forEach(el => {
+    const k = el.dataset.upload;
+    const accept = el.dataset.accept;
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = accept;
+    input.onchange = async () => {
+      if (!input.files || !input.files[0]) return;
+      el.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> در حال آپلود…';
+      el.disabled = true;
+      try {
+        const url = await uploadFile(input.files[0]);
+        item[k] = url;
+        toast('فایل آپلود شد ✓');
+        renderForm(col, item, isNew, heading);
+      } catch (e) {
+        toast('آپلود ناموفق: ' + (e.message || ''), false);
+        el.innerHTML = '<i class="fa-solid fa-upload me-1"></i>انتخاب فایل';
+        el.disabled = false;
+      }
+    };
+    input.setAttribute('data-upload-input', k);
+    input.style.display = 'none';
+    document.body.appendChild(input);
+    el.onclick = () => input.click();
+    el.ondragover = e => { e.preventDefault(); el.classList.add('over'); };
+    el.ondragleave = () => el.classList.remove('over');
+    el.ondrop = e => {
+      e.preventDefault();
+      el.classList.remove('over');
+      if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+        input.files = e.dataTransfer.files;
+        input.onchange();
+      }
+    };
+  });
+
+  /* Multi-Images handler */
+  $('#main').querySelectorAll('[data-del-img]').forEach(b => {
+    b.onclick = () => {
+      const idx = +b.dataset.delImg;
+      if (Array.isArray(item.photos)) {
+        item.photos.splice(idx, 1);
+        renderForm(col, item, isNew, heading);
+      }
+    };
+  });
+
+  const multiImgBtn = $('#main').querySelector('[data-multi-upload="photos"]');
+  if (multiImgBtn) {
+    const inp = document.createElement('input');
+    inp.type = 'file';
+    inp.multiple = true;
+    inp.accept = 'image/*';
+    inp.style.display = 'none';
+    inp.setAttribute('data-upload-input', 'multi-photos');
+    document.body.appendChild(inp);
+    inp.onchange = async () => {
+      if (!inp.files || !inp.files.length) return;
+      multiImgBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> در حال آپلود ' + inp.files.length + ' عکس…';
+      multiImgBtn.disabled = true;
+      try {
+        if (!Array.isArray(item.photos)) item.photos = [];
+        for (let i = 0; i < inp.files.length; i++) {
+          const url = await uploadFile(inp.files[i]);
+          item.photos.push(url);
+        }
+        toast(inp.files.length + ' عکس با موفقیت افزوده شد ✓');
+        renderForm(col, item, isNew, heading);
+      } catch (e) {
+        toast('خطا در آپلود عکس‌ها: ' + e.message, false);
+        renderForm(col, item, isNew, heading);
+      }
+    };
+    multiImgBtn.onclick = () => inp.click();
+  }
+
+  const addImgUrlBtn = $('#main').querySelector('#add-img-url-btn');
+  const imgUrlInp = $('#main').querySelector('#img-url-input');
+  if (addImgUrlBtn && imgUrlInp) {
+    const addUrl = () => {
+      const u = imgUrlInp.value.trim();
+      if (!u) return;
+      if (!Array.isArray(item.photos)) item.photos = [];
+      item.photos.push(u);
+      toast('عکس به گالری بازیکن افزوده شد ✓');
+      renderForm(col, item, isNew, heading);
+    };
+    addImgUrlBtn.onclick = addUrl;
+    imgUrlInp.onkeydown = e => { if (e.key === 'Enter') { e.preventDefault(); addUrl(); } };
+  }
+
+  /* Multi-Videos handler */
+  $('#main').querySelectorAll('[data-del-vid]').forEach(b => {
+    b.onclick = () => {
+      const idx = +b.dataset.delVid;
+      if (Array.isArray(item.videos)) {
+        item.videos.splice(idx, 1);
+        renderForm(col, item, isNew, heading);
+      }
+    };
+  });
+
+  const addVidBtn = $('#main').querySelector('#add-vid-btn');
+  const vidTitleInp = $('#main').querySelector('#vid-title-input');
+  const vidUrlInp = $('#main').querySelector('#vid-url-input');
+  if (addVidBtn && vidUrlInp) {
+    addVidBtn.onclick = () => {
+      const u = vidUrlInp.value.trim();
+      if (!u) { toast('لطفاً آدرس یا لینک ویدیو را وارد کنید', false); return; }
+      const t = (vidTitleInp ? vidTitleInp.value.trim() : '') || 'ویدیو و هایلایت بازیکن';
+      if (!Array.isArray(item.videos)) item.videos = [];
+      item.videos.push({ title: t, url: u });
+      toast('ویدیو به لیست بازیکن افزوده شد ✓');
+      renderForm(col, item, isNew, heading);
+    };
+  }
+
+  const multiVidUploadBtn = $('#main').querySelector('[data-multi-upload="video"]');
+  if (multiVidUploadBtn) {
+    const inpV = document.createElement('input');
+    inpV.type = 'file';
+    inpV.accept = 'video/*';
+    inpV.style.display = 'none';
+    inpV.setAttribute('data-upload-input', 'multi-video');
+    document.body.appendChild(inpV);
+    inpV.onchange = async () => {
+      if (!inpV.files || !inpV.files[0]) return;
+      const file = inpV.files[0];
+      multiVidUploadBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> در حال آپلود ویدیو…';
+      multiVidUploadBtn.disabled = true;
+      try {
+        const url = await uploadFile(file);
+        if (!Array.isArray(item.videos)) item.videos = [];
+        const t = (vidTitleInp ? vidTitleInp.value.trim() : '') || file.name.replace(/\.[^/.]+$/, '');
+        item.videos.push({ title: t, url: url });
+        toast('ویدیو با موفقیت آپلود و اضافه شد ✓');
+        renderForm(col, item, isNew, heading);
+      } catch (e) {
+        toast('خطا در آپلود ویدیو: ' + e.message, false);
+        renderForm(col, item, isNew, heading);
+      }
+    };
+    multiVidUploadBtn.onclick = () => inpV.click();
+  }
+}
+
+function fieldHTML(f, item) {
+  const v = item[f.k];
+  const wide = f.t === 'textarea' || f.t === 'image' || f.t === 'media' || f.t === 'multi-images' || f.t === 'multi-videos';
+  if (f.t === 'multi-images') {
+    const list = Array.isArray(v) ? v : (v ? String(v).split('\n').filter(Boolean) : []);
+    return `<div class="md:col-span-2 card p-4 border border-gray-800 bg-[#111]">
+      <label class="lbl text-yellow-400 font-bold mb-2 flex items-center justify-between">
+        <span><i class="fa-solid fa-camera me-1"></i>${f.l}</span>
+        <span class="text-xs text-gray-500 font-normal">(${list.length} عکس ثبت شده)</span>
+      </label>
+      <div id="multi-imgs-box" class="flex flex-wrap gap-3 mb-3">
+        ${list.map((src, idx) => `
+          <div class="relative group w-20 h-20 rounded-lg overflow-hidden border border-gray-700 bg-black">
+            <img src="${esc(adminMedia(src))}" class="w-full h-full object-cover">
+            <button type="button" class="absolute top-1 left-1 bg-red-600/90 text-white w-5 h-5 rounded-full flex items-center justify-center text-xs opacity-80 hover:opacity-100" data-del-img="${idx}" title="حذف این عکس"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+        `).join('')}
+        ${list.length === 0 ? '<div class="text-xs text-gray-500 py-2">هنوز عکسی برای مسابقات این بازیکن ثبت نشده است.</div>' : ''}
+      </div>
+      <div class="flex items-center gap-2 flex-wrap">
+        <button type="button" class="btn btn-d text-xs" data-multi-upload="photos"><i class="fa-solid fa-upload me-1"></i>آپلود عکس‌های جدید (انتخاب چندتایی)</button>
+        <input class="inp text-xs flex-1 min-w-[200px]" id="img-url-input" placeholder="یا لینک مستقیم عکس را اینجا وارد کنید...">
+        <button type="button" class="btn btn-y text-xs" id="add-img-url-btn"><i class="fa-solid fa-plus me-1"></i>افزودن لینک</button>
+      </div>
+    </div>`;
+  }
+  if (f.t === 'multi-videos') {
+    const list = Array.isArray(v) ? v : [];
+    return `<div class="md:col-span-2 card p-4 border border-gray-800 bg-[#111]">
+      <label class="lbl text-yellow-400 font-bold mb-2 flex items-center justify-between">
+        <span><i class="fa-solid fa-circle-play me-1"></i>${f.l}</span>
+        <span class="text-xs text-gray-500 font-normal">(${list.length} ویدیو ثبت شده)</span>
+      </label>
+      <div id="multi-videos-box" class="space-y-2 mb-3">
+        ${list.map((vid, idx) => {
+          const vTitle = typeof vid === 'object' ? vid.title : 'ویدیو ' + (idx + 1);
+          const vUrl = typeof vid === 'object' ? vid.url : vid;
+          return `
+            <div class="flex items-center justify-between p-2 rounded bg-black/60 border border-gray-800 text-xs">
+              <div class="flex items-center gap-2 flex-1 min-w-0">
+                <i class="fa-solid fa-film text-yellow-400"></i>
+                <span class="font-bold text-white truncate">${esc(vTitle)}</span>
+                <span class="text-gray-500 truncate text-[11px]" dir="ltr">${esc(vUrl)}</span>
+              </div>
+              <button type="button" class="text-red-400 hover:text-red-300 px-2 py-1" data-del-vid="${idx}" title="حذف این ویدیو"><i class="fa-solid fa-trash"></i></button>
+            </div>
+          `;
+        }).join('')}
+        ${list.length === 0 ? '<div class="text-xs text-gray-500 py-2">هنوز ویدیویی برای حرکات این بازیکن ثبت نشده است.</div>' : ''}
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-2">
+        <input class="inp text-xs" id="vid-title-input" placeholder="عنوان ویدیو (مثلاً: هایلایت پرتاب‌های ۳ امتیازی)">
+        <input class="inp text-xs" id="vid-url-input" placeholder="لینک مستقیم ویدیو، آپارات یا یوتیوب">
+      </div>
+      <div class="flex items-center gap-2 flex-wrap">
+        <button type="button" class="btn btn-y text-xs" id="add-vid-btn"><i class="fa-solid fa-plus me-1"></i>افزودن ویدیو به لیست</button>
+        <button type="button" class="btn btn-d text-xs" data-multi-upload="video"><i class="fa-solid fa-upload me-1"></i>آپلود مستقیم فایل ویدیو</button>
+      </div>
+    </div>`;
+  }
+  if (f.t === 'switch') {
+    return `<div class="${wide ? 'md:col-span-2' : ''} flex items-center gap-3 mt-6">
+      <input type="checkbox" id="sw-${f.k}" data-k="${f.k}" ${v ? 'checked' : ''} class="w-5 h-5 accent-yellow-400">
+      <label for="sw-${f.k}" class="text-sm font-bold text-gray-300">${f.l}</label></div>`;
+  }
+  if (f.t === 'select') {
+    return `<div><label class="lbl">${f.l}</label>
+      <select class="inp" data-k="${f.k}">${f.o.map(([val, lab]) =>
+        `<option value="${val}" ${v === val ? 'selected' : ''}>${lab}</option>`).join('')}</select></div>`;
+  }
+  if (f.t === 'textarea') {
+    return `<div class="md:col-span-2"><label class="lbl">${f.l}</label>
+      <textarea class="inp" rows="3" data-k="${f.k}">${esc(v)}</textarea></div>`;
+  }
+  if (f.t === 'image') {
+    return `<div class="md:col-span-2"><label class="lbl">${f.l}</label>
+      <div class="flex items-center gap-3 flex-wrap">
+        ${v ? `<img src="${esc(adminMedia(v))}" class="w-16 h-16 rounded-lg object-cover bg-black border border-gray-700">` : ''}
+        <input class="inp flex-1 min-w-[200px]" data-k="${f.k}" value="${esc(v)}" placeholder="لینک تصویر یا از پایین آپلود کنید">
+        <button type="button" class="btn btn-d" data-upload="${f.k}" data-accept="image/*">
+          <i class="fa-solid fa-upload me-1"></i>انتخاب / رهاکردن فایل</button>
+      </div>
+      <p class="text-[11px] text-gray-500 mt-1">عکس و ویدیو بعد از آپلود لینک می‌گیرند؛ فایل در پوشه uploads ذخیره می‌شود.</p></div>`;
+  }
+  if (f.t === 'media') {
+    return `<div class="md:col-span-2"><label class="lbl">${f.l}</label>
+      <div class="flex items-center gap-3 flex-wrap">
+        <input class="inp flex-1 min-w-[200px]" data-k="${f.k}" value="${esc(v)}" placeholder="لینک ویدیو یا آدرس فایل آپلودشده">
+        <button type="button" class="btn btn-d" data-upload="${f.k}" data-accept="video/*">
+          <i class="fa-solid fa-file-video me-1"></i>آپلود فایل ویدیو</button>
+      </div>
+      ${v ? `<video src="${esc(v)}" controls class="mt-3 w-full max-w-md rounded-lg bg-black"></video>` : ''}
+      <p class="text-[11px] text-gray-500 mt-1">می‌توانید فایل ویدیو آپلود کنید یا لینک یک ویدیوی آنلاین را بگذارید.</p></div>`;
+  }
+  return `<div class="${wide ? 'md:col-span-2' : ''}"><label class="lbl">${f.l}${f.req ? ' *' : ''}</label>
+    <input class="inp" data-k="${f.k}" value="${esc(v)}" ${f.req ? 'required' : ''}></div>`;
+}
+
+async function saveForm(col, item, isNew) {
+  const req = fields[col].filter(f => f.req);
+  for (const f of req) {
+    if (!String(item[f.k] || '').trim()) { toast('«' + f.l + '» را وارد کنید', false); return; }
+  }
+  if (col === 'settings') {
+    try {
+      await api('/api/settings', { method: 'PUT', body: JSON.stringify(item) });
+      state.settings = item;
+      toast('تنظیمات ذخیره شد ✓');
+      go('dashboard');
+    } catch (e) { toast('خطا در ذخیره', false); }
+    return;
+  }
+  if (isNew) {
+    state[col].push(item);
+  } else {
+    const i = state[col].findIndex(x => x.id === item.id);
+    if (i >= 0) state[col][i] = item; else state[col].push(item);
+  }
+  await persist(col);
+  go(col);
+}
+
+async function uploadFile(file) {
+  if (IS_CLOUD) {
+    const token = getCloudToken();
+    if (!token) throw new Error('لطفاً ابتدا وارد پنل شوید');
+    const repo = CLOUD_CONFIG.repo;
+    const ext = (file.name.split('.').pop() || 'jpg').toLowerCase();
+    const isVideo = file.type.startsWith('video/') || ['mp4', 'webm', 'mov', 'm4v'].includes(ext);
+    const subdir = isVideo ? 'videos' : 'images';
+    const safeName = file.name.replace(/[^a-zA-Z0-9.\-_]/g, '_');
+    const stamp = new Date().toISOString().replace(/\D/g, '').slice(0, 14);
+    const unique = stamp + '-' + Math.floor(Math.random() * 9000 + 1000) + '-' + safeName;
+    const relPath = 'uploads/' + subdir + '/' + unique;
+
+    const base64Data = await new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result.split(',')[1]);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+
+    const putRes = await fetch('https://api.github.com/repos/' + repo + '/contents/' + relPath, {
+      method: 'PUT',
+      headers: {
+        'Authorization': 'Bearer ' + token,
+        'Content-Type': 'application/json',
+        'Accept': 'application/vnd.github.v3+json'
+      },
+      body: JSON.stringify({
+        message: 'آپلود ' + file.name + ' از طریق پنل موبایل',
+        content: base64Data
+      })
+    });
+    if (!putRes.ok) {
+      throw new Error('خطا در آپلود گیت‌هاب: ' + (await putRes.text()));
+    }
+    return relPath;
+  }
+
+  const res = await fetch(apiUrl('upload', 'name=' + encodeURIComponent(file.name)), {
+    method: 'POST',
+    headers: { 'Content-Type': file.type || 'application/octet-stream' },
+    body: file,
+  });
+  if (!res.ok) throw new Error(await res.text());
+  const out = await res.json();
+  let p = out.path || out.url;
+  if (p && p.startsWith('/')) p = p.slice(1);
+  return p;
+}
+
+/* ============================================================ password */
+function viewPassword() {
+  return `<div class="card p-6 max-w-md">
+    <h1 class="text-xl font-black mb-4"><i class="fa-solid fa-key me-2 text-yellow-400"></i>تغییر رمز عبور پنل</h1>
+    <label class="lbl">رمز فعلی</label>
+    <input id="pw-old" type="password" class="inp mb-3">
+    <label class="lbl">رمز جدید (حداقل ۶ کاراکتر)</label>
+    <input id="pw-new" type="password" class="inp mb-4">
+    <button class="btn btn-y w-full" id="pw-save">ثبت رمز جدید</button>
+    <p id="pw-msg" class="text-sm mt-3 text-center"></p>
+  </div>`;
+}
+
+document.addEventListener('click', e => {
+  if (e.target && e.target.id === 'pw-save') {
+    const msg = $('#pw-msg');
+    const nw = $('#pw-new').value;
+    if (nw.length < 6) { msg.textContent = 'رمز باید حداقل ۶ کاراکتر باشد.'; msg.className = 'text-sm mt-3 text-center text-red-400'; return; }
+    api('/api/password', { method: 'POST', body: JSON.stringify({ current: $('#pw-old').value, next: nw }) })
+      .then(() => {
+        msg.textContent = 'رمز عوض شد ✓';
+        msg.className = 'text-sm mt-3 text-center text-green-400';
+        isDefaultPw = false;
+        $('#pw-warning').classList.add('hidden');
+        $('#pw-old').value = $('#pw-new').value = '';
+      })
+      .catch(err => {
+        msg.textContent = err.message === 'unauthorized' ? 'نشست منقضی شد؛ دوباره وارد شوید.' : 'رمز فعلی اشتباه است.';
+        msg.className = 'text-sm mt-3 text-center text-red-400';
+      });
+  }
+});
+
+document.addEventListener('DOMContentLoaded', boot);
+</script>
+</body>
+</html>
