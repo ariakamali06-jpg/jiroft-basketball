@@ -123,20 +123,20 @@
         if (document.getElementById('moment-popup-modal')) return;
         var modal = document.createElement('div');
         modal.id = 'moment-popup-modal';
-        modal.className = 'fixed inset-0 z-50 hidden flex items-center justify-center p-4 sm:p-6 bg-black/60 backdrop-blur-sm transition-opacity duration-300';
+        modal.className = 'fixed inset-0 z-50 hidden flex items-center justify-center p-3 sm:p-5 md:p-8 bg-black/75 backdrop-blur-sm transition-opacity duration-300';
         modal.onclick = function (e) {
             if (e.target === modal) closeMomentModal();
         };
         modal.innerHTML = '' +
-            '<div class="relative bg-brand-card/95 border border-gray-700/80 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[85vh] flex flex-col overflow-hidden" onclick="event.stopPropagation()">' +
+            '<div class="relative bg-brand-card/95 border border-gray-700/80 rounded-2xl shadow-2xl max-w-4xl lg:max-w-5xl w-full max-h-[92vh] flex flex-col overflow-hidden" onclick="event.stopPropagation()">' +
                 '<div class="flex items-center justify-between p-4 border-b border-gray-800 shrink-0 bg-brand-dark/50">' +
                     '<h4 id="moment-popup-title" class="font-bold text-white text-base md:text-lg truncate pe-3"></h4>' +
-                    '<button type="button" onclick="closeMomentModal()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-brand-red text-gray-300 hover:text-white flex items-center justify-center transition shrink-0" title="بستن">' +
+                    '<button type="button" onclick="closeMomentModal()" class="w-9 h-9 rounded-full bg-white/10 hover:bg-brand-red text-gray-300 hover:text-white flex items-center justify-center transition shrink-0" title="بستن (Esc)">' +
                         '<i class="fa-solid fa-xmark text-lg"></i>' +
                     '</button>' +
                 '</div>' +
-                '<div class="p-3 bg-black/50 flex items-center justify-center overflow-hidden flex-1 min-h-[220px] max-h-[60vh]">' +
-                    '<img id="moment-popup-img" src="" alt="" class="max-w-full max-h-[58vh] w-auto h-auto object-contain rounded-lg shadow-md">' +
+                '<div class="p-3 bg-black/60 flex items-center justify-center overflow-hidden flex-1 min-h-[260px] max-h-[74vh]">' +
+                    '<img id="moment-popup-img" src="" alt="" class="max-w-full max-h-[72vh] w-auto h-auto object-contain rounded-lg shadow-md">' +
                 '</div>' +
                 '<div id="moment-popup-desc-box" class="p-4 border-t border-gray-800 text-sm text-gray-300 leading-relaxed shrink-0 bg-brand-dark/30"></div>' +
             '</div>';
@@ -176,17 +176,25 @@
         var box = document.getElementById('moments-grid');
         if (!box) return;
         if (!moments || !moments.length) return;
-        box.innerHTML = moments.map(function (m, idx) {
+
+        // Featured items come first at the top
+        var sortedMoments = moments.slice().sort(function (a, b) {
+            var aF = a.featured ? 1 : 0;
+            var bF = b.featured ? 1 : 0;
+            return bF - aF;
+        });
+
+        box.innerHTML = sortedMoments.map(function (m, idx) {
             var isFeatured = Boolean(m.featured);
             var colSpan = isFeatured ? 'col-span-2 md:col-span-3 lg:col-span-4' : '';
-            var heightCls = isFeatured ? 'h-64 md:h-80' : 'h-48';
+            var heightCls = isFeatured ? 'h-72 md:h-96' : 'h-48';
             var borderCls = isFeatured ? 'hover:border-brand-yellow' : 'hover:border-brand-orange';
             var imgSrc = mediaUrl(m.image);
             return '<div class="' + colSpan + ' bg-brand-black rounded-xl overflow-hidden border border-gray-800 ' + borderCls + ' transition-all duration-300 relative group cursor-pointer hover:shadow-xl hover:-translate-y-1" data-moment-idx="' + idx + '">' +
-                '<img loading="lazy" decoding="async" src="' + esc(imgSrc) + '" alt="' + esc(m.title) + '" class="w-full ' + heightCls + ' object-cover transition-transform duration-700 group-hover:scale-110">' +
+                '<img loading="lazy" decoding="async" src="' + esc(imgSrc) + '" alt="' + esc(m.title) + '" class="w-full ' + heightCls + ' object-cover transition-transform duration-700 group-hover:scale-105">' +
                 '<div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent flex flex-col justify-end p-4 md:p-6 group-hover:via-black/60 transition-colors">' +
                 '<div class="flex items-center justify-between gap-2">' +
-                    '<h4 class="text-lg md:text-xl font-bold leading-tight">' + esc(m.title) + '</h4>' +
+                    '<h4 class="' + (isFeatured ? 'text-xl md:text-2xl' : 'text-lg md:text-xl') + ' font-bold leading-tight">' + esc(m.title) + '</h4>' +
                     '<span class="w-8 h-8 rounded-full bg-brand-yellow/90 text-brand-black opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center shrink-0 shadow"><i class="fa-solid fa-magnifying-glass-plus text-sm"></i></span>' +
                 '</div>' +
                 (m.desc ? '<p class="text-xs md:text-sm text-gray-300 mt-1 line-clamp-2">' + esc(m.desc) + '</p>' : '') +
@@ -196,7 +204,7 @@
         box.querySelectorAll('[data-moment-idx]').forEach(function (el) {
             el.onclick = function () {
                 var idx = +el.dataset.momentIdx;
-                var m = moments[idx];
+                var m = sortedMoments[idx];
                 if (!m) return;
                 window.openMomentModal(mediaUrl(m.image), m.title, m.desc);
             };

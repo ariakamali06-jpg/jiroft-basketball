@@ -449,16 +449,16 @@
         });
     </script>
     <!-- Lightbox Modal -->
-    <div id="lightbox-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4 sm:p-6 transition-opacity duration-300" onclick="closeLightbox()">
-        <div class="relative bg-brand-card/95 border border-gray-700/80 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[85vh] flex flex-col overflow-hidden" onclick="event.stopPropagation()">
+    <div id="lightbox-modal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-5 md:p-8 transition-opacity duration-300" onclick="closeLightbox()">
+        <div class="relative bg-brand-card/95 border border-gray-700/80 rounded-2xl shadow-2xl max-w-4xl lg:max-w-5xl w-full max-h-[92vh] flex flex-col overflow-hidden" onclick="event.stopPropagation()">
             <div class="flex items-center justify-between p-4 border-b border-gray-800 shrink-0 bg-brand-dark/50">
                 <span class="font-bold text-white text-base">تصویر مسابقه</span>
-                <button onclick="closeLightbox()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-brand-red text-gray-300 hover:text-white flex items-center justify-center transition shrink-0" title="بستن">
+                <button onclick="closeLightbox()" class="w-9 h-9 rounded-full bg-white/10 hover:bg-brand-red text-gray-300 hover:text-white flex items-center justify-center transition shrink-0" title="بستن (Esc)">
                     <i class="fa-solid fa-xmark text-lg"></i>
                 </button>
             </div>
-            <div class="p-3 bg-black/50 flex items-center justify-center overflow-hidden flex-1 min-h-[220px] max-h-[65vh]">
-                <img id="lightbox-img" src="" class="max-w-full max-h-[62vh] w-auto h-auto object-contain rounded-lg shadow-md">
+            <div class="p-3 bg-black/60 flex items-center justify-center overflow-hidden flex-1 min-h-[260px] max-h-[74vh]">
+                <img id="lightbox-img" src="" class="max-w-full max-h-[72vh] w-auto h-auto object-contain rounded-lg shadow-md">
             </div>
         </div>
     </div>
