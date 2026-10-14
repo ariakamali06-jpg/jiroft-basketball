@@ -71,6 +71,5 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('img').forEach((img) => {
         const hide = () => img.classList.add('is-broken');
         img.addEventListener('error', hide);
-        if (img.complete && img.naturalWidth === 0) hide();
     });
 });

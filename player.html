@@ -316,8 +316,11 @@
                 document.getElementById('player-bio').textContent = player.bio || (player.name + ' یکی از اعضای ارزشمند هیئت بسکتبال جیرفت است.');
                 
                 let imgSrc = player.photo || player.image || '';
-                if (imgSrc && !imgSrc.startsWith('http') && !imgSrc.startsWith('/') && !imgSrc.startsWith('assets/')) {
-                    imgSrc = 'assets/images/' + imgSrc;
+                if (imgSrc) {
+                    if (imgSrc.startsWith('/')) imgSrc = imgSrc.slice(1);
+                    if (!imgSrc.startsWith('http') && !imgSrc.startsWith('assets/') && !imgSrc.startsWith('uploads/')) {
+                        imgSrc = 'assets/images/' + imgSrc;
+                    }
                 }
                 document.getElementById('player-img').src = imgSrc;
                 
@@ -343,7 +346,8 @@
                         photosSec.classList.remove('hidden');
                         photosGrid.innerHTML = photos.map(src => {
                             let fullSrc = src;
-                            if (!fullSrc.startsWith('http') && !fullSrc.startsWith('/') && !fullSrc.startsWith('assets/')) {
+                            if (fullSrc.startsWith('/')) fullSrc = fullSrc.slice(1);
+                            if (!fullSrc.startsWith('http') && !fullSrc.startsWith('assets/') && !fullSrc.startsWith('uploads/')) {
                                 fullSrc = 'assets/images/' + fullSrc;
                             }
                             return `
@@ -369,7 +373,8 @@
                         videosSec.classList.remove('hidden');
                         videosGrid.innerHTML = videos.map((v, i) => {
                             const title = typeof v === 'object' ? (v.title || `ویدیو ${i + 1}`) : `ویدیو ${i + 1}`;
-                            const url = typeof v === 'object' ? (v.url || '') : String(v || '');
+                            let url = typeof v === 'object' ? (v.url || '') : String(v || '');
+                            if (url.startsWith('/')) url = url.slice(1);
                             
                             let playerHtml = '';
                             const isVideoFile = url.endsWith('.mp4') || url.endsWith('.webm') || url.endsWith('.mov') || url.includes('/uploads/videos/');

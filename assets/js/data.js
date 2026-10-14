@@ -13,10 +13,17 @@
     var $ = function (sel) { return document.querySelector(sel); };
 
     function load(name) {
-        return fetch('data/' + name + '.json', { cache: 'no-store' }).then(function (res) {
+        return fetch('data/' + name + '.json?v=' + Date.now(), { cache: 'no-store' }).then(function (res) {
             if (!res.ok) throw new Error(name + ' ' + res.status);
             return res.json();
         });
+    }
+
+    function mediaUrl(url) {
+        if (!url) return '';
+        if (/^(https?:|\/\/|data:)/i.test(url)) return url;
+        if (url.startsWith('/')) url = url.slice(1);
+        return url;
     }
 
     /* Hide images that failed to load so the CSS placeholder shows through. */
@@ -26,14 +33,17 @@
             img.dataset.guarded = '1';
             var hide = function () { img.classList.add('is-broken'); };
             img.addEventListener('error', hide);
-            if (img.complete && img.naturalWidth === 0) hide();
         });
     }
 
     function photoBox(src, alt) {
         if (!src) return '<div class="player-photo h-64 relative overflow-hidden"></div>';
+        var fullSrc = mediaUrl(src);
+        if (!fullSrc.startsWith('http') && !fullSrc.startsWith('assets/') && !fullSrc.startsWith('uploads/')) {
+            fullSrc = 'assets/images/' + fullSrc;
+        }
         return '<div class="player-photo h-64 relative overflow-hidden">' +
-            '<img loading="lazy" decoding="async" src="' + esc(src) + '" alt="' + esc(alt) + '" ' +
+            '<img loading="lazy" decoding="async" src="' + esc(fullSrc) + '" alt="' + esc(alt) + '" ' +
             'class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ' +
             '"></div>';
     }
@@ -117,8 +127,9 @@
             var colSpan = (m.featured || idx === 0) ? 'col-span-2 md:col-span-3 lg:col-span-4' : '';
             var heightCls = (m.featured || idx === 0) ? 'h-64 md:h-80' : 'h-48';
             var borderCls = (m.featured || idx === 0) ? 'hover:border-brand-yellow' : 'hover:border-brand-orange';
+            var imgSrc = mediaUrl(m.image);
             return '<div class="' + colSpan + ' bg-brand-black rounded-xl overflow-hidden border border-gray-800 ' + borderCls + ' transition-colors relative group">' +
-                '<img loading="lazy" decoding="async" src="' + esc(m.image) + '" alt="' + esc(m.title) + '" class="w-full ' + heightCls + ' object-cover transition-transform duration-700 group-hover:scale-110">' +
+                '<img loading="lazy" decoding="async" src="' + esc(imgSrc) + '" alt="' + esc(m.title) + '" class="w-full ' + heightCls + ' object-cover transition-transform duration-700 group-hover:scale-110">' +
                 '<div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent flex flex-col justify-end p-4 md:p-6">' +
                 '<h4 class="text-lg md:text-xl font-bold">' + esc(m.title) + '</h4>' +
                 (m.desc ? '<p class="text-xs md:text-sm text-gray-300 mt-1">' + esc(m.desc) + '</p>' : '') +
@@ -137,7 +148,7 @@
         }
         box.innerHTML = videos.map(function (v) {
             var thumb = v.thumb
-                ? '<img loading="lazy" decoding="async" src="' + esc(v.thumb) + '" alt="' + esc(v.title) + '" ' +
+                ? '<img loading="lazy" decoding="async" src="' + esc(mediaUrl(v.thumb)) + '" alt="' + esc(v.title) + '" ' +
                   'class="w-full h-56 md:h-64 object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100">'
                 : '';
             var inner = thumb +
@@ -146,8 +157,9 @@
                 '<i class="fa-solid fa-play ml-1 text-xl"></i></div>' +
                 '<h3 class="text-xl font-bold">' + esc(v.title) + '</h3>' +
                 '<p class="text-sm text-gray-300 mt-1">' + esc(v.desc) + '</p></div>';
-            if (v.url) {
-                return '<a href="' + esc(v.url) + '" target="_blank" rel="noopener" ' +
+            var vUrl = mediaUrl(v.url);
+            if (vUrl) {
+                return '<a href="' + esc(vUrl) + '" target="_blank" rel="noopener" ' +
                     'class="group relative rounded-xl overflow-hidden cursor-pointer hover-lift video-card bg-[#151515] block">' + inner + '</a>';
             }
             return '<div class="group relative rounded-xl overflow-hidden cursor-pointer hover-lift video-card bg-[#151515]">' + inner + '</div>';
@@ -168,7 +180,7 @@
         box.innerHTML = news.map(function (n) {
             var thumb = n.image
                 ? '<div class="news-thumb h-44 relative overflow-hidden"><img loading="lazy" decoding="async" src="' +
-                  esc(n.image) + '" alt="' + esc(n.title) + '" class="w-full h-full object-cover"></div>'
+                  esc(mediaUrl(n.image)) + '" alt="' + esc(n.title) + '" class="w-full h-full object-cover"></div>'
                 : '';
             return '<article class="bg-brand-card rounded-xl overflow-hidden border border-transparent hover:border-brand-yellow hover-lift">' +
                 thumb +
