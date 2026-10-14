@@ -11,38 +11,41 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
   :root { --yellow:#facc15; --orange:#f97316; --red:#ef4444; }
-  body { font-family: 'Vazirmatn', sans-serif; background:#0a0a0a; }
-  .inp { width:100%; background:#151515; border:1px solid #333; color:#eee; border-radius:.5rem; padding:.55rem .75rem; font-size:.9rem; }
+  body { font-family: 'Vazirmatn', sans-serif; background:#0a0a0a; -webkit-tap-highlight-color: transparent; }
+  .inp { width:100%; background:#151515; border:1px solid #333; color:#eee; border-radius:.6rem; padding:.65rem .85rem; font-size:.95rem; }
   .inp:focus { outline:none; border-color:var(--yellow); }
-  .lbl { display:block; font-size:.8rem; color:#9ca3af; margin-bottom:.3rem; font-weight:700; }
-  .btn { border-radius:.5rem; padding:.5rem 1.1rem; font-weight:700; font-size:.9rem; transition:.15s; }
+  .lbl { display:block; font-size:.8rem; color:#9ca3af; margin-bottom:.35rem; font-weight:700; }
+  .btn { border-radius:.6rem; padding:.55rem 1.1rem; font-weight:700; font-size:.88rem; transition:.15s; display:inline-flex; align-items:center; justify-content:center; gap:.4rem; cursor:pointer; }
   .btn-y { background:var(--yellow); color:#111; } .btn-y:hover { background:#fde047; }
   .btn-d { background:#1f1f1f; color:#ddd; border:1px solid #333; } .btn-d:hover { border-color:#666; }
   .btn-r { background:transparent; color:var(--red); border:1px solid #7f1d1d; } .btn-r:hover { background:#7f1d1d; color:#fff; }
   .card { background:#141414; border:1px solid #262626; border-radius:.75rem; }
-  .tab { white-space:nowrap; padding:.5rem 1rem; border-radius:.5rem; font-weight:700; font-size:.9rem; color:#9ca3af; cursor:pointer; }
+  .tab { white-space:nowrap; padding:.45rem .85rem; border-radius:.6rem; font-weight:700; font-size:.85rem; color:#9ca3af; cursor:pointer; flex-shrink:0; transition:.15s; }
   .tab:hover { color:#fff; }
   .tab.on { background:var(--yellow); color:#111; }
   .chip { font-size:.7rem; font-weight:900; padding:.1rem .5rem; border-radius:999px; }
-  ::-webkit-scrollbar { height:8px; width:8px; } ::-webkit-scrollbar-thumb { background:#333; border-radius:8px; }
+  ::-webkit-scrollbar { height:6px; width:6px; } ::-webkit-scrollbar-thumb { background:#333; border-radius:6px; }
+  .no-scrollbar::-webkit-scrollbar { display:none; width:0; height:0; }
+  .no-scrollbar { -ms-overflow-style:none; scrollbar-width:none; }
   .drop { border:2px dashed #444; border-radius:.75rem; padding:.6rem; text-align:center; color:#9ca3af; font-size:.8rem; cursor:pointer; }
   .drop:hover, .drop.over { border-color:var(--yellow); color:var(--yellow); }
-  #toast { position:fixed; bottom:1rem; left:1rem; z-index:60; }
+  #toast { position:fixed; bottom:1rem; left:1rem; right:1rem; z-index:60; pointer-events:none; }
+  @media (min-width: 640px) { #toast { right:auto; max-width:24rem; } }
 </style>
 </head>
 <body class="min-h-screen text-gray-200">
 
 <!-- ============================ LOGIN ============================ -->
 <div id="login-screen" class="min-h-screen flex items-center justify-center px-4">
-  <div class="card w-full max-w-sm p-8">
+  <div class="card w-full max-w-sm p-6 sm:p-8">
     <div class="flex items-center gap-3 mb-6 justify-center">
       <i class="fa-solid fa-basketball text-3xl" style="color:var(--yellow)"></i>
       <span class="text-xl font-black">پنل مدیریت <span style="color:var(--yellow)">بسکتبال جیرفت</span></span>
     </div>
     <form id="login-form" autocomplete="off">
       <label class="lbl">رمز عبور</label>
-      <input id="login-pass" type="password" class="inp text-center" required>
-      <button class="btn btn-y w-full mt-4" type="submit">ورود به پنل</button>
+      <input id="login-pass" type="password" class="inp text-center text-lg tracking-wider" required>
+      <button class="btn btn-y w-full mt-4 !py-3" type="submit">ورود به پنل</button>
       <p id="login-err" class="text-red-400 text-sm mt-3 text-center hidden">رمز عبور اشتباه است.</p>
       <p id="login-default" class="text-orange-400 text-xs mt-4 text-center hidden">رمز پیش‌فرض هنوز تغییر نکرده است — بعد از ورود حتماً آن را عوض کنید.</p>
     </form>
@@ -53,22 +56,22 @@
 <!-- ============================= APP ============================= -->
 <div id="app" class="hidden">
   <header class="sticky top-0 z-40 bg-black/95 backdrop-blur border-b border-gray-800">
-    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-4 flex-wrap">
-      <div class="flex items-center gap-2">
-        <i class="fa-solid fa-basketball text-xl" style="color:var(--yellow)"></i>
-        <span class="font-black">پنل مدیریت</span>
-        <span id="cloud-badge" class="hidden text-[10px] px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800 font-bold">۲۴ساعته ابری</span>
-        <a href="../" target="_blank" class="text-xs text-gray-500 hover:text-yellow-400 border border-gray-700 rounded px-2 py-1">مشاهده سایت ↗</a>
+    <div class="max-w-6xl mx-auto px-3 sm:px-4 py-2.5 sm:py-3 flex items-center justify-between gap-2 flex-wrap">
+      <div class="flex items-center gap-1.5 sm:gap-2">
+        <i class="fa-solid fa-basketball text-lg sm:text-xl" style="color:var(--yellow)"></i>
+        <span class="font-black text-sm sm:text-base">پنل مدیریت</span>
+        <span id="cloud-badge" class="hidden text-[9px] sm:text-[10px] px-1.5 sm:px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800 font-bold">۲۴ساعته ابری</span>
+        <a href="../" target="_blank" class="text-[11px] sm:text-xs text-gray-500 hover:text-yellow-400 border border-gray-700 rounded px-2 py-0.5 sm:py-1">سایت ↗</a>
       </div>
-      <div class="flex items-center gap-2">
-        <button id="publish-btn" class="btn btn-y text-xs flex items-center gap-2">
+      <div class="flex items-center gap-1.5 sm:gap-2">
+        <button id="publish-btn" class="btn btn-y !py-1 sm:!py-1.5 !px-2.5 sm:!px-3 text-xs flex items-center gap-1.5">
           <i class="fa-solid fa-cloud-arrow-up"></i>
-          <span>انتشار روی سایت آنلاین</span>
+          <span>انتشار آنلاین</span>
         </button>
-        <button id="logout-btn" class="btn btn-d text-xs">خروج</button>
+        <button id="logout-btn" class="btn btn-d !py-1 sm:!py-1.5 !px-2.5 sm:!px-3 text-xs">خروج</button>
       </div>
     </div>
-    <div class="max-w-6xl mx-auto px-4 pb-3 flex gap-2 overflow-x-auto" id="tabs"></div>
+    <div class="max-w-6xl mx-auto px-3 sm:px-4 py-1.5 sm:py-2 flex gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar" id="tabs"></div>
   </header>
 
   <div id="pw-warning" class="hidden max-w-6xl mx-auto px-4 pt-4">
@@ -107,9 +110,9 @@ function toast(msg, ok = true) {
 /* Works from the domain root AND from a subfolder (…/site/admin/). */
 /* =================================================== CLOUD & LOCAL DRIVERS */
 const CLOUD_CONFIG = {
-  salt: "NWTFtJEWYobMI1UiaY9yIQ==",
-  iv: "TLxRrqLOeJG7WCDB",
-  data: "cJ+jJY7yAk1EmTVbFZ35BaFBq5UGGbK6n8s6pXnG0Ms8JwzV9Bx77xVkHSg90KEs3hDPy2euHOc=",
+  salt: "m0uYW6WUkBjO/fMf1V06jw==",
+  iv: "1vIhVOh7NUu9yPod",
+  data: "cgAKmwhE6Bk40nQlGuly5Z8b8VN+TObCTscLL0fPqT//voxxY8k/Xeh3LANRr7yAXynA3Q4ifDM=",
   repo: "ariakamali06-jpg/jiroft-basketball"
 };
 
@@ -171,7 +174,7 @@ async function cloudApi(path, opts = {}) {
       const decToken = await decryptCloudToken(pwd);
       sessionStorage.setItem('jrf_gh_token', decToken);
       localStorage.setItem('jrf_gh_token', decToken);
-      return { ok: true, auth: true, default_password: pwd === 'jiroft1404' };
+      return { ok: true, auth: true, default_password: pwd === 'jiroft1405' };
     } catch (e) {
       throw new Error('رمز عبور اشتباه است');
     }
@@ -481,21 +484,21 @@ function viewDashboard() {
     ['moments', 'لحظات ماندگار', 'fa-images'],
     ['videos', 'ویدیوها', 'fa-circle-play'],
   ];
-  return `<div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">` + cards.map(([k, l, i]) => `
-    <button class="card p-5 text-center hover:border-yellow-500 transition" data-goto="${k}">
-      <i class="fa-solid ${i} text-2xl mb-2 text-yellow-400"></i>
-      <div class="text-3xl font-black">${(state[k] || []).length}</div>
+  return `<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 sm:gap-4 mb-6 sm:mb-8">` + cards.map(([k, l, i], idx) => `
+    <button class="card p-4 sm:p-5 text-center hover:border-yellow-500 transition ${idx === 4 ? 'col-span-2 sm:col-span-1 md:col-span-1' : ''}" data-goto="${k}">
+      <i class="fa-solid ${i} text-2xl mb-1.5 sm:mb-2 text-yellow-400"></i>
+      <div class="text-2xl sm:text-3xl font-black">${(state[k] || []).length}</div>
       <div class="text-xs text-gray-400 mt-1">${l}</div>
     </button>`).join('') + `</div>
-    <div class="card p-6 text-sm leading-7 text-gray-400">
-      <h2 class="text-lg font-black text-white mb-3">راهنمای پنل مدیریت بسکتبال جیرفت</h2>
+    <div class="card p-4 sm:p-6 text-sm leading-7 text-gray-400">
+      <h2 class="text-base sm:text-lg font-black text-white mb-2 sm:mb-3">راهنمای پنل مدیریت بسکتبال جیرفت</h2>
       <p>هر تغییری که در بازیکنان، مسابقات، اخبار، ویدیوها و لحظات ماندگار بدهید، در دیتابیس سایت ذخیره می‌شود.</p>
-      <div class="mt-4 p-4 rounded-lg bg-yellow-950/40 border border-yellow-700/60 flex items-center justify-between gap-4 flex-wrap">
+      <div class="mt-4 p-3.5 sm:p-4 rounded-lg bg-yellow-950/40 border border-yellow-700/60 flex items-center justify-between gap-3 flex-wrap">
         <div>
-          <h3 class="text-yellow-400 font-bold mb-1"><i class="fa-solid fa-cloud-arrow-up me-2"></i>انتشار آنلاین تغییرات</h3>
-          <p class="text-xs text-yellow-200/80">برای اینکه تغییرات روی سایت آنلاین (GitHub Pages) اعمال شود، کافیست روی دکمه «انتشار روی سایت آنلاین» کلیک کنید.</p>
+          <h3 class="text-yellow-400 font-bold mb-1 text-sm sm:text-base"><i class="fa-solid fa-cloud-arrow-up me-2"></i>انتشار آنلاین تغییرات</h3>
+          <p class="text-xs text-yellow-200/80">در حالت ابری تغییرات مستقیماً در مخزن ثبت می‌شوند و ظرف ۳۰ تا ۶۰ ثانیه روی سایت زنده به نمایش درمی‌آیند.</p>
         </div>
-        <button class="btn btn-y text-xs" onclick="$('#publish-btn').click()"><i class="fa-solid fa-rocket me-1"></i>همین حالا منتشر کن</button>
+        <button class="btn btn-y text-xs !py-2 !px-3 w-full sm:w-auto font-bold" onclick="$('#publish-btn').click()"><i class="fa-solid fa-rocket me-1"></i>همین حالا منتشر کن</button>
       </div>
     </div>`;
 }
@@ -518,10 +521,15 @@ function renderList(col) {
   editing = { col, item: null, isNew: true };
   const label = TABS.find(t => t[0] === col)[1];
   $('#main').innerHTML = `
-    <div class="flex items-center justify-between mb-5 flex-wrap gap-3">
-      <h1 class="text-xl font-black"><i class="fa-solid fa-list me-2 text-yellow-400"></i>${label}
-        <span class="text-gray-500 text-sm font-normal">(${items.length} مورد)</span></h1>
-      <button class="btn btn-y" id="add-btn"><i class="fa-solid fa-plus me-1"></i>افزودن ${label.replace(/ها$/, '')}</button>
+    <div class="flex items-center justify-between mb-4 sm:mb-5 flex-wrap gap-2 sm:gap-3">
+      <h1 class="text-lg sm:text-xl font-black flex items-center">
+        <i class="fa-solid fa-list me-2 text-yellow-400"></i>
+        <span>${label}</span>
+        <span class="text-gray-500 text-xs sm:text-sm font-normal ms-2">(${items.length} مورد)</span>
+      </h1>
+      <button class="btn btn-y text-xs sm:text-sm !py-1.5 sm:!py-2 !px-3 sm:!px-4 font-bold" id="add-btn">
+        <i class="fa-solid fa-plus me-1"></i>افزودن ${label.replace(/ها$/, '')}
+      </button>
     </div>
     <div id="list" class="space-y-3"></div>
     <div id="form-area"></div>`;
@@ -538,17 +546,19 @@ function drawList(col) {
     return;
   }
   box.innerHTML = items.map((it, i) => `
-    <div class="card p-4 flex items-center gap-4 flex-wrap">
-      ${thumbHTML(col, it)}
-      <div class="flex-1 min-w-[180px]">
-        <div class="font-bold text-white">${esc(titleOf[col](it))}</div>
-        <div class="text-xs text-gray-400 mt-1">${esc(subOf[col](it) || '')}</div>
+    <div class="card p-3 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div class="flex items-center gap-3 min-w-0 flex-1">
+        ${thumbHTML(col, it)}
+        <div class="min-w-0 flex-1">
+          <div class="font-bold text-white text-sm sm:text-base leading-snug break-words">${esc(titleOf[col](it))}</div>
+          <div class="text-xs text-gray-400 mt-0.5 truncate">${esc(subOf[col](it) || '')}</div>
+        </div>
       </div>
-      <div class="flex items-center gap-1">
-        <button class="btn btn-d !px-2" title="بالا" ${i === 0 ? 'disabled' : ''} data-up="${i}"><i class="fa-solid fa-arrow-up"></i></button>
-        <button class="btn btn-d !px-2" title="پایین" ${i === items.length - 1 ? 'disabled' : ''} data-down="${i}"><i class="fa-solid fa-arrow-down"></i></button>
-        <button class="btn btn-d" data-edit="${i}"><i class="fa-solid fa-pen me-1"></i>ویرایش</button>
-        <button class="btn btn-r" data-del="${i}"><i class="fa-solid fa-trash"></i></button>
+      <div class="flex items-center gap-1.5 justify-end shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-gray-800/80">
+        <button class="btn btn-d !px-2.5 !py-1.5 text-xs" title="بالا" ${i === 0 ? 'disabled' : ''} data-up="${i}"><i class="fa-solid fa-arrow-up"></i></button>
+        <button class="btn btn-d !px-2.5 !py-1.5 text-xs" title="پایین" ${i === items.length - 1 ? 'disabled' : ''} data-down="${i}"><i class="fa-solid fa-arrow-down"></i></button>
+        <button class="btn btn-y text-xs !py-1.5 !px-3 font-bold" data-edit="${i}"><i class="fa-solid fa-pen-to-square me-1"></i>ویرایش</button>
+        <button class="btn btn-r text-xs !px-2.5 !py-1.5" data-del="${i}"><i class="fa-solid fa-trash"></i></button>
       </div>
     </div>`).join('');
 
@@ -628,18 +638,22 @@ function renderForm(col, item, isNew, heading) {
   const single = col === 'settings';
   document.querySelectorAll('[data-upload-input]').forEach(i => i.remove());
   $('#main').innerHTML = `
-    <div class="flex items-center justify-between mb-5 flex-wrap gap-3">
-      <h1 class="text-xl font-black"><i class="fa-solid ${isNew ? 'fa-plus' : 'fa-pen'} me-2 text-yellow-400"></i>${heading}</h1>
-      <button class="btn btn-d" id="back-btn"><i class="fa-solid fa-arrow-right me-1"></i>${single ? 'بازگشت به داشبورد' : 'بازگشت به فهرست'}</button>
+    <div class="flex items-center justify-between mb-4 sm:mb-5 flex-wrap gap-2 sm:gap-3">
+      <h1 class="text-lg sm:text-xl font-black flex items-center">
+        <i class="fa-solid ${isNew ? 'fa-plus' : 'fa-pen'} me-2 text-yellow-400"></i>${heading}
+      </h1>
+      <button class="btn btn-d text-xs sm:text-sm !py-1.5 sm:!py-2 !px-3 sm:!px-4" id="back-btn">
+        <i class="fa-solid fa-arrow-right me-1"></i>${single ? 'بازگشت به داشبورد' : 'بازگشت به فهرست'}
+      </button>
     </div>
-    <div class="card p-5 md:p-6 max-w-2xl">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="card p-4 sm:p-6 max-w-2xl">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
         ${fs.map(f => fieldHTML(f, item)).join('')}
       </div>
-      <div class="flex items-center gap-3 mt-6 flex-wrap">
-        <button class="btn btn-y" id="save-btn"><i class="fa-solid fa-floppy-disk me-1"></i>ذخیره</button>
-        ${!isNew && !single ? '<button class="btn btn-r" id="del-btn"><i class="fa-solid fa-trash me-1"></i>حذف این مورد</button>' : ''}
-        <span class="text-xs text-gray-500">ذخیره بلافاصله در سایت اعمال می‌شود.</span>
+      <div class="flex flex-col sm:flex-row sm:items-center gap-2.5 sm:gap-3 mt-6">
+        <button class="btn btn-y w-full sm:w-auto !py-2.5 sm:!py-2 font-bold" id="save-btn"><i class="fa-solid fa-floppy-disk me-1"></i>ذخیره تغییرات</button>
+        ${!isNew && !single ? '<button class="btn btn-r w-full sm:w-auto !py-2.5 sm:!py-2" id="del-btn"><i class="fa-solid fa-trash me-1"></i>حذف این مورد</button>' : ''}
+        <span class="text-xs text-gray-500 text-center sm:text-right">ذخیره بلافاصله در سایت اعمال می‌شود.</span>
       </div>
     </div>`;
 
@@ -829,16 +843,18 @@ function fieldHTML(f, item) {
         `).join('')}
         ${list.length === 0 ? '<div class="text-xs text-gray-500 py-2">هنوز عکسی برای مسابقات این بازیکن ثبت نشده است.</div>' : ''}
       </div>
-      <div class="flex items-center gap-2 flex-wrap">
-        <button type="button" class="btn btn-d text-xs" data-multi-upload="photos"><i class="fa-solid fa-upload me-1"></i>آپلود عکس‌های جدید (انتخاب چندتایی)</button>
-        <input class="inp text-xs flex-1 min-w-[200px]" id="img-url-input" placeholder="یا لینک مستقیم عکس را اینجا وارد کنید...">
-        <button type="button" class="btn btn-y text-xs" id="add-img-url-btn"><i class="fa-solid fa-plus me-1"></i>افزودن لینک</button>
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+        <button type="button" class="btn btn-d text-xs w-full sm:w-auto" data-multi-upload="photos"><i class="fa-solid fa-upload me-1"></i>آپلود عکس‌های جدید (انتخاب چندتایی)</button>
+        <div class="flex items-center gap-1.5 flex-1 min-w-0">
+          <input class="inp text-xs flex-1" id="img-url-input" placeholder="یا لینک مستقیم عکس...">
+          <button type="button" class="btn btn-y text-xs shrink-0 !px-3 font-bold" id="add-img-url-btn"><i class="fa-solid fa-plus me-1"></i>افزودن</button>
+        </div>
       </div>
     </div>`;
   }
   if (f.t === 'multi-videos') {
     const list = Array.isArray(v) ? v : [];
-    return `<div class="md:col-span-2 card p-4 border border-gray-800 bg-[#111]">
+    return `<div class="md:col-span-2 card p-3 sm:p-4 border border-gray-800 bg-[#111]">
       <label class="lbl text-yellow-400 font-bold mb-2 flex items-center justify-between">
         <span><i class="fa-solid fa-circle-play me-1"></i>${f.l}</span>
         <span class="text-xs text-gray-500 font-normal">(${list.length} ویدیو ثبت شده)</span>
@@ -848,13 +864,13 @@ function fieldHTML(f, item) {
           const vTitle = typeof vid === 'object' ? vid.title : 'ویدیو ' + (idx + 1);
           const vUrl = typeof vid === 'object' ? vid.url : vid;
           return `
-            <div class="flex items-center justify-between p-2 rounded bg-black/60 border border-gray-800 text-xs">
+            <div class="flex items-center justify-between p-2 rounded bg-black/60 border border-gray-800 text-xs gap-2">
               <div class="flex items-center gap-2 flex-1 min-w-0">
-                <i class="fa-solid fa-film text-yellow-400"></i>
+                <i class="fa-solid fa-film text-yellow-400 shrink-0"></i>
                 <span class="font-bold text-white truncate">${esc(vTitle)}</span>
-                <span class="text-gray-500 truncate text-[11px]" dir="ltr">${esc(vUrl)}</span>
+                <span class="text-gray-500 truncate text-[11px] hidden sm:inline" dir="ltr">${esc(vUrl)}</span>
               </div>
-              <button type="button" class="text-red-400 hover:text-red-300 px-2 py-1" data-del-vid="${idx}" title="حذف این ویدیو"><i class="fa-solid fa-trash"></i></button>
+              <button type="button" class="text-red-400 hover:text-red-300 px-2 py-1 shrink-0" data-del-vid="${idx}" title="حذف این ویدیو"><i class="fa-solid fa-trash"></i></button>
             </div>
           `;
         }).join('')}
@@ -864,9 +880,9 @@ function fieldHTML(f, item) {
         <input class="inp text-xs" id="vid-title-input" placeholder="عنوان ویدیو (مثلاً: هایلایت پرتاب‌های ۳ امتیازی)">
         <input class="inp text-xs" id="vid-url-input" placeholder="لینک مستقیم ویدیو، آپارات یا یوتیوب">
       </div>
-      <div class="flex items-center gap-2 flex-wrap">
-        <button type="button" class="btn btn-y text-xs" id="add-vid-btn"><i class="fa-solid fa-plus me-1"></i>افزودن ویدیو به لیست</button>
-        <button type="button" class="btn btn-d text-xs" data-multi-upload="video"><i class="fa-solid fa-upload me-1"></i>آپلود مستقیم فایل ویدیو</button>
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+        <button type="button" class="btn btn-y text-xs w-full sm:w-auto font-bold" id="add-vid-btn"><i class="fa-solid fa-plus me-1"></i>افزودن ویدیو به لیست</button>
+        <button type="button" class="btn btn-d text-xs w-full sm:w-auto" data-multi-upload="video"><i class="fa-solid fa-upload me-1"></i>آپلود مستقیم فایل ویدیو</button>
       </div>
     </div>`;
   }
