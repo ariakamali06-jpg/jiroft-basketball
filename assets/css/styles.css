@@ -48,18 +48,37 @@ body.menu-open {
 }
 
 /* Custom Scrollbar */
+:root {
+    --sb-track: #0a0a0a;
+    --sb-thumb: #facc15;
+    --sb-thumb-hover: #f97316;
+    color-scheme: dark;
+}
+html[data-theme="light"],
+body.light-theme {
+    --sb-track: #FAF8F5;
+    --sb-thumb: #EE6730;
+    --sb-thumb-hover: #D35400;
+    color-scheme: light !important;
+}
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 10px;
+    height: 10px;
 }
 ::-webkit-scrollbar-track {
-    background: #0a0a0a;
+    background: var(--sb-track) !important;
 }
 ::-webkit-scrollbar-thumb {
-    background: #facc15; /* brand-yellow */
-    border-radius: 4px;
+    background: var(--sb-thumb) !important;
+    border-radius: 6px;
+    border: 2px solid var(--sb-track) !important;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: #f97316; /* brand-orange */
+    background: var(--sb-thumb-hover) !important;
+}
+html {
+    scrollbar-color: var(--sb-thumb) var(--sb-track);
+    scrollbar-width: thin;
 }
 
 /* Navigation Glass Effect */
@@ -223,7 +242,7 @@ img.is-broken {
    ATHLETIC LUXE LIGHT THEME (تم روشن حرفه‌ای و پرانرژی)
    Design System:
    - Primary Canvas (بوم اصلی زلال و پرنور):      #FAF8F5
-   - Warm Cream Accent (کرمی امضا برای سکشن‌ها): #F7DCC0 / #F5EDE3
+   - Warm Cream Accent (کرمی امضا برای سکشن‌ها): #F7DCC0 / #F6EDE4
    - Athletic Orange (نارنجی بسکتبالی پرحرارت):   #EE6730
    - Deep Burnt Orange (نارنجی سوخته تاکیدی):   #D35400
    - Deep Athletic Charcoal (عناوین و متون تیز): #111827 / #374151
@@ -262,6 +281,7 @@ html[data-theme="light"],
 body.light-theme {
     background-color: #FAF8F5 !important;
     color: #111827 !important;
+    color-scheme: light !important;
 }
 
 html[data-theme="light"] body {
@@ -285,7 +305,7 @@ html[data-theme="light"] .theme-toggle-btn:hover {
 
 /* Navigation in Light Theme */
 html[data-theme="light"] .glass-nav {
-    background: rgba(250, 248, 245, 0.90) !important;
+    background: rgba(250, 248, 245, 0.92) !important;
     backdrop-filter: blur(16px) !important;
     border-bottom: 1px solid rgba(238, 103, 48, 0.16) !important;
     box-shadow: 0 4px 20px -2px rgba(211, 84, 0, 0.05) !important;
@@ -329,18 +349,23 @@ html[data-theme="light"] .bg-brand-black\/90 {
 /* Cards & Elevated Containers in Light Theme */
 html[data-theme="light"] .bg-brand-card,
 html[data-theme="light"] .card,
-html[data-theme="light"] .video-card {
+html[data-theme="light"] .video-card,
+html[data-theme="light"] [data-moment-idx],
+html[data-theme="light"] #moments .bg-brand-black,
+html[data-theme="light"] .match-card {
     background-color: #FFFFFF !important;
     border: 1px solid rgba(238, 103, 48, 0.16) !important;
-    box-shadow: 0 10px 25px -5px rgba(211, 84, 0, 0.07), 0 4px 10px -2px rgba(0, 0, 0, 0.02) !important;
+    box-shadow: 0 8px 24px -4px rgba(211, 84, 0, 0.07), 0 2px 6px -1px rgba(0, 0, 0, 0.02) !important;
     border-radius: 1rem;
 }
 html[data-theme="light"] .bg-brand-dark {
-    background-color: #F8F3ED !important;
+    background-color: #FAF8F5 !important;
     border: 1px solid rgba(238, 103, 48, 0.15) !important;
 }
 html[data-theme="light"] .bg-brand-card\/95 {
     background-color: rgba(255, 255, 255, 0.96) !important;
+    border: 1px solid rgba(238, 103, 48, 0.18) !important;
+    box-shadow: 0 12px 36px -4px rgba(211, 84, 0, 0.08) !important;
 }
 
 /* Borders in Light Theme */
@@ -380,6 +405,101 @@ html[data-theme="light"] .text-brand-orange {
 }
 html[data-theme="light"] .text-brand-yellow {
     color: #D35400 !important;
+}
+
+/* ==========================================================================
+   HALO & PHOTO OVERLAY FIX (حذف کامل هاله‌های تاریک و تنظیم متون داخل باکس‌ها)
+   ========================================================================== */
+html[data-theme="light"] .bg-gradient-to-t.from-black,
+html[data-theme="light"] .bg-gradient-to-t.from-black\/95,
+html[data-theme="light"] .video-card .bg-gradient-to-t,
+html[data-theme="light"] #moments .bg-gradient-to-t,
+html[data-theme="light"] #highlights .bg-gradient-to-t,
+html[data-theme="light"] [data-moment-idx] .bg-gradient-to-t,
+html[data-theme="light"] .group .bg-gradient-to-t {
+    background: linear-gradient(to top, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.85) 48%, rgba(255, 255, 255, 0) 100%) !important;
+}
+
+html[data-theme="light"] .bg-gradient-to-t.from-black h3,
+html[data-theme="light"] .bg-gradient-to-t.from-black h4,
+html[data-theme="light"] .bg-gradient-to-t.from-black\/95 h3,
+html[data-theme="light"] .bg-gradient-to-t.from-black\/95 h4,
+html[data-theme="light"] .video-card .bg-gradient-to-t h3,
+html[data-theme="light"] .video-card .bg-gradient-to-t h4,
+html[data-theme="light"] #moments .bg-gradient-to-t h3,
+html[data-theme="light"] #moments .bg-gradient-to-t h4,
+html[data-theme="light"] #highlights .bg-gradient-to-t h3,
+html[data-theme="light"] [data-moment-idx] .bg-gradient-to-t h4,
+html[data-theme="light"] .group .bg-gradient-to-t h3,
+html[data-theme="light"] .group .bg-gradient-to-t h4 {
+    color: #111827 !important;
+    text-shadow: none !important;
+}
+
+html[data-theme="light"] .bg-gradient-to-t.from-black p,
+html[data-theme="light"] .bg-gradient-to-t.from-black\/95 p,
+html[data-theme="light"] .video-card .bg-gradient-to-t p,
+html[data-theme="light"] #moments .bg-gradient-to-t p,
+html[data-theme="light"] #highlights .bg-gradient-to-t p,
+html[data-theme="light"] [data-moment-idx] .bg-gradient-to-t p,
+html[data-theme="light"] .group .bg-gradient-to-t p {
+    color: #4B5563 !important;
+    text-shadow: none !important;
+}
+
+/* Full image clarity (removes dull opacity filter) */
+html[data-theme="light"] .video-card img,
+html[data-theme="light"] .group img,
+html[data-theme="light"] [data-moment-idx] img {
+    opacity: 1 !important;
+}
+
+/* Video Play Button */
+html[data-theme="light"] .video-card .bg-brand-yellow,
+html[data-theme="light"] .video-card [class*="bg-brand-yellow"] {
+    background: linear-gradient(135deg, #EE6730 0%, #D35400 100%) !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 4px 14px rgba(238, 103, 48, 0.4) !important;
+}
+
+/* Player Detail Header Gradient */
+html[data-theme="light"] #player-header .bg-gradient-to-t.from-brand-black {
+    background: linear-gradient(to top, #FAF8F5 0%, rgba(250, 248, 245, 0) 100%) !important;
+}
+
+/* Player Card Number Pill */
+html[data-theme="light"] .bg-brand-card .bg-brand-black {
+    background-color: #FFFFFF !important;
+    color: #EE6730 !important;
+    border: 1px solid rgba(238, 103, 48, 0.25) !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08) !important;
+    opacity: 1 !important;
+}
+
+/* Academy Section Card & Stats Badge */
+html[data-theme="light"] #classes .border-gray-800,
+html[data-theme="light"] #classes img {
+    border-color: rgba(238, 103, 48, 0.25) !important;
+    box-shadow: 0 15px 35px rgba(211, 84, 0, 0.12) !important;
+}
+html[data-theme="light"] #classes .bg-brand-black {
+    background-color: #FAF8F5 !important;
+    border: 1px solid rgba(238, 103, 48, 0.2) !important;
+}
+html[data-theme="light"] #classes .shadow-xl.bg-brand-black {
+    background-color: #FFFFFF !important;
+    border: 1.5px solid #EE6730 !important;
+    box-shadow: 0 10px 30px rgba(211, 84, 0, 0.15) !important;
+}
+html[data-theme="light"] #classes .text-gray-200,
+html[data-theme="light"] #classes .text-gray-300 {
+    color: #1F2937 !important;
+}
+html[data-theme="light"] #stat-number {
+    color: #EE6730 !important;
+}
+html[data-theme="light"] #stat-label {
+    color: #111827 !important;
 }
 
 /* Buttons in Light Theme */
@@ -440,6 +560,79 @@ html[data-theme="light"] .bg-brand-dark\/60 {
     background-color: rgba(255, 255, 255, 0.9) !important;
 }
 
+/* ==========================================================================
+   SCHEDULE SECTION & SCHEDULE PAGE FIX (روشن و شفاف‌سازی کامل بخش مسابقات)
+   ========================================================================== */
+html[data-theme="light"] #schedule,
+html[data-theme="light"] .sec-bg-schedule {
+    background-color: #FAF8F5 !important;
+    background-image: linear-gradient(rgba(250, 248, 245, 0.92), rgba(250, 248, 245, 0.96)),
+        url('../images/bg-schedule.jpg?v=3') !important;
+}
+html[data-theme="light"] #schedule .bg-brand-black,
+html[data-theme="light"] #match-list > div {
+    background-color: #FFFFFF !important;
+    border: 1px solid rgba(238, 103, 48, 0.18) !important;
+    box-shadow: 0 4px 16px rgba(211, 84, 0, 0.05) !important;
+}
+html[data-theme="light"] #schedule .bg-brand-dark {
+    background-color: #FAF8F5 !important;
+    border: 1px solid rgba(238, 103, 48, 0.2) !important;
+}
+html[data-theme="light"] #schedule select {
+    background-color: #FFFFFF !important;
+    color: #111827 !important;
+    border: 1px solid rgba(238, 103, 48, 0.25) !important;
+}
+html[data-theme="light"] #schedule .text-gray-300 {
+    color: #111827 !important;
+}
+html[data-theme="light"] #schedule .text-gray-400 {
+    color: #4B5563 !important;
+}
+
+/* Schedule Page (schedule.html) & Contact Page (contact.html) Overlays */
+html[data-theme="light"] .page-bg-overlay,
+html[data-theme="light"] .bg-gradient-to-b.from-brand-black\/70,
+html[data-theme="light"] section > .from-brand-black\/70 {
+    background: linear-gradient(to bottom, rgba(250, 248, 245, 0.72) 0%, rgba(250, 248, 245, 0.90) 55%, #FAF8F5 100%) !important;
+}
+html[data-theme="light"] #matches-container .bg-brand-card {
+    background-color: #FFFFFF !important;
+    border: 1px solid rgba(238, 103, 48, 0.18) !important;
+    box-shadow: 0 6px 20px rgba(211, 84, 0, 0.06) !important;
+}
+html[data-theme="light"] #matches-container .bg-gray-700 {
+    background-color: #F3F4F6 !important;
+    color: #111827 !important;
+    border: 1.5px solid rgba(238, 103, 48, 0.25) !important;
+}
+html[data-theme="light"] #matches-container .text-white {
+    color: #111827 !important;
+}
+html[data-theme="light"] #matches-container .text-gray-600 {
+    color: #EE6730 !important;
+    font-weight: 900 !important;
+}
+html[data-theme="light"] #matches-container .text-gray-400,
+html[data-theme="light"] #matches-container .text-gray-500 {
+    color: #4B5563 !important;
+}
+
+/* ==========================================================================
+   CONTACT SECTION & CONTACT PAGE FIX (ارتباط با ما تمیز و ورزشی)
+   ========================================================================== */
+html[data-theme="light"] #contact,
+html[data-theme="light"] section#contact {
+    background-color: #F6EDE4 !important;
+}
+html[data-theme="light"] #contact .bg-brand-dark,
+html[data-theme="light"] .contact-info-box {
+    background-color: #FFFFFF !important;
+    border: 1px solid rgba(238, 103, 48, 0.18) !important;
+    box-shadow: 0 4px 16px rgba(211, 84, 0, 0.05) !important;
+}
+
 /* Section Backgrounds - Athletic, Luminous & Well-Paced */
 html[data-theme="light"] .hero-bg {
     background-color: #FAF8F5 !important;
@@ -452,11 +645,6 @@ html[data-theme="light"] .sec-bg-players {
     background-color: #FAF8F5 !important;
     background-image: linear-gradient(rgba(250, 248, 245, 0.93), rgba(250, 248, 245, 0.97)),
         url('../images/bg-players.jpg') !important;
-}
-html[data-theme="light"] .sec-bg-schedule {
-    background-color: #F6EDE4 !important;
-    background-image: linear-gradient(rgba(246, 237, 228, 0.92), rgba(246, 237, 228, 0.96)),
-        url('../images/bg-schedule.jpg') !important;
 }
 html[data-theme="light"] .sec-bg-news {
     background-color: #FAF8F5 !important;
@@ -494,13 +682,6 @@ html[data-theme="light"] .player-photo img {
     mix-blend-mode: normal !important;
 }
 
-/* Video Card Thumbnail Text Scrim in Light Theme */
-html[data-theme="light"] .video-card .bg-gradient-to-t h3,
-html[data-theme="light"] .video-card .bg-gradient-to-t p,
-html[data-theme="light"] .video-card .bg-gradient-to-t span {
-    color: #FFFFFF !important;
-}
-
 /* Forms & Inputs in Light Theme */
 html[data-theme="light"] input,
 html[data-theme="light"] textarea,
@@ -519,15 +700,6 @@ html[data-theme="light"] select:focus {
 html[data-theme="light"] iframe {
     filter: none !important;
     border-radius: 0.75rem;
-}
-
-/* Scrollbar in Light Theme */
-html[data-theme="light"]::-webkit-scrollbar-track {
-    background: #FAF8F5 !important;
-}
-html[data-theme="light"]::-webkit-scrollbar-thumb {
-    background: #EE6730 !important;
-    border-radius: 4px;
 }
 
 /* Footer: Deep athletic grounding with charcoal #111827 & orange accent bar */
