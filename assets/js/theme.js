@@ -27,9 +27,11 @@
         if (theme === 'light') {
             root.setAttribute('data-theme', 'light');
             root.classList.add('light-theme');
+            if (document.body) document.body.classList.add('light-theme');
         } else {
             root.setAttribute('data-theme', 'dark');
             root.classList.remove('light-theme');
+            if (document.body) document.body.classList.remove('light-theme');
         }
 
         updateToggleButtons(theme);

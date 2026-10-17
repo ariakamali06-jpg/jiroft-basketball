@@ -220,11 +220,14 @@ img.is-broken {
 
 
 /* ==========================================================================
-   LIGHT THEME (تم روشن) - Color Palette:
-   - Cream Background:        #F7DCC0
-   - Basketball Orange:       #EE6730
-   - Deep Burnt Orange:       #D35400
-   - Charcoal / Text:         #1A1A1A
+   ATHLETIC LUXE LIGHT THEME (تم روشن حرفه‌ای و پرانرژی)
+   Design System:
+   - Primary Canvas (بوم اصلی زلال و پرنور):      #FAF8F5
+   - Warm Cream Accent (کرمی امضا برای سکشن‌ها): #F7DCC0 / #F5EDE3
+   - Athletic Orange (نارنجی بسکتبالی پرحرارت):   #EE6730
+   - Deep Burnt Orange (نارنجی سوخته تاکیدی):   #D35400
+   - Deep Athletic Charcoal (عناوین و متون تیز): #111827 / #374151
+   - Elevated Card Surface (سطح کارت‌های شناور):  #FFFFFF
    ========================================================================== */
 
 /* Theme toggle button in navbar */
@@ -246,7 +249,7 @@ img.is-broken {
 .theme-toggle-btn:hover {
     border-color: #facc15;
     transform: scale(1.08);
-    box-shadow: 0 0 12px rgba(250, 204, 21, 0.3);
+    box-shadow: 0 0 14px rgba(250, 204, 21, 0.35);
 }
 
 /* Base Light Theme overrides */
@@ -257,40 +260,42 @@ html.no-transition * {
 
 html[data-theme="light"],
 body.light-theme {
-    background-color: #F7DCC0 !important;
-    color: #1A1A1A !important;
+    background-color: #FAF8F5 !important;
+    color: #111827 !important;
 }
 
 html[data-theme="light"] body {
-    background-color: #F7DCC0 !important;
-    color: #1A1A1A !important;
+    background-color: #FAF8F5 !important;
+    color: #111827 !important;
 }
 
 /* Light Theme Toggle Button Appearance */
 html[data-theme="light"] .theme-toggle-btn {
-    background: rgba(255, 255, 255, 0.9);
-    border: 1px solid rgba(211, 84, 0, 0.45);
+    background: #FFFFFF;
+    border: 1.5px solid rgba(238, 103, 48, 0.35);
     color: #D35400;
-    box-shadow: 0 2px 8px rgba(211, 84, 0, 0.15);
+    box-shadow: 0 4px 12px rgba(211, 84, 0, 0.12);
 }
 html[data-theme="light"] .theme-toggle-btn:hover {
     border-color: #EE6730;
     color: #EE6730;
-    box-shadow: 0 0 12px rgba(238, 103, 48, 0.35);
+    transform: scale(1.08);
+    box-shadow: 0 6px 16px rgba(238, 103, 48, 0.25);
 }
 
 /* Navigation in Light Theme */
 html[data-theme="light"] .glass-nav {
-    background: rgba(247, 220, 192, 0.92) !important;
-    backdrop-filter: blur(12px) !important;
-    border-bottom: 1px solid rgba(211, 84, 0, 0.25) !important;
-    box-shadow: 0 4px 20px -2px rgba(211, 84, 0, 0.08) !important;
+    background: rgba(250, 248, 245, 0.90) !important;
+    backdrop-filter: blur(16px) !important;
+    border-bottom: 1px solid rgba(238, 103, 48, 0.16) !important;
+    box-shadow: 0 4px 20px -2px rgba(211, 84, 0, 0.05) !important;
 }
 html[data-theme="light"] .glass-nav span.text-white {
-    color: #1A1A1A !important;
+    color: #111827 !important;
 }
 html[data-theme="light"] .glass-nav a {
-    color: #1A1A1A !important;
+    color: #374151 !important;
+    font-weight: 600;
 }
 html[data-theme="light"] .glass-nav a:hover,
 html[data-theme="light"] .glass-nav a.text-brand-yellow {
@@ -299,10 +304,10 @@ html[data-theme="light"] .glass-nav a.text-brand-yellow {
 
 /* Mobile Menu in Light Theme */
 html[data-theme="light"] #mobile-menu {
-    background: rgba(247, 220, 192, 0.98) !important;
+    background: rgba(250, 248, 245, 0.98) !important;
 }
 html[data-theme="light"] #mobile-menu a {
-    color: #1A1A1A !important;
+    color: #111827 !important;
 }
 html[data-theme="light"] #mobile-menu a:hover,
 html[data-theme="light"] #mobile-menu a.text-brand-yellow {
@@ -311,27 +316,38 @@ html[data-theme="light"] #mobile-menu a.text-brand-yellow {
 
 /* Surface backgrounds in Light Theme */
 html[data-theme="light"] .bg-brand-black,
-html[data-theme="light"] .bg-brand-dark,
 html[data-theme="light"] .bg-\[\#050505\],
 html[data-theme="light"] .bg-\[\#111\],
 html[data-theme="light"] .bg-\[\#151515\] {
-    background-color: #F7DCC0 !important;
+    background-color: #FAF8F5 !important;
+}
+html[data-theme="light"] .bg-brand-black\/95,
+html[data-theme="light"] .bg-brand-black\/90 {
+    background-color: rgba(250, 248, 245, 0.98) !important;
 }
 
-/* Cards & Containers in Light Theme */
+/* Cards & Elevated Containers in Light Theme */
 html[data-theme="light"] .bg-brand-card,
 html[data-theme="light"] .card,
 html[data-theme="light"] .video-card {
-    background-color: #ffffff !important;
-    border-color: rgba(238, 103, 48, 0.22) !important;
-    box-shadow: 0 4px 18px -2px rgba(211, 84, 0, 0.1) !important;
+    background-color: #FFFFFF !important;
+    border: 1px solid rgba(238, 103, 48, 0.16) !important;
+    box-shadow: 0 10px 25px -5px rgba(211, 84, 0, 0.07), 0 4px 10px -2px rgba(0, 0, 0, 0.02) !important;
+    border-radius: 1rem;
+}
+html[data-theme="light"] .bg-brand-dark {
+    background-color: #F8F3ED !important;
+    border: 1px solid rgba(238, 103, 48, 0.15) !important;
+}
+html[data-theme="light"] .bg-brand-card\/95 {
+    background-color: rgba(255, 255, 255, 0.96) !important;
 }
 
 /* Borders in Light Theme */
 html[data-theme="light"] .border-brand-dark,
 html[data-theme="light"] .border-gray-800,
 html[data-theme="light"] .border-gray-700 {
-    border-color: rgba(211, 84, 0, 0.22) !important;
+    border-color: rgba(238, 103, 48, 0.16) !important;
 }
 
 /* Typography in Light Theme */
@@ -341,19 +357,23 @@ html[data-theme="light"] h3,
 html[data-theme="light"] h4,
 html[data-theme="light"] h5,
 html[data-theme="light"] h6 {
-    color: #1A1A1A !important;
+    color: #111827 !important;
 }
-html[data-theme="light"] .text-white,
+html[data-theme="light"] .text-white {
+    color: #111827 !important;
+}
 html[data-theme="light"] .text-gray-100,
 html[data-theme="light"] .text-gray-200 {
-    color: #1A1A1A !important;
+    color: #1F2937 !important;
 }
-html[data-theme="light"] .text-gray-300,
+html[data-theme="light"] .text-gray-300 {
+    color: #374151 !important;
+}
 html[data-theme="light"] .text-gray-400 {
-    color: #383838 !important;
+    color: #4B5563 !important;
 }
 html[data-theme="light"] .text-gray-500 {
-    color: #555555 !important;
+    color: #6B7280 !important;
 }
 html[data-theme="light"] .text-brand-orange {
     color: #EE6730 !important;
@@ -365,19 +385,24 @@ html[data-theme="light"] .text-brand-yellow {
 /* Buttons in Light Theme */
 html[data-theme="light"] .bg-brand-yellow,
 html[data-theme="light"] .btn-y {
-    background-color: #EE6730 !important;
-    color: #ffffff !important;
+    background: linear-gradient(135deg, #EE6730 0%, #E0561B 100%) !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 4px 16px rgba(238, 103, 48, 0.35) !important;
+    font-weight: 700;
 }
 html[data-theme="light"] .bg-brand-yellow:hover,
 html[data-theme="light"] .btn-y:hover {
-    background-color: #D35400 !important;
-    color: #ffffff !important;
+    background: linear-gradient(135deg, #D35400 0%, #C04500 100%) !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 6px 20px rgba(211, 84, 0, 0.45) !important;
+    transform: translateY(-2px);
 }
 html[data-theme="light"] .btn-d,
 html[data-theme="light"] button.bg-brand-dark {
-    background-color: #ffffff !important;
-    color: #1A1A1A !important;
-    border-color: rgba(211, 84, 0, 0.3) !important;
+    background-color: #FFFFFF !important;
+    color: #111827 !important;
+    border: 1px solid rgba(238, 103, 48, 0.25) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
 }
 html[data-theme="light"] .btn-d:hover,
 html[data-theme="light"] button.bg-brand-dark:hover {
@@ -386,136 +411,141 @@ html[data-theme="light"] button.bg-brand-dark:hover {
 }
 html[data-theme="light"] .bg-brand-orange {
     background-color: #EE6730 !important;
-    color: #ffffff !important;
+    color: #FFFFFF !important;
 }
 html[data-theme="light"] .bg-brand-orange:hover {
     background-color: #D35400 !important;
-    color: #ffffff !important;
+}
+html[data-theme="light"] .bg-gradient-to-r.from-brand-yellow.to-brand-orange,
+html[data-theme="light"] button.bg-gradient-to-r {
+    background-image: linear-gradient(135deg, #EE6730 0%, #D35400 100%) !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 6px 20px rgba(238, 103, 48, 0.3) !important;
 }
 
-/* Soft badges and pills */
+/* Badges & Soft Highlight Pills */
 html[data-theme="light"] .bg-brand-yellow\/10,
 html[data-theme="light"] .bg-brand-orange\/10 {
-    background-color: rgba(238, 103, 48, 0.14) !important;
+    background-color: rgba(238, 103, 48, 0.12) !important;
     color: #D35400 !important;
+    border: 1px solid rgba(238, 103, 48, 0.22) !important;
+}
+html[data-theme="light"] .bg-brand-red\/10 {
+    background-color: rgba(239, 68, 68, 0.10) !important;
+    color: #DC2626 !important;
+    border: 1px solid rgba(239, 68, 68, 0.20) !important;
 }
 html[data-theme="light"] .bg-brand-dark\/50,
 html[data-theme="light"] .bg-brand-dark\/60 {
-    background-color: rgba(255, 255, 255, 0.8) !important;
+    background-color: rgba(255, 255, 255, 0.9) !important;
 }
 
-/* Hero and Section Photography Backgrounds adapted for Light Theme */
+/* Section Backgrounds - Athletic, Luminous & Well-Paced */
 html[data-theme="light"] .hero-bg {
-    background-color: #F7DCC0 !important;
-    background-image: linear-gradient(to bottom, rgba(247, 220, 192, 0.78), rgba(247, 220, 192, 0.98)),
+    background-color: #FAF8F5 !important;
+    background-image: linear-gradient(to bottom, rgba(250, 248, 245, 0.35) 0%, rgba(250, 248, 245, 0.85) 60%, #FAF8F5 100%),
         url('../images/bg-hero.jpg') !important;
+    background-size: cover;
+    background-position: center;
 }
 html[data-theme="light"] .sec-bg-players {
-    background-image: linear-gradient(rgba(247, 220, 192, 0.88), rgba(247, 220, 192, 0.96)),
+    background-color: #FAF8F5 !important;
+    background-image: linear-gradient(rgba(250, 248, 245, 0.93), rgba(250, 248, 245, 0.97)),
         url('../images/bg-players.jpg') !important;
 }
 html[data-theme="light"] .sec-bg-schedule {
-    background-image: linear-gradient(rgba(247, 220, 192, 0.88), rgba(247, 220, 192, 0.96)),
+    background-color: #F6EDE4 !important;
+    background-image: linear-gradient(rgba(246, 237, 228, 0.92), rgba(246, 237, 228, 0.96)),
         url('../images/bg-schedule.jpg') !important;
 }
 html[data-theme="light"] .sec-bg-news {
-    background-image: linear-gradient(rgba(247, 220, 192, 0.88), rgba(247, 220, 192, 0.96)),
+    background-color: #FAF8F5 !important;
+    background-image: linear-gradient(rgba(250, 248, 245, 0.93), rgba(250, 248, 245, 0.97)),
         url('../images/bg-news.jpg') !important;
 }
 html[data-theme="light"] .sec-bg-highlights {
-    background-image: linear-gradient(rgba(247, 220, 192, 0.86), rgba(247, 220, 192, 0.95)),
+    background-color: #F6EDE4 !important;
+    background-image: linear-gradient(rgba(246, 237, 228, 0.90), rgba(246, 237, 228, 0.96)),
         url('../images/bg-highlights.jpg') !important;
 }
 html[data-theme="light"] .sec-bg-classes {
-    background-image: linear-gradient(rgba(247, 220, 192, 0.86), rgba(247, 220, 192, 0.95)),
+    background-color: #FAF8F5 !important;
+    background-image: linear-gradient(rgba(250, 248, 245, 0.92), rgba(250, 248, 245, 0.97)),
         url('../images/bg-classes.jpg') !important;
 }
 html[data-theme="light"] .sec-bg-discounts {
-    background-image: linear-gradient(rgba(247, 220, 192, 0.88), rgba(247, 220, 192, 0.96)),
+    background-color: #F7DCC0 !important;
+    background-image: linear-gradient(rgba(247, 220, 192, 0.85), rgba(247, 220, 192, 0.93)),
         url('../images/bg-discounts.jpg') !important;
 }
 html[data-theme="light"] .sec-bg-moments {
-    background-image: linear-gradient(rgba(247, 220, 192, 0.88), rgba(247, 220, 192, 0.96)),
+    background-color: #FAF8F5 !important;
+    background-image: linear-gradient(rgba(250, 248, 245, 0.93), rgba(250, 248, 245, 0.97)),
         url('../images/bg-highlights.jpg') !important;
 }
 
-/* Light Theme Player Photos */
+/* Light Theme Player Photos: Full color, energetic and sharp */
 html[data-theme="light"] .player-photo {
-    background: linear-gradient(145deg, #fff2e3 0%, #f7dcc0 55%, #ecd2b4 100%) !important;
+    background: linear-gradient(145deg, #FFFFFF 0%, #FDF7F0 60%, #F7DCC0 100%) !important;
+    border-bottom: 2px solid #EE6730 !important;
 }
 html[data-theme="light"] .player-photo img {
     filter: none !important;
     mix-blend-mode: normal !important;
 }
 
-/* News and Video Thumbnails in Light Theme */
-html[data-theme="light"] .news-thumb,
-html[data-theme="light"] .video-card {
-    background: linear-gradient(145deg, #fff5eb 0%, #f7dcc0 60%, #eecfb0 100%) !important;
-}
-
-/* Scrollbar in Light Theme */
-html[data-theme="light"]::-webkit-scrollbar-track {
-    background: #F7DCC0 !important;
-}
-html[data-theme="light"]::-webkit-scrollbar-thumb {
-    background: #EE6730 !important;
-}
-
-/* Footer in Light Theme: Deep rich grounding with charcoal #1A1A1A */
-html[data-theme="light"] footer {
-    background-color: #1A1A1A !important;
-    color: #e5e5e5 !important;
-    border-top: 2px solid #EE6730 !important;
-}
-html[data-theme="light"] footer h4,
-html[data-theme="light"] footer span.text-white {
-    color: #ffffff !important;
-}
-html[data-theme="light"] footer a,
-html[data-theme="light"] footer p,
-html[data-theme="light"] footer .text-gray-400,
-html[data-theme="light"] footer .text-gray-500 {
-    color: #cccccc !important;
-}
-html[data-theme="light"] footer a:hover {
-    color: #EE6730 !important;
+/* Video Card Thumbnail Text Scrim in Light Theme */
+html[data-theme="light"] .video-card .bg-gradient-to-t h3,
+html[data-theme="light"] .video-card .bg-gradient-to-t p,
+html[data-theme="light"] .video-card .bg-gradient-to-t span {
+    color: #FFFFFF !important;
 }
 
 /* Forms & Inputs in Light Theme */
 html[data-theme="light"] input,
 html[data-theme="light"] textarea,
 html[data-theme="light"] select {
-    background-color: #ffffff !important;
-    color: #1A1A1A !important;
-    border-color: rgba(211, 84, 0, 0.3) !important;
+    background-color: #FFFFFF !important;
+    color: #111827 !important;
+    border: 1px solid rgba(238, 103, 48, 0.25) !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03) !important;
 }
 html[data-theme="light"] input:focus,
 html[data-theme="light"] textarea:focus,
 html[data-theme="light"] select:focus {
     border-color: #EE6730 !important;
-    box-shadow: 0 0 0 2px rgba(238, 103, 48, 0.2) !important;
-}
-
-/* Extra Light Theme Polish */
-html[data-theme="light"] .bg-brand-black\/95,
-html[data-theme="light"] .bg-brand-black\/90 {
-    background-color: rgba(247, 220, 192, 0.98) !important;
-}
-html[data-theme="light"] .bg-brand-card\/95 {
-    background-color: rgba(255, 255, 255, 0.95) !important;
-}
-html[data-theme="light"] .bg-gradient-to-r.from-brand-yellow.to-brand-orange,
-html[data-theme="light"] button.bg-gradient-to-r {
-    background-image: linear-gradient(135deg, #EE6730 0%, #D35400 100%) !important;
-    color: #ffffff !important;
+    box-shadow: 0 0 0 3px rgba(238, 103, 48, 0.18) !important;
 }
 html[data-theme="light"] iframe {
     filter: none !important;
     border-radius: 0.75rem;
 }
-html[data-theme="light"] .video-card .bg-gradient-to-t h3,
-html[data-theme="light"] .video-card .bg-gradient-to-t p,
-html[data-theme="light"] .video-card .bg-gradient-to-t span {
-    color: #ffffff !important;
+
+/* Scrollbar in Light Theme */
+html[data-theme="light"]::-webkit-scrollbar-track {
+    background: #FAF8F5 !important;
+}
+html[data-theme="light"]::-webkit-scrollbar-thumb {
+    background: #EE6730 !important;
+    border-radius: 4px;
+}
+
+/* Footer: Deep athletic grounding with charcoal #111827 & orange accent bar */
+html[data-theme="light"] footer {
+    background-color: #111827 !important;
+    color: #E5E7EB !important;
+    border-top: 3px solid #EE6730 !important;
+}
+html[data-theme="light"] footer h4,
+html[data-theme="light"] footer span.text-white {
+    color: #FFFFFF !important;
+}
+html[data-theme="light"] footer a,
+html[data-theme="light"] footer p,
+html[data-theme="light"] footer .text-gray-400,
+html[data-theme="light"] footer .text-gray-500 {
+    color: #9CA3AF !important;
+}
+html[data-theme="light"] footer a:hover {
+    color: #EE6730 !important;
 }
