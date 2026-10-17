@@ -784,22 +784,41 @@ html[data-theme="light"] iframe {
     border-radius: 0.75rem;
 }
 
-/* Footer: Deep athletic grounding with charcoal #111827 & orange accent bar */
+/* Footer in Light Theme (کد بازبینی‌شده توسط دیو و لوکی جهت تطابق کامل با بوم روشن) */
 html[data-theme="light"] footer {
-    background-color: #111827 !important;
-    color: #E5E7EB !important;
-    border-top: 3px solid #EE6730 !important;
+    background-color: #FAF8F5 !important;
+    color: #374151 !important;
+    border-top: 2px solid rgba(238, 103, 48, 0.25) !important;
 }
-html[data-theme="light"] footer h4,
-html[data-theme="light"] footer span.text-white {
-    color: #FFFFFF !important;
+
+/* اصلاح رنگ عناوین فوتر (دسترسی سریع و تماس با ما) به مشکی زغالی */
+html[data-theme="light"] footer h4 {
+    color: #111827 !important;
+    border-bottom-color: rgba(238, 103, 48, 0.3) !important;
 }
-html[data-theme="light"] footer a,
+
+/* اصلاح رنگ کلمه جیرفت و متون سفید در فوتر به مشکی */
+html[data-theme="light"] footer span.text-white,
+html[data-theme="light"] footer .text-white {
+    color: #111827 !important;
+}
+
+/* متون، پاراگراف‌ها و لینک‌های فوتر */
 html[data-theme="light"] footer p,
-html[data-theme="light"] footer .text-gray-400,
-html[data-theme="light"] footer .text-gray-500 {
-    color: #9CA3AF !important;
+html[data-theme="light"] footer #footer-text,
+html[data-theme="light"] footer a:not(.btn) {
+    color: #4B5563 !important;
 }
-html[data-theme="light"] footer a:hover {
+
+html[data-theme="light"] footer a:not(.btn):hover {
     color: #EE6730 !important;
+}
+
+html[data-theme="light"] footer .bg-brand-dark {
+    background-color: #FFFFFF !important;
+    border: 1px solid rgba(238, 103, 48, 0.2) !important;
+    color: #4B5563 !important;
+}
+html[data-theme="light"] footer .bg-brand-dark:hover {
+    color: #FFFFFF !important;
 }
