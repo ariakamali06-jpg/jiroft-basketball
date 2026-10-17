@@ -20,6 +20,7 @@
         }
     </script>
     <link rel="stylesheet" href="assets/css/styles.css">
+    <script src="assets/js/theme.js"></script>
 </head>
 <body class="font-sans antialiased text-gray-200">
     <nav class="fixed w-full z-50 glass-nav border-b border-brand-dark transition-all py-4 px-6 md:px-12 flex justify-between items-center">
@@ -36,9 +37,17 @@
             <a href="news.html" class="hover:text-brand-yellow transition-colors py-2 inline-block">اخبار</a>
             <a href="contact.html" class="hover:text-brand-yellow transition-colors py-2 inline-block">ارتباط با ما</a>
         </div>
-        <button id="mobile-menu-btn" aria-label="باز و بسته کردن منو" class="lg:hidden text-brand-yellow text-2xl focus:outline-none w-11 h-11 flex items-center justify-center">
-            <i class="fa-solid fa-bars"></i>
-        </button>
+                <div class="flex items-center gap-2">
+            <!-- Theme Toggle Button -->
+            <button class="theme-toggle-btn" aria-label="تغییر تم سایت" title="تغییر تم سایت">
+                <i class="fa-solid fa-sun text-lg theme-icon-sun"></i>
+                <i class="fa-solid fa-moon text-lg theme-icon-moon hidden"></i>
+            </button>
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" aria-label="باز و بسته کردن منو" aria-expanded="false" class="lg:hidden text-brand-yellow text-2xl focus:outline-none w-11 h-11 flex items-center justify-center">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
     </nav>
     <div id="mobile-menu" class="hidden fixed inset-0 z-40 bg-brand-black/95 backdrop-blur-md flex flex-col items-center justify-center gap-6 text-xl font-bold overflow-y-auto py-24">
         <a href="index.html" class="hover:text-brand-yellow transition-colors py-2 inline-block">خانه</a>

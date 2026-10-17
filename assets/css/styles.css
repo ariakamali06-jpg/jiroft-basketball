@@ -217,3 +217,305 @@ img.is-broken {
     filter: grayscale(0%);
     mix-blend-mode: normal;
 }
+
+
+/* ==========================================================================
+   LIGHT THEME (تم روشن) - Color Palette:
+   - Cream Background:        #F7DCC0
+   - Basketball Orange:       #EE6730
+   - Deep Burnt Orange:       #D35400
+   - Charcoal / Text:         #1A1A1A
+   ========================================================================== */
+
+/* Theme toggle button in navbar */
+.theme-toggle-btn {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 9999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    background: rgba(26, 26, 26, 0.85);
+    border: 1px solid rgba(250, 204, 21, 0.35);
+    color: #facc15;
+    position: relative;
+    user-select: none;
+}
+.theme-toggle-btn:hover {
+    border-color: #facc15;
+    transform: scale(1.08);
+    box-shadow: 0 0 12px rgba(250, 204, 21, 0.3);
+}
+
+/* Base Light Theme overrides */
+html.no-transition,
+html.no-transition * {
+    transition: none !important;
+}
+
+html[data-theme="light"],
+body.light-theme {
+    background-color: #F7DCC0 !important;
+    color: #1A1A1A !important;
+}
+
+html[data-theme="light"] body {
+    background-color: #F7DCC0 !important;
+    color: #1A1A1A !important;
+}
+
+/* Light Theme Toggle Button Appearance */
+html[data-theme="light"] .theme-toggle-btn {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(211, 84, 0, 0.45);
+    color: #D35400;
+    box-shadow: 0 2px 8px rgba(211, 84, 0, 0.15);
+}
+html[data-theme="light"] .theme-toggle-btn:hover {
+    border-color: #EE6730;
+    color: #EE6730;
+    box-shadow: 0 0 12px rgba(238, 103, 48, 0.35);
+}
+
+/* Navigation in Light Theme */
+html[data-theme="light"] .glass-nav {
+    background: rgba(247, 220, 192, 0.92) !important;
+    backdrop-filter: blur(12px) !important;
+    border-bottom: 1px solid rgba(211, 84, 0, 0.25) !important;
+    box-shadow: 0 4px 20px -2px rgba(211, 84, 0, 0.08) !important;
+}
+html[data-theme="light"] .glass-nav span.text-white {
+    color: #1A1A1A !important;
+}
+html[data-theme="light"] .glass-nav a {
+    color: #1A1A1A !important;
+}
+html[data-theme="light"] .glass-nav a:hover,
+html[data-theme="light"] .glass-nav a.text-brand-yellow {
+    color: #EE6730 !important;
+}
+
+/* Mobile Menu in Light Theme */
+html[data-theme="light"] #mobile-menu {
+    background: rgba(247, 220, 192, 0.98) !important;
+}
+html[data-theme="light"] #mobile-menu a {
+    color: #1A1A1A !important;
+}
+html[data-theme="light"] #mobile-menu a:hover,
+html[data-theme="light"] #mobile-menu a.text-brand-yellow {
+    color: #EE6730 !important;
+}
+
+/* Surface backgrounds in Light Theme */
+html[data-theme="light"] .bg-brand-black,
+html[data-theme="light"] .bg-brand-dark,
+html[data-theme="light"] .bg-\[\#050505\],
+html[data-theme="light"] .bg-\[\#111\],
+html[data-theme="light"] .bg-\[\#151515\] {
+    background-color: #F7DCC0 !important;
+}
+
+/* Cards & Containers in Light Theme */
+html[data-theme="light"] .bg-brand-card,
+html[data-theme="light"] .card,
+html[data-theme="light"] .video-card {
+    background-color: #ffffff !important;
+    border-color: rgba(238, 103, 48, 0.22) !important;
+    box-shadow: 0 4px 18px -2px rgba(211, 84, 0, 0.1) !important;
+}
+
+/* Borders in Light Theme */
+html[data-theme="light"] .border-brand-dark,
+html[data-theme="light"] .border-gray-800,
+html[data-theme="light"] .border-gray-700 {
+    border-color: rgba(211, 84, 0, 0.22) !important;
+}
+
+/* Typography in Light Theme */
+html[data-theme="light"] h1,
+html[data-theme="light"] h2,
+html[data-theme="light"] h3,
+html[data-theme="light"] h4,
+html[data-theme="light"] h5,
+html[data-theme="light"] h6 {
+    color: #1A1A1A !important;
+}
+html[data-theme="light"] .text-white,
+html[data-theme="light"] .text-gray-100,
+html[data-theme="light"] .text-gray-200 {
+    color: #1A1A1A !important;
+}
+html[data-theme="light"] .text-gray-300,
+html[data-theme="light"] .text-gray-400 {
+    color: #383838 !important;
+}
+html[data-theme="light"] .text-gray-500 {
+    color: #555555 !important;
+}
+html[data-theme="light"] .text-brand-orange {
+    color: #EE6730 !important;
+}
+html[data-theme="light"] .text-brand-yellow {
+    color: #D35400 !important;
+}
+
+/* Buttons in Light Theme */
+html[data-theme="light"] .bg-brand-yellow,
+html[data-theme="light"] .btn-y {
+    background-color: #EE6730 !important;
+    color: #ffffff !important;
+}
+html[data-theme="light"] .bg-brand-yellow:hover,
+html[data-theme="light"] .btn-y:hover {
+    background-color: #D35400 !important;
+    color: #ffffff !important;
+}
+html[data-theme="light"] .btn-d,
+html[data-theme="light"] button.bg-brand-dark {
+    background-color: #ffffff !important;
+    color: #1A1A1A !important;
+    border-color: rgba(211, 84, 0, 0.3) !important;
+}
+html[data-theme="light"] .btn-d:hover,
+html[data-theme="light"] button.bg-brand-dark:hover {
+    border-color: #EE6730 !important;
+    color: #EE6730 !important;
+}
+html[data-theme="light"] .bg-brand-orange {
+    background-color: #EE6730 !important;
+    color: #ffffff !important;
+}
+html[data-theme="light"] .bg-brand-orange:hover {
+    background-color: #D35400 !important;
+    color: #ffffff !important;
+}
+
+/* Soft badges and pills */
+html[data-theme="light"] .bg-brand-yellow\/10,
+html[data-theme="light"] .bg-brand-orange\/10 {
+    background-color: rgba(238, 103, 48, 0.14) !important;
+    color: #D35400 !important;
+}
+html[data-theme="light"] .bg-brand-dark\/50,
+html[data-theme="light"] .bg-brand-dark\/60 {
+    background-color: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* Hero and Section Photography Backgrounds adapted for Light Theme */
+html[data-theme="light"] .hero-bg {
+    background-color: #F7DCC0 !important;
+    background-image: linear-gradient(to bottom, rgba(247, 220, 192, 0.78), rgba(247, 220, 192, 0.98)),
+        url('../images/bg-hero.jpg') !important;
+}
+html[data-theme="light"] .sec-bg-players {
+    background-image: linear-gradient(rgba(247, 220, 192, 0.88), rgba(247, 220, 192, 0.96)),
+        url('../images/bg-players.jpg') !important;
+}
+html[data-theme="light"] .sec-bg-schedule {
+    background-image: linear-gradient(rgba(247, 220, 192, 0.88), rgba(247, 220, 192, 0.96)),
+        url('../images/bg-schedule.jpg') !important;
+}
+html[data-theme="light"] .sec-bg-news {
+    background-image: linear-gradient(rgba(247, 220, 192, 0.88), rgba(247, 220, 192, 0.96)),
+        url('../images/bg-news.jpg') !important;
+}
+html[data-theme="light"] .sec-bg-highlights {
+    background-image: linear-gradient(rgba(247, 220, 192, 0.86), rgba(247, 220, 192, 0.95)),
+        url('../images/bg-highlights.jpg') !important;
+}
+html[data-theme="light"] .sec-bg-classes {
+    background-image: linear-gradient(rgba(247, 220, 192, 0.86), rgba(247, 220, 192, 0.95)),
+        url('../images/bg-classes.jpg') !important;
+}
+html[data-theme="light"] .sec-bg-discounts {
+    background-image: linear-gradient(rgba(247, 220, 192, 0.88), rgba(247, 220, 192, 0.96)),
+        url('../images/bg-discounts.jpg') !important;
+}
+html[data-theme="light"] .sec-bg-moments {
+    background-image: linear-gradient(rgba(247, 220, 192, 0.88), rgba(247, 220, 192, 0.96)),
+        url('../images/bg-highlights.jpg') !important;
+}
+
+/* Light Theme Player Photos */
+html[data-theme="light"] .player-photo {
+    background: linear-gradient(145deg, #fff2e3 0%, #f7dcc0 55%, #ecd2b4 100%) !important;
+}
+html[data-theme="light"] .player-photo img {
+    filter: none !important;
+    mix-blend-mode: normal !important;
+}
+
+/* News and Video Thumbnails in Light Theme */
+html[data-theme="light"] .news-thumb,
+html[data-theme="light"] .video-card {
+    background: linear-gradient(145deg, #fff5eb 0%, #f7dcc0 60%, #eecfb0 100%) !important;
+}
+
+/* Scrollbar in Light Theme */
+html[data-theme="light"]::-webkit-scrollbar-track {
+    background: #F7DCC0 !important;
+}
+html[data-theme="light"]::-webkit-scrollbar-thumb {
+    background: #EE6730 !important;
+}
+
+/* Footer in Light Theme: Deep rich grounding with charcoal #1A1A1A */
+html[data-theme="light"] footer {
+    background-color: #1A1A1A !important;
+    color: #e5e5e5 !important;
+    border-top: 2px solid #EE6730 !important;
+}
+html[data-theme="light"] footer h4,
+html[data-theme="light"] footer span.text-white {
+    color: #ffffff !important;
+}
+html[data-theme="light"] footer a,
+html[data-theme="light"] footer p,
+html[data-theme="light"] footer .text-gray-400,
+html[data-theme="light"] footer .text-gray-500 {
+    color: #cccccc !important;
+}
+html[data-theme="light"] footer a:hover {
+    color: #EE6730 !important;
+}
+
+/* Forms & Inputs in Light Theme */
+html[data-theme="light"] input,
+html[data-theme="light"] textarea,
+html[data-theme="light"] select {
+    background-color: #ffffff !important;
+    color: #1A1A1A !important;
+    border-color: rgba(211, 84, 0, 0.3) !important;
+}
+html[data-theme="light"] input:focus,
+html[data-theme="light"] textarea:focus,
+html[data-theme="light"] select:focus {
+    border-color: #EE6730 !important;
+    box-shadow: 0 0 0 2px rgba(238, 103, 48, 0.2) !important;
+}
+
+/* Extra Light Theme Polish */
+html[data-theme="light"] .bg-brand-black\/95,
+html[data-theme="light"] .bg-brand-black\/90 {
+    background-color: rgba(247, 220, 192, 0.98) !important;
+}
+html[data-theme="light"] .bg-brand-card\/95 {
+    background-color: rgba(255, 255, 255, 0.95) !important;
+}
+html[data-theme="light"] .bg-gradient-to-r.from-brand-yellow.to-brand-orange,
+html[data-theme="light"] button.bg-gradient-to-r {
+    background-image: linear-gradient(135deg, #EE6730 0%, #D35400 100%) !important;
+    color: #ffffff !important;
+}
+html[data-theme="light"] iframe {
+    filter: none !important;
+    border-radius: 0.75rem;
+}
+html[data-theme="light"] .video-card .bg-gradient-to-t h3,
+html[data-theme="light"] .video-card .bg-gradient-to-t p,
+html[data-theme="light"] .video-card .bg-gradient-to-t span {
+    color: #ffffff !important;
+}
