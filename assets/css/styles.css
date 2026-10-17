@@ -417,7 +417,7 @@ html[data-theme="light"] #moments .bg-gradient-to-t,
 html[data-theme="light"] #highlights .bg-gradient-to-t,
 html[data-theme="light"] [data-moment-idx] .bg-gradient-to-t,
 html[data-theme="light"] .group .bg-gradient-to-t {
-    background: linear-gradient(to top, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.85) 48%, rgba(255, 255, 255, 0) 100%) !important;
+    background: linear-gradient(to top, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.40) 25%, rgba(255, 255, 255, 0) 48%) !important;
 }
 
 html[data-theme="light"] .bg-gradient-to-t.from-black h3,
@@ -432,8 +432,9 @@ html[data-theme="light"] #highlights .bg-gradient-to-t h3,
 html[data-theme="light"] [data-moment-idx] .bg-gradient-to-t h4,
 html[data-theme="light"] .group .bg-gradient-to-t h3,
 html[data-theme="light"] .group .bg-gradient-to-t h4 {
-    color: #111827 !important;
-    text-shadow: none !important;
+    color: #0F172A !important;
+    font-weight: 800 !important;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.95), 0 0 12px rgba(255, 255, 255, 0.8) !important;
 }
 
 html[data-theme="light"] .bg-gradient-to-t.from-black p,
@@ -443,8 +444,9 @@ html[data-theme="light"] #moments .bg-gradient-to-t p,
 html[data-theme="light"] #highlights .bg-gradient-to-t p,
 html[data-theme="light"] [data-moment-idx] .bg-gradient-to-t p,
 html[data-theme="light"] .group .bg-gradient-to-t p {
-    color: #4B5563 !important;
-    text-shadow: none !important;
+    color: #334155 !important;
+    font-weight: 600 !important;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.95) !important;
 }
 
 /* Full image clarity (removes dull opacity filter) */
@@ -595,7 +597,7 @@ html[data-theme="light"] #schedule .text-gray-400 {
 html[data-theme="light"] .page-bg-overlay,
 html[data-theme="light"] .bg-gradient-to-b.from-brand-black\/70,
 html[data-theme="light"] section > .from-brand-black\/70 {
-    background: linear-gradient(to bottom, rgba(250, 248, 245, 0.72) 0%, rgba(250, 248, 245, 0.90) 55%, #FAF8F5 100%) !important;
+    background: linear-gradient(to bottom, rgba(250, 248, 245, 0.45) 0%, rgba(250, 248, 245, 0.70) 50%, rgba(250, 248, 245, 0.90) 100%) !important;
 }
 html[data-theme="light"] #matches-container .bg-brand-card {
     background-color: #FFFFFF !important;
